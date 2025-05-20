@@ -1,0 +1,433 @@
+/* 全局樣式 */
+:root {
+    /* 淺色主題變數 */
+    --bg-color: #f9f9f9;
+    --text-color: #333;
+    --heading-color: #2c3e50;
+    --primary-color: #3498db;
+    --secondary-color: #2980b9;
+    --nav-bg: #2c3e50;
+    --nav-text: #fff;
+    --section-bg: #fff;
+    --section-shadow: rgba(0, 0, 0, 0.1);
+    --code-bg: #f8f8f8;
+    --code-border: #3498db;
+    --code-text: #c7254e;
+    --code-inline-bg: #f9f2f4;
+    --runnable-border: #e0e0e0;
+    --runnable-bg: #fff;
+    --editor-bg: #f8f8f8;
+    --output-bg: #f4f4f4;
+    --output-text: #333;
+    --placeholder-color: #999;
+    --footer-border: #eee;
+    --footer-text: #888;
+}
+
+[data-theme="dark"] {
+    /* 深色主題變數 */
+    --bg-color: #1a1a1a;
+    --text-color: #eaeaea;
+    --heading-color: #c5e1f0;
+    --primary-color: #61b0e6;
+    --secondary-color: #3c8dbc;
+    --nav-bg: #293846;
+    --nav-text: #eaeaea;
+    --section-bg: #2c2c2c;
+    --section-shadow: rgba(0, 0, 0, 0.3);
+    --code-bg: #1e1e1e;
+    --code-border: #61b0e6;
+    --code-text: #e83e8c;
+    --code-inline-bg: #2d2d2d;
+    --runnable-border: #3c3c3c;
+    --runnable-bg: #2c2c2c;
+    --editor-bg: #1e1e1e;
+    --editor-text: #ffffff;
+    --output-bg: #242424;
+    --output-text: #ffffff;
+    --placeholder-color: #777;
+    --footer-border: #3c3c3c;
+    --footer-text: #aaa;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: var(--text-color);
+    background-color: var(--bg-color);
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+/* 標題樣式 */
+h1, h2, h3 {
+    color: var(--heading-color);
+    margin: 1rem 0;
+    transition: color 0.3s;
+}
+
+h1 {
+    font-size: 2.5rem;
+    text-align: center;
+    margin: 1rem 0 2rem;
+    color: var(--primary-color);
+}
+
+h2 {
+    font-size: 2rem;
+    border-bottom: 2px solid var(--primary-color);
+    padding-bottom: 0.5rem;
+    margin: 2rem 0 1rem;
+}
+
+h3 {
+    font-size: 1.5rem;
+    margin: 1.5rem 0 1rem;
+    color: var(--secondary-color);
+}
+
+/* 連結樣式 */
+a {
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+a:hover {
+    color: var(--secondary-color);
+    text-decoration: underline;
+}
+
+/* 導航樣式 */
+nav {
+    background-color: var(--nav-bg);
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 2rem;
+    transition: background-color 0.3s;
+}
+
+nav ul {
+    list-style-type: none;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+nav ul li {
+    margin: 0.5rem;
+}
+
+nav ul li a {
+    color: var(--nav-text);
+    font-weight: bold;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+nav ul li a:hover {
+    background-color: var(--primary-color);
+    text-decoration: none;
+}
+
+/* 主題切換按鈕樣式 */
+.header-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    margin-bottom: 1rem;
+}
+
+#theme-toggle {
+    position: absolute;
+    right: 0;
+    background-color: var(--primary-color);
+    color: var(--nav-text);
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.3s, transform 0.1s;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    outline: none;
+    padding: 0;
+}
+
+#theme-toggle:hover {
+    background-color: var(--secondary-color);
+    transform: scale(1.05);
+}
+
+#theme-toggle:active {
+    transform: scale(0.95);
+}
+
+.theme-icon {
+    display: block;
+    transition: opacity 0.3s, transform 0.5s;
+}
+
+[data-theme="light"] .dark-icon {
+    display: none;
+}
+
+[data-theme="dark"] .light-icon {
+    display: none;
+}
+
+/* 區塊樣式 */
+section {
+    margin-bottom: 3rem;
+    background-color: var(--section-bg);
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px var(--section-shadow);
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+/* 列表樣式 */
+ul, ol {
+    margin-left: 2rem;
+    margin-bottom: 1.5rem;
+}
+
+li {
+    margin-bottom: 0.5rem;
+}
+
+/* 代碼樣式 */
+pre {
+    background-color: var(--code-bg);
+    padding: 1.5rem;
+    border-radius: 8px;
+    overflow-x: auto;
+    margin: 1.5rem 0;
+    border-left: 4px solid var(--code-border);
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+code {
+    font-family: 'Consolas', 'Monaco', monospace;
+    color: var(--code-text);
+    background-color: var(--code-inline-bg);
+    padding: 0.2rem 0.4rem;
+    border-radius: 3px;
+    font-size: 0.9rem;
+    transition: color 0.3s, background-color 0.3s;
+}
+
+pre code {
+    color: var(--text-color);
+    background-color: transparent;
+    padding: 0;
+    border-radius: 0;
+    display: block;
+    line-height: 1.5;
+}
+
+/* 可執行代碼區域樣式 */
+.runnable-code {
+    margin: 20px 0;
+    border: 1px solid var(--runnable-border);
+    border-radius: 8px;
+    box-shadow: 0 2px 8px var(--section-shadow);
+    background-color: var(--runnable-bg);
+    overflow: hidden;
+    position: relative;
+    transition: border-color 0.3s, background-color 0.3s, box-shadow 0.3s;
+}
+
+.code-editor {
+    width: 100%;
+    min-height: 120px;
+    padding: 12px 45px 12px 12px;
+    font-family: 'Consolas', 'Monaco', monospace;
+    font-size: 14px;
+    border: none;
+    border-bottom: 1px solid var(--runnable-border);
+    background-color: var(--editor-bg);
+    resize: vertical;
+    line-height: 1.5;
+    tab-size: 4;
+    color: var(--text-color);
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+}
+
+/* 特別為深色模式下的程式碼編輯器添加樣式 */
+[data-theme="dark"] .code-editor {
+    color: var(--editor-text);
+}
+
+/* 確保readonly狀態的textarea在深色模式下也能清晰顯示文字 */
+[data-theme="dark"] .code-editor[readonly] {
+    color: var(--editor-text);
+    background-color: var(--editor-bg);
+    opacity: 0.9;
+}
+
+.run-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: var(--primary-color);
+    color: var(--nav-text);
+    border: none;
+    border-radius: 4px;
+    padding: 6px 12px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.1s, box-shadow 0.3s, color 0.3s;
+    box-shadow: 0 2px 4px var(--section-shadow);
+}
+
+.run-button:hover {
+    background-color: var(--secondary-color);
+}
+
+.run-button:active {
+    transform: translateY(1px);
+    box-shadow: 0 1px 2px var(--section-shadow);
+}
+
+.output {
+    min-height: 40px;
+    padding: 12px;
+    background-color: var(--output-bg);
+    border-top: 1px solid var(--runnable-border);
+    font-family: 'Consolas', 'Monaco', monospace;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    color: var(--output-text);
+    font-size: 14px;
+    line-height: 1.5;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+}
+
+.output:empty::before {
+    content: "← 執行後的結果將顯示在這裡";
+    color: var(--placeholder-color);
+    font-style: italic;
+}
+
+/* 段落樣式 */
+p {
+    margin-bottom: 1.5rem;
+}
+
+/* 頁腳樣式 */
+footer {
+    text-align: center;
+    margin-top: 2rem;
+    padding: 1rem;
+    color: var(--footer-text);
+    font-size: 0.9rem;
+    border-top: 1px solid var(--footer-border);
+    transition: color 0.3s, border-color 0.3s;
+}
+
+/* 響應式設計 */
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+
+    nav ul {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    nav ul li {
+        margin: 0.3rem 0;
+    }
+
+    h1 {
+        font-size: 2rem;
+    }
+
+    h2 {
+        font-size: 1.7rem;
+    }
+
+    h3 {
+        font-size: 1.3rem;
+    }
+
+    pre {
+        padding: 1rem;
+    }
+    
+    .run-button {
+        padding: 4px 8px;
+        font-size: 12px;
+    }
+    
+    #theme-toggle {
+        width: 35px;
+        height: 35px;
+        font-size: 16px;
+    }
+    
+    .header-container {
+        margin-bottom: 0.5rem;
+    }
+}
+
+/* 列印樣式 */
+@media print {
+    body {
+        background-color: white;
+        padding: 0;
+    }
+    
+    nav, #theme-toggle {
+        display: none;
+    }
+    
+    section {
+        box-shadow: none;
+        break-inside: avoid;
+        page-break-inside: avoid;
+    }
+    
+    pre {
+        white-space: pre-wrap;
+        word-wrap: break-word;
+        border: 1px solid #ddd;
+    }
+    
+    .runnable-code {
+        page-break-inside: avoid;
+        border: 1px solid #000;
+    }
+    
+    .run-button {
+        display: none;
+    }
+}
+
+/* 確保深色模式下的輸出區域顯示清晰 */
+[data-theme="dark"] .output {
+    background-color: #2a2a2a;
+    color: #ffffff;
+    border-top: 1px solid #444;
+}
+
+/* 修改深色模式下的空輸出區域提示文字 */
+[data-theme="dark"] .output:empty::before {
+    color: #aaaaaa;
+} 

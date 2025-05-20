@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="zh-TW" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>程式語言學習平台</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .language-cards {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        .language-card {
+            width: 220px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            background-color: var(--card-bg);
+        }
+
+        .language-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .card-image {
+            height: 140px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--card-header-bg);
+        }
+
+        .card-image img {
+            max-width: 80px;
+            max-height: 80px;
+        }
+
+        .card-content {
+            padding: 16px;
+        }
+
+        .card-content h3 {
+            margin-top: 0;
+            margin-bottom: 8px;
+            color: var(--primary-color);
+        }
+
+        .card-content p {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 15px;
+        }
+
+        .card-button {
+            display: inline-block;
+            padding: 8px 16px;
+            background-color: var(--primary-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+
+        .card-button:hover {
+            background-color: var(--primary-dark);
+        }
+
+        .hero-section {
+            text-align: center;
+            padding: 50px 20px;
+            background-color: var(--hero-bg);
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+
+        .hero-section h1 {
+            margin-bottom: 20px;
+            color: var(--primary-color);
+        }
+
+        .hero-section p {
+            max-width: 800px;
+            margin: 0 auto 20px auto;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .coming-soon {
+            opacity: 0.7;
+        }
+
+        .coming-soon .card-button {
+            background-color: var(--gray);
+            cursor: not-allowed;
+        }
+
+        :root {
+            --primary-color: #3498db;
+            --primary-dark: #2980b9;
+            --gray: #95a5a6;
+            --hero-bg: #f8f9fa;
+            --card-bg: #ffffff;
+            --card-header-bg: #f5f5f5;
+            --text-secondary: #555;
+        }
+
+        [data-theme="dark"] {
+            --primary-color: #3498db;
+            --primary-dark: #2980b9;
+            --gray: #7f8c8d;
+            --hero-bg: #2c3e50;
+            --card-bg: #34495e;
+            --card-header-bg: #2c3e50;
+            --text-secondary: #ecf0f1;
+        }
+
+        [data-theme="dark"] .hero-section h1,
+        [data-theme="dark"] .card-content h3 {
+            color: #ecf0f1;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <h1>程式語言百科平台</h1>
+            <button id="theme-toggle" aria-label="切換深色/淺色模式">
+                <span class="theme-icon light-icon">🌞</span>
+                <span class="theme-icon dark-icon">🌙</span>
+            </button>
+        </div>
+    </header>
+
+    <main>
+        <div class="hero-section">
+            <h1>歡迎來到程式語言百科平台</h1>
+            <p>這是一個專為初學者和進階學習者設計的互動式程式語言百科平台。我們提供詳細的教學內容、示範代碼和可執行的範例，幫助您快速掌握各種程式語言的基礎知識和進階技巧。</p>
+            <p>選擇您感興趣的程式語言，開始學習之旅吧！</p>
+        </div>
+
+        <div class="language-cards">
+            <div class="language-card">
+                <div class="card-image">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Python-logo-notext.svg/1200px-Python-logo-notext.svg.png" alt="Python 語言">
+                </div>
+                <div class="card-content">
+                    <h3>Python</h3>
+                    <p>一種簡潔易學、功能強大的高階程式語言，適合初學者入門。</p>
+                    <a href="index.html" class="card-button">開始學習</a>
+                </div>
+            </div>
+
+            <div class="language-card coming-soon">
+                <div class="card-image">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/JavaScript-logo.png/800px-JavaScript-logo.png" alt="JavaScript 語言">
+                </div>
+                <div class="card-content">
+                    <h3>JavaScript</h3>
+                    <p>網頁開發必備的腳本語言，用於創建互動式網頁。</p>
+                    <a href="#" class="card-button">即將推出</a>
+                </div>
+            </div>
+
+            <div class="language-card coming-soon">
+                <div class="card-image">
+                    <img src="https://upload.wikimedia.org/wikipedia/zh/thumb/8/87/Kotlin-logo.png/1200px-Kotlin-logo.png" alt="Kotlin 語言">
+                </div>
+                <div class="card-content">
+                    <h3>Kotlin</h3>
+                    <p>現代、簡潔且安全的程式語言，主要用於 Android 應用開發。</p>
+                    <a href="#" class="card-button">即將推出</a>
+                </div>
+            </div>
+
+            <div class="language-card coming-soon">
+                <div class="card-image">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Ruby_logo.svg/1200px-Ruby_logo.svg.png" alt="Ruby 語言">
+                </div>
+                <div class="card-content">
+                    <h3>Ruby</h3>
+                    <p>注重簡單性和生產力的動態程式語言，適合網頁應用開發。</p>
+                    <a href="#" class="card-button">即將推出</a>
+                </div>
+            </div>
+
+            <div class="language-card coming-soon">
+                <div class="card-image">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/1/18/ISO_C%2B%2B_Logo.svg" alt="C++ 語言">
+                </div>
+                <div class="card-content">
+                    <h3>C++</h3>
+                    <p>通用的編程語言，具有高效、彈性和支持多種編程風格的特點。</p>
+                    <a href="#" class="card-button">即將推出</a>
+                </div>
+            </div>
+
+            <div class="language-card coming-soon">
+                <div class="card-image">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/1/19/C_Logo.png" alt="C 語言">
+                </div>
+                <div class="card-content">
+                    <h3>C</h3>
+                    <p>強大的系統級編程語言，廣泛應用於操作系統、嵌入式系統和高性能計算。</p>
+                    <a href="#" class="card-button">即將推出</a>
+                </div>
+            </div>
+
+            <div class="language-card coming-soon">
+                <div class="card-image">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/6/61/HTML5_logo_and_wordmark.svg" alt="HTML 語言">
+                </div>
+                <div class="card-content">
+                    <h3>HTML</h3>
+                    <p>網頁的標準標記語言，用於創建和結構化網頁內容。</p>
+                    <a href="#" class="card-button">即將推出</a>
+                </div>
+            </div>
+
+            <div class="language-card coming-soon">
+                <div class="card-image">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Typescript_logo_2020.svg/1200px-Typescript_logo_2020.svg.png" alt="TypeScript 語言">
+                </div>
+                <div class="card-content">
+                    <h3>TypeScript</h3>
+                    <p>JavaScript 的超集，添加了類型系統和其他新特性。</p>
+                    <a href="#" class="card-button">即將推出</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 程式語言百科平台。保留所有權利。</p>
+    </footer>
+
+    <script type="text/javascript">
+        // 主題切換功能
+        document.addEventListener('DOMContentLoaded', function() {
+            const themeToggle = document.getElementById('theme-toggle');
+            const htmlElement = document.documentElement;
+            
+            // 檢查是否有保存的主題偏好
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme) {
+                htmlElement.setAttribute('data-theme', savedTheme);
+            }
+            
+            themeToggle.addEventListener('click', function() {
+                const currentTheme = htmlElement.getAttribute('data-theme');
+                const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                
+                htmlElement.setAttribute('data-theme', newTheme);
+                localStorage.setItem('theme', newTheme);
+            });
+        });
+    </script>
+</body>
+</html> 

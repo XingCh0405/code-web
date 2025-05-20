@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="zh-TW" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML 語法完整教學</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* 深色模式下的顏色覆蓋 */
+        [data-theme="dark"] {
+            --text-color: #e5e5e5;
+            --background-color: #1a1a1a;
+            --code-bg: #2d2d2d;
+            --section-border: #333;
+        }
+        
+        /* 全局文字設定 */
+        body {
+            color: var(--text-color, #333);
+            background-color: var(--background-color, #fff);
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        h1, h2, h3 {
+            color: var(--heading-color, #2c3e50);
+        }
+        
+        pre, code {
+            background-color: var(--code-bg, #f5f5f5);
+        }
+        
+        .section {
+            border-bottom: 1px solid var(--section-border, #eee);
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+        }
+        
+        [data-theme="dark"] p, 
+        [data-theme="dark"] li, 
+        [data-theme="dark"] td, 
+        [data-theme="dark"] th, 
+        [data-theme="dark"] h1, 
+        [data-theme="dark"] h2, 
+        [data-theme="dark"] h3 {
+            color: var(--text-color);
+        }
+        
+        [data-theme="dark"] a {
+            color: #6ab0ff;
+        }
+        
+        .runnable-code {
+            position: relative;
+            margin: 20px 0;
+        }
+        .code-editor {
+            width: 100%;
+            min-height: 100px;
+            font-family: 'Consolas', 'Monaco', monospace;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #f8f8f8;
+            resize: vertical;
+        }
+        [data-theme="dark"] .code-editor {
+            background-color: #2d2d2d;
+            color: #f8f8f8;
+            border-color: #444;
+        }
+        .copy-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #27ae60;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 5px 10px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .copy-button:hover {
+            background-color: #219652;
+        }
+        pre {
+            background-color: #f5f5f5;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        [data-theme="dark"] pre {
+            background-color: #2d2d2d;
+            color: #f8f8f8;
+        }
+        code {
+            background-color: #f5f5f5;
+            padding: 2px 5px;
+            border-radius: 4px;
+            font-family: Consolas, monospace;
+        }
+        [data-theme="dark"] code {
+            background-color: #2d2d2d;
+            color: #f8f8f8;
+        }
+        
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 20px 0;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        [data-theme="dark"] table {
+            color: var(--text-color);
+        }
+        [data-theme="dark"] th {
+            background-color: #333;
+        }
+        [data-theme="dark"] td, [data-theme="dark"] th {
+            border-color: #444;
+        }
+        
+        .example {
+            border-left: 3px solid #3498db;
+            padding-left: 15px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <h1>HTML 語法完整教學</h1>
+            <button id="theme-toggle" aria-label="切換深色/淺色模式">
+                <span class="theme-icon light-icon">🌞</span>
+                <span class="theme-icon dark-icon">🌙</span>
+            </button>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#html-basics">HTML基礎結構</a></li>
+                <li><a href="#text-format">文字格式標籤</a></li>
+                <li><a href="#lists">列表</a></li>
+                <li><a href="#links">連結</a></li>
+                <li><a href="#images">圖片</a></li>
+                <li><a href="#tables">表格</a></li>
+                <li><a href="#forms">表單</a></li>
+                <li><a href="#semantic">語意化標籤</a></li>
+                <li><a href="#multimedia">多媒體</a></li>
+                <li><a href="#iframe">iframe</a></li>
+                <li><a href="#special-chars">特殊字符</a></li>
+                <li><a href="#metadata">元數據標籤</a></li>
+                <li><a href="#data-attributes">資料屬性</a></li>
+                <li><a href="#validation">HTML5輸入驗證</a></li>
+                <li><a href="#comments">HTML註解</a></li>
+                <li><a href="#external">引入JavaScript和CSS</a></li>
+                <li><a href="#storage">HTML5網頁儲存</a></li>
+                <li><a href="#responsive">響應式網頁設計</a></li>
+                <li><a href="#canvas-svg">Canvas和SVG</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="introduction">
+            <h2>HTML 語法完整教學</h2>
+            <p>HTML（超文本標記語言）是創建網頁的標準標記語言。HTML描述了網頁的結構，由一系列的元素組成，這些元素告訴瀏覽器如何展示內容。</p>
+            <p>本教學將詳細介紹HTML的各種標籤和語法，幫助您從零開始學習網頁開發。</p>
+        </section>
+
+        <section id="html-basics" class="section">
+            <h2>1. HTML 基礎結構</h2>
+            <div class="runnable-code">
+                <textarea class="code-editor" id="code-basic" readonly>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;網頁標題&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    網頁內容放在這裡
+&lt;/body&gt;
+&lt;/html&gt;</textarea>
+                <button class="copy-button" onclick="copyCode('code-basic')">複製</button>
+            </div>
+            <ul>
+                <li><code>&lt;!DOCTYPE html&gt;</code> - 定義文件類型</li>
+                <li><code>&lt;html&gt;</code> - 包含整個 HTML 文件</li>
+                <li><code>&lt;head&gt;</code> - 包含元數據（如標題、字符集）</li>
+                <li><code>&lt;body&gt;</code> - 包含可見的頁面內容</li>
+            </ul>
+        </section>
+
+        <section id="text-format" class="section">
+            <h2>2. 文字格式標籤</h2>
+            <h3>標題</h3>
+            <div class="runnable-code">
+                <textarea class="code-editor" id="code-headings" readonly>&lt;h1&gt;一級標題&lt;/h1&gt;
+&lt;h2&gt;二級標題&lt;/h2&gt;
+&lt;h3&gt;三級標題&lt;/h3&gt;
+&lt;h4&gt;四級標題&lt;/h4&gt;
+&lt;h5&gt;五級標題&lt;/h5&gt;
+&lt;h6&gt;六級標題&lt;/h6&gt;</textarea>
+                <button class="copy-button" onclick="copyCode('code-headings')">複製</button>
+            </div>
+
+            <h3>段落與換行</h3>
+            <div class="runnable-code">
+                <textarea class="code-editor" id="code-paragraphs" readonly>&lt;p&gt;這是一個段落。&lt;/p&gt;
+&lt;br&gt; &lt;!-- 換行 --&gt;
+&lt;hr&gt; &lt;!-- 水平線 --&gt;</textarea>
+                <button class="copy-button" onclick="copyCode('code-paragraphs')">複製</button>
+            </div>
+
+            <h3>文字格式化</h3>
+            <div class="runnable-code">
+                <textarea class="code-editor" id="code-formatting" readonly>&lt;b&gt;粗體&lt;/b&gt; 或 &lt;strong&gt;重要文字&lt;/strong&gt;
+&lt;i&gt;斜體&lt;/i&gt; 或 &lt;em&gt;強調文字&lt;/em&gt;
+&lt;u&gt;底線&lt;/u&gt;
+&lt;s&gt;刪除線&lt;/s&gt; 或 &lt;del&gt;刪除線&lt;/del&gt;
+&lt;mark&gt;標記/突顯&lt;/mark&gt;
+&lt;small&gt;小型文字&lt;/small&gt;
+&lt;sub&gt;下標&lt;/sub&gt;
+&lt;sup&gt;上標&lt;/sup&gt;</textarea>
+                <button class="copy-button" onclick="copyCode('code-formatting')">複製</button>
+            </div>
+        </section>
+
+        <section id="lists" class="section">
+            <h2>3. 列表</h2>
+            <h3>無序列表</h3>
+            <div class="runnable-code">
+                <textarea class="code-editor" id="code-unordered-list" readonly>&lt;ul&gt;
+    &lt;li&gt;項目一&lt;/li&gt;
+    &lt;li&gt;項目二&lt;/li&gt;
+    &lt;li&gt;項目三&lt;/li&gt;
+&lt;/ul&gt;</textarea>
+                <button class="copy-button" onclick="copyCode('code-unordered-list')">複製</button>
+            </div>
+
+            <h3>有序列表</h3>
+            <div class="runnable-code">
+                <textarea class="code-editor" id="code-ordered-list" readonly>&lt;ol&gt;
+    &lt;li&gt;第一步&lt;/li&gt;
+    &lt;li&gt;第二步&lt;/li&gt;
+    &lt;li&gt;第三步&lt;/li&gt;
+&lt;/ol&gt;</textarea>
+                <button class="copy-button" onclick="copyCode('code-ordered-list')">複製</button>
+            </div>
+
+            <h3>定義列表</h3>
+            <div class="runnable-code">
+                <textarea class="code-editor" id="code-definition-list" readonly>&lt;dl&gt;
+    &lt;dt&gt;術語&lt;/dt&gt;
+    &lt;dd&gt;術語的定義&lt;/dd&gt;
+    &lt;dt&gt;HTML&lt;/dt&gt;
+    &lt;dd&gt;超文本標記語言&lt;/dd&gt;
+&lt;/dl&gt;</textarea>
+                <button class="copy-button" onclick="copyCode('code-definition-list')">複製</button>
+            </div>
+        </section>
+
+        <section id="links" class="section">
+            <h2>4. 連結</h2>
+            <div class="runnable-code">
+                <textarea class="code-editor" id="code-links" readonly>&lt;a href="https://www.example.com"&gt;連結文字&lt;/a&gt;
+&lt;a href="https://www.example.com" target="_blank"&gt;在新標籤頁開啟&lt;/a&gt;
+&lt;a href="mailto:info@example.com"&gt;寄送電子郵件&lt;/a&gt;
+&lt;a href="tel:+123456789"&gt;撥打電話&lt;/a&gt;
+&lt;a href="#section-id"&gt;頁內連結&lt;/a&gt;</textarea>
+                <button class="copy-button" onclick="copyCode('code-links')">複製</button>
+            </div>
+        </section>
+
+        <section id="images" class="section">
+            <h2>5. 圖片</h2>
+            <div class="runnable-code">
+                <textarea class="code-editor" id="code-images" readonly>&lt;img src="image.jpg" alt="圖片描述"&gt;
+&lt;img src="image.jpg" alt="圖片描述" width="500" height="300"&gt;</textarea>
+                <button class="copy-button" onclick="copyCode('code-images')">複製</button>
+            </div>
+
+            <h3>響應式圖片</h3>
+            <div class="runnable-code">
+                <textarea class="code-editor" id="code-responsive-images" readonly>&lt;picture&gt;
+    &lt;source media="(min-width: 650px)" srcset="img_large.jpg"&gt;
+    &lt;source media="(min-width: 450px)" srcset="img_medium.jpg"&gt;
+    &lt;img src="img_small.jpg" alt="圖片描述"&gt;
+&lt;/picture&gt;</textarea>
+                <button class="copy-button" onclick="copyCode('code-responsive-images')">複製</button>
+            </div>
+        </section>
+
+        <section id="tables" class="section">
+            <h2>6. 表格</h2>
+            <div class="runnable-code">
+                <textarea class="code-editor" id="code-tables" readonly>&lt;table&gt;
+    &lt;caption&gt;表格標題&lt;/caption&gt;
+    &lt;thead&gt;
+        &lt;tr&gt;
+            &lt;th&gt;表頭 1&lt;/th&gt;
+            &lt;th&gt;表頭 2&lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+        &lt;tr&gt;
+            &lt;td&gt;行 1, 列 1&lt;/td&gt;
+            &lt;td&gt;行 1, 列 2&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;行 2, 列 1&lt;/td&gt;
+            &lt;td&gt;行 2, 列 2&lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/tbody&gt;
+    &lt;tfoot&gt;
+        &lt;tr&gt;
+            &lt;td colspan="2"&gt;表格頁腳&lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/tfoot&gt;
+&lt;/table&gt;</textarea>
+                <button class="copy-button" onclick="copyCode('code-tables')">複製</button>
+            </div>
+        </section>
+
+        <section id="forms" class="section">
+            <h2>7. 表單</h2>
+            <div class="runnable-code">
+                <textarea class="code-editor" id="code-forms" readonly>&lt;form action="/submit-form" method="post"&gt;
+    &lt;fieldset&gt;
+        &lt;legend&gt;個人資訊&lt;/legend&gt;
+        
+        &lt;label for="name"&gt;姓名:&lt;/label&gt;
+        &lt;input type="text" id="name" name="name" required&gt;&lt;br&gt;
+        
+        &lt;label for="email"&gt;電子郵件:&lt;/label&gt;
+        &lt;input type="email" id="email" name="email"&gt;&lt;br&gt;
+        
+        &lt;label for="password"&gt;密碼:&lt;/label&gt;
+        &lt;input type="password" id="password" name="password"&gt;&lt;br&gt;
+        
+        &lt;label for="gender"&gt;性別:&lt;/label&gt;
+        &lt;select id="gender" name="gender"&gt;
+            &lt;option value="male"&gt;男&lt;/option&gt;
+            &lt;option value="female"&gt;女&lt;/option&gt;
+            &lt;option value="other"&gt;其他&lt;/option&gt;
+        &lt;/select&gt;&lt;br&gt;
+        
+        &lt;label&gt;興趣:&lt;/label&gt;&lt;br&gt;
+        &lt;input type="checkbox" id="hobby1" name="hobby" value="reading"&gt;
+        &lt;label for="hobby1"&gt;閱讀&lt;/label&gt;&lt;br&gt;
+        &lt;input type="checkbox" id="hobby2" name="hobby" value="sports"&gt;
+        &lt;label for="hobby2"&gt;運動&lt;/label&gt;&lt;br&gt;
+        
+        &lt;label&gt;訂閱電子報:&lt;/label&gt;&lt;br&gt;
+        &lt;input type="radio" id="subscribe-yes" name="subscribe" value="yes"&gt;
+        &lt;label for="subscribe-yes"&gt;是&lt;/label&gt;&lt;br&gt;
+        &lt;input type="radio" id="subscribe-no" name="subscribe" value="no"&gt;
+        &lt;label for="subscribe-no"&gt;否&lt;/label&gt;&lt;br&gt;
+        
+        &lt;label for="message"&gt;留言:&lt;/label&gt;&lt;br&gt;
+        &lt;textarea id="message" name="message" rows="4" cols="50"&gt;&lt;/textarea&gt;&lt;br&gt;
+        
+        &lt;input type="submit" value="提交"&gt;
+        &lt;input type="reset" value="重置"&gt;
+    &lt;/fieldset&gt;
+&lt;/form&gt;</textarea>
+                <button class="copy-button" onclick="copyCode('code-forms')">複製</button>
+            </div>
+
+            <h3>常用的 input 類型</h3>
+            <div class="runnable-code">
+                <textarea class="code-editor" id="code-input-types" readonly>&lt;input type="text"&gt; &lt;!-- 文字輸入 --&gt;
+&lt;input type="password"&gt; &lt;!-- 密碼輸入 --&gt;
+&lt;input type="email"&gt; &lt;!-- 電子郵件 --&gt;
+&lt;input type="number"&gt; &lt;!-- 數字 --&gt;
+&lt;input type="tel"&gt; &lt;!-- 電話號碼 --&gt;
+&lt;input type="date"&gt; &lt;!-- 日期選擇器 --&gt;
+&lt;input type="time"&gt; &lt;!-- 時間選擇器 --&gt;
+&lt;input type="color"&gt; &lt;!-- 顏色選擇器 --&gt;
+&lt;input type="range" min="0" max="100"&gt; &lt;!-- 範圍滑桿 --&gt;
+&lt;input type="file"&gt; &lt;!-- 檔案上傳 --&gt;
+&lt;input type="checkbox"&gt; &lt;!-- 勾選框 --&gt;
+&lt;input type="radio"&gt; &lt;!-- 單選按鈕 --&gt;
+&lt;input type="submit"&gt; &lt;!-- 提交按鈕 --&gt;
+&lt;input type="reset"&gt; &lt;!-- 重置按鈕 --&gt;
+&lt;input type="button" value="點擊"&gt; &lt;!-- 一般按鈕 --&gt;</textarea>
+                <button class="copy-button" onclick="copyCode('code-input-types')">複製</button>
+            </div>
+        </section>
+
+        <section id="semantic" class="section">
+            <h2>8. 語意化標籤 (HTML5)</h2>
+            <div class="runnable-code">
+                <textarea class="code-editor" id="code-semantic" readonly>&lt;header&gt;頁面或章節的頁首&lt;/header&gt;
+&lt;nav&gt;導航連結&lt;/nav&gt;
+&lt;main&gt;主要內容&lt;/main&gt;
+&lt;article&gt;獨立的內容區塊&lt;/article&gt;
+&lt;section&gt;文檔中的章節&lt;/section&gt;
+&lt;aside&gt;側邊欄內容&lt;/aside&gt;
+&lt;footer&gt;頁面或章節的頁尾&lt;/footer&gt;
+&lt;figure&gt;
+    &lt;img src="image.jpg" alt="圖片"&gt;
+    &lt;figcaption&gt;圖片說明&lt;/figcaption&gt;
+&lt;/figure&gt;</textarea>
+                <button class="copy-button" onclick="copyCode('code-semantic')">複製</button>
+            </div>
+        </section>
+
+        <section id="multimedia" class="section">
+            <h2>9. 多媒體</h2>
+            <h3>影片</h3>
+            <div class="runnable-code">
+                <textarea class="code-editor" id="code-video" readonly>&lt;video width="320" height="240" controls&gt;
+    &lt;source src="movie.mp4" type="video/mp4"&gt;
+    &lt;source src="movie.ogg" type="video/ogg"&gt;
+    您的瀏覽器不支援 video 標籤。
+&lt;/video&gt;</textarea>
+                <button class="copy-button" onclick="copyCode('code-video')">複製</button>
+            </div>
+
+            <h3>音訊</h3>
+            <div class="runnable-code">
+                <textarea class="code-editor" id="code-audio" readonly>&lt;audio controls&gt;
+    &lt;source src="audio.mp3" type="audio/mpeg"&gt;
+    &lt;source src="audio.ogg" type="audio/ogg"&gt;
+    您的瀏覽器不支援 audio 標籤。
+&lt;/audio&gt;</textarea>
+                <button class="copy-button" onclick="copyCode('code-audio')">複製</button>
+            </div>
+        </section>
+
+        <section id="iframe" class="section">
+            <h2>10. iframe</h2>
+            <div class="runnable-code">
+                <textarea class="code-editor" id="code-iframe" readonly>&lt;iframe src="https://www.example.com" width="600" height="400"&gt;&lt;/iframe&gt;</textarea>
+                <button class="copy-button" onclick="copyCode('code-iframe')">複製</button>
+            </div>
+        </section>
+
+        <section id="special-chars" class="section">
+            <h2>11. 特殊字符</h2>
+            <table>
+                <tr>
+                    <th>符號</th>
+                    <th>HTML 實體</th>
+                    <th>描述</th>
+                </tr>
+                <tr>
+                    <td>&lt;</td>
+                    <td>&amp;lt;</td>
+                    <td>小於符號</td>
+                </tr>
+                <tr>
+                    <td>&gt;</td>
+                    <td>&amp;gt;</td>
+                    <td>大於符號</td>
+                </tr>
+                <tr>
+                    <td>&amp;</td>
+                    <td>&amp;amp;</td>
+                    <td>和號</td>
+                </tr>
+                <tr>
+                    <td>&quot;</td>
+                    <td>&amp;quot;</td>
+                    <td>雙引號</td>
+                </tr>
+                <tr>
+                    <td>&apos;</td>
+                    <td>&amp;apos;</td>
+                    <td>單引號</td>
+                </tr>
+                <tr>
+                    <td>&copy;</td>
+                    <td>&amp;copy;</td>
+                    <td>版權符號</td>
+                </tr>
+                <tr>
+                    <td>&reg;</td>
+                    <td>&amp;reg;</td>
+                    <td>註冊商標</td>
+                </tr>
+                <tr>
+                    <td>&trade;</td>
+                    <td>&amp;trade;</td>
+                    <td>商標符號</td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td>&amp;nbsp;</td>
+                    <td>不換行空格</td>
+                </tr>
+            </table>
+        </section>
+
+        <section id="metadata" class="section">
+            <h2>12. 元數據標籤</h2>
+            <div class="runnable-code">
+                <textarea class="code-editor" id="code-metadata" readonly>&lt;head&gt;
+    &lt;title&gt;頁面標題&lt;/title&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="description" content="網頁描述"&gt;
+    &lt;meta name="keywords" content="關鍵詞1, 關鍵詞2"&gt;
+    &lt;meta name="author" content="作者名稱"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;link rel="stylesheet" href="styles.css"&gt;
+    &lt;link rel="icon" href="favicon.ico" type="image/x-icon"&gt;
+    &lt;script src="script.js"&gt;&lt;/script&gt;
+&lt;/head&gt;</textarea>
+                <button class="copy-button" onclick="copyCode('code-metadata')">複製</button>
+            </div>
+        </section>
+
+        <section id="data-attributes" class="section">
+            <h2>13. 資料屬性</h2>
+            <div class="runnable-code">
+                <textarea class="code-editor" id="code-data-attributes" readonly>&lt;div data-user-id="123" data-role="admin"&gt;使用者資訊&lt;/div&gt;
+
+// 在 JavaScript 中存取：
+const div = document.querySelector('div');
+const userId = div.dataset.userId; // "123"
+const role = div.dataset.role; // "admin"</textarea>
+                <button class="copy-button" onclick="copyCode('code-data-attributes')">複製</button>
+            </div>
+        </section>
+
+        <section id="validation" class="section">
+            <h2>14. HTML5 輸入驗證</h2>
+            <div class="runnable-code">
+                <textarea class="code-editor" id="code-validation" readonly>&lt;input type="text" required&gt; &lt;!-- 必填欄位 --&gt;
+&lt;input type="email" required&gt; &lt;!-- 必須是有效的電子郵件格式 --&gt;
+&lt;input type="number" min="1" max="100"&gt; &lt;!-- 數值範圍限制 --&gt;
+&lt;input type="text" pattern="[A-Za-z]{3}"&gt; &lt;!-- 使用正則表達式驗證 --&gt;</textarea>
+                <button class="copy-button" onclick="copyCode('code-validation')">複製</button>
+            </div>
+        </section>
+
+        <section id="comments" class="section">
+            <h2>15. HTML 註解</h2>
+            <div class="runnable-code">
+                <textarea class="code-editor" id="code-comments" readonly>&lt;!-- 這是一個 HTML 註解，不會顯示在瀏覽器中 --&gt;</textarea>
+                <button class="copy-button" onclick="copyCode('code-comments')">複製</button>
+            </div>
+        </section>
+
+        <section id="external" class="section">
+            <h2>16. 引入 JavaScript 和 CSS</h2>
+            <h3>引入 CSS</h3>
+            <div class="runnable-code">
+                <textarea class="code-editor" id="code-css" readonly>&lt;!-- 外部樣式表 --&gt;
+&lt;link rel="stylesheet" href="styles.css"&gt;
+
+&lt;!-- 內部樣式表 --&gt;
+&lt;style&gt;
+    body {
+        background-color: #f0f0f0;
+        font-family: Arial, sans-serif;
+    }
+&lt;/style&gt;
+
+&lt;!-- 行內樣式 --&gt;
+&lt;p style="color: blue; font-size: 16px;"&gt;這是藍色文字&lt;/p&gt;</textarea>
+                <button class="copy-button" onclick="copyCode('code-css')">複製</button>
+            </div>
+
+            <h3>引入 JavaScript</h3>
+            <div class="runnable-code">
+                <textarea class="code-editor" id="code-js" readonly>&lt;!-- 外部 JavaScript --&gt;
+&lt;script src="script.js"&gt;&lt;/script&gt;
+
+&lt;!-- 內部 JavaScript --&gt;
+&lt;script&gt;
+    function sayHello() {
+        alert('你好！');
+    }
+&lt;/script&gt;
+
+&lt;!-- 行內 JavaScript --&gt;
+&lt;button onclick="alert('你好！')"&gt;點擊我&lt;/button&gt;</textarea>
+                <button class="copy-button" onclick="copyCode('code-js')">複製</button>
+            </div>
+        </section>
+
+        <section id="storage" class="section">
+            <h2>17. HTML5 網頁儲存</h2>
+            <div class="runnable-code">
+                <textarea class="code-editor" id="code-storage" readonly>&lt;!-- 在 HTML 中沒有特殊標籤，需使用 JavaScript 操作 --&gt;
+&lt;script&gt;
+    // 本地儲存（持久性儲存）
+    localStorage.setItem('key', 'value');
+    let value = localStorage.getItem('key');
+
+    // 會話儲存（瀏覽器關閉後消失）
+    sessionStorage.setItem('key', 'value');
+    let sessionValue = sessionStorage.getItem('key');
+&lt;/script&gt;</textarea>
+                <button class="copy-button" onclick="copyCode('code-storage')">複製</button>
+            </div>
+        </section>
+
+        <section id="responsive" class="section">
+            <h2>18. 響應式網頁設計</h2>
+            <div class="runnable-code">
+                <textarea class="code-editor" id="code-responsive" readonly>&lt;!-- 視窗設定 --&gt;
+&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+
+&lt;!-- 響應式圖片 --&gt;
+&lt;img src="image.jpg" alt="響應式圖片" style="max-width:100%; height:auto;"&gt;
+
+&lt;!-- 使用 CSS 媒體查詢（在樣式表中） --&gt;
+&lt;style&gt;
+    @media screen and (max-width: 600px) {
+        body {
+            background-color: lightblue;
+        }
+    }
+&lt;/style&gt;</textarea>
+                <button class="copy-button" onclick="copyCode('code-responsive')">複製</button>
+            </div>
+        </section>
+
+        <section id="canvas-svg" class="section">
+            <h2>19. Canvas 和 SVG</h2>
+            <h3>Canvas</h3>
+            <div class="runnable-code">
+                <textarea class="code-editor" id="code-canvas" readonly>&lt;canvas id="myCanvas" width="200" height="100" style="border:1px solid #000;"&gt;
+    您的瀏覽器不支援 Canvas 元素。
+&lt;/canvas&gt;
+
+&lt;script&gt;
+    const canvas = document.getElementById("myCanvas");
+    const ctx = canvas.getContext("2d");
+    ctx.fillStyle = "red";
+    ctx.fillRect(10, 10, 50, 50);
+&lt;/script&gt;</textarea>
+                <button class="copy-button" onclick="copyCode('code-canvas')">複製</button>
+            </div>
+
+            <h3>SVG</h3>
+            <div class="runnable-code">
+                <textarea class="code-editor" id="code-svg" readonly>&lt;svg width="200" height="100"&gt;
+    &lt;rect width="50" height="50" x="10" y="10" fill="blue" /&gt;
+    &lt;circle cx="100" cy="50" r="40" fill="green" /&gt;
+&lt;/svg&gt;</textarea>
+                <button class="copy-button" onclick="copyCode('code-svg')">複製</button>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 HTML 教學。保留所有權利。</p>
+    </footer>
+
+    <script type="text/javascript">
+        // 複製代碼到剪貼簿
+        function copyCode(codeAreaId) {
+            var codeArea = document.getElementById(codeAreaId);
+            var text = codeArea.value;
+            
+            navigator.clipboard.writeText(text).then(function() {
+                // 複製成功的視覺反饋
+                var copyButton = document.querySelector(`button[onclick="copyCode('${codeAreaId}')"]`);
+                var originalText = copyButton.innerText;
+                copyButton.innerText = "已複製！";
+                copyButton.style.backgroundColor = "#16a085";
+                
+                // 2秒後恢復按鈕原來的狀態
+                setTimeout(function() {
+                    copyButton.innerText = originalText;
+                    copyButton.style.backgroundColor = "";
+                }, 2000);
+            }, function(err) {
+                console.error('複製失敗: ', err);
+                alert('複製失敗，請手動選擇文本並複製。');
+            });
+        }
+        
+        // 主題切換功能
+        document.addEventListener('DOMContentLoaded', function() {
+            const themeToggle = document.getElementById('theme-toggle');
+            const htmlElement = document.documentElement;
+            
+            // 檢查是否有保存的主題偏好
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme) {
+                htmlElement.setAttribute('data-theme', savedTheme);
+            }
+            
+            themeToggle.addEventListener('click', function() {
+                const currentTheme = htmlElement.getAttribute('data-theme');
+                const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                
+                htmlElement.setAttribute('data-theme', newTheme);
+                localStorage.setItem('theme', newTheme);
+            });
+        });
+    </script>
+</body>
+</html> 
