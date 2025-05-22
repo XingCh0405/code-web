@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>測試不同頁面的圖標</title>
+    <link rel="icon" href="home_favicon.svg" type="image/svg+xml">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            text-align: center;
+        }
+        .icons-container {
+            display: flex;
+            justify-content: space-around;
+            margin: 30px 0;
+        }
+        .icon-display {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            width: 30%;
+        }
+        .icon-display img {
+            width: 64px;
+            height: 64px;
+            margin-bottom: 10px;
+        }
+        .icon-display h3 {
+            margin-top: 0;
+            color: #3498db;
+        }
+    </style>
+</head>
+<body>
+    <h1>不同頁面的專屬圖標</h1>
+    <p>每個頁面現在都有獨特的圖標，展示該頁面的內容特點。</p>
+    
+    <div class="icons-container">
+        <div class="icon-display">
+            <h3>首頁圖標</h3>
+            <img src="home_favicon.svg" alt="首頁圖標">
+            <p>用於首頁和索引頁面</p>
+            <a href="home.html" target="_blank">查看首頁</a>
+        </div>
+        
+        <div class="icon-display">
+            <h3>Python教學圖標</h3>
+            <img src="python_favicon.svg" alt="Python圖標">
+            <p>用於Python教學頁面</p>
+            <a href="python_tutorial.html" target="_blank">查看Python教學</a>
+        </div>
+        
+        <div class="icon-display">
+            <h3>HTML教學圖標</h3>
+            <img src="html_favicon.svg" alt="HTML圖標">
+            <p>用於HTML教學頁面</p>
+            <a href="html_tutorial.html" target="_blank">查看HTML教學</a>
+        </div>
+    </div>
+    
+    <div class="instructions">
+        <h2>如何測試不同的圖標</h2>
+        <ol>
+            <li>點擊上方的鏈接開啟不同頁面</li>
+            <li>觀察瀏覽器標籤上顯示的圖標是否與頁面內容相符</li>
+            <li>每個頁面應該顯示其獨特的圖標</li>
+        </ol>
+    </div>
+</body>
+</html> 

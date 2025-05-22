@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>程式語言學習平台 - 圖標預覽</title>
+    <link rel="icon" href="favicon.png" type="image/png">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: center;
+        }
+        .icon-preview {
+            margin: 30px auto;
+            border: 1px solid #ddd;
+            padding: 20px;
+            border-radius: 8px;
+            display: inline-block;
+        }
+        .icon-preview img {
+            width: 64px;
+            height: 64px;
+        }
+        .icon-sizes {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .size-preview {
+            text-align: center;
+        }
+        button {
+            margin-top: 20px;
+            padding: 10px 15px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+    </style>
+</head>
+<body>
+    <h1>程式語言學習平台 - 圖標預覽</h1>
+    
+    <div class="icon-preview">
+        <img id="favicon-img" src="favicon.png" alt="網站圖標" onerror="this.src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAACXBIWXMAAAsTAAALEwEAmpwYAAAFlElEQVR4nO2bW2wbVRSGd0Mf4AGBeKzEOx4wZy6eJptQ0kqtVIGgCMQbQqgS4qGACBJICAkQUiUQSYUQl4c+ICgIUJvYieMWRKG0SZrYztWO7cTXXOzY49hOx+ebixinbWLHTjwzEuskR5Ys28cz/znrnP+cGZcrpZRSSimlYlp6Zw50Sh20Ty1S+7R5ap9aYAOJ/yT+xgaSPjQkJimNl5+g5M5cV8qvDJKkVJGSSr9DGh8sUgfVEmNILVK71CJrQjNSU5qRmtFM1BSbpKbY//h37PdM6gZqRjdxWnUnVdGdHFGw74O/2f9jn2NMN1Im/DwzcpSS0K3ZrtQUO6z2qQXYweKxgzUhJtmMJp1iJ4A62QRjlxA50bnLgRHdCaBOFgHYx4YTu9TrxuQiG+VoE++Z42qejfEkBpgwYvO7WIBiimMO3oXrAiCpI4uSOvPYCUbF8d5O33Lzb0+eN6KPj0t8HvZR42IBCk/jx5vvfeSx3g7fMm9CHzFMbE7iM6GfWIAKS+OSVC9mP7CcKmTr2Vr2Hl6PPsqb0UexKfEz4LOgzwoHQFSqb09tLy40o3dhLvbJkdQAAGtCH8UG5l9hAUCkdmRLUvvSIdKK7r0swuCIZlO+vQnAU+d8kWnBgn7Pgh5AJsRPgc+Cz+QxwCZlwPYXDV4X7P8/pZvYH1NuvCZ5vQSL1UIsEgXAGhJvQcyXw2cwLZbQjBzHrwOweOBLTvmDlgldYJhZfZlRf8CcQ6PmXNrMaCAnbM4Ze0uT5gUzegCZOm8Gh5kN/j7DYLVKgkfLixxiQu+GBDhjMvgCi3jUvEhHzXkbBnDWPJdlRPfFAhQ+APn6eKg2adXxE6JBhd+Nt8YSWAJLxBRYbpbCcmQG9O7YN2IAmNDNPgPCQULaUH/4RWzApEcLmDMCGzYXbKy/MHvKnL3Sgg63iX0OfA70ITwAfCBs8OLu3FW3gS0MwAYZcSvazXIbm1vPyWxsN5bAD74pU8D4MGcCH13Ph9vvXVkALgG1BhbDw5H18aO4E7a7nLr5HwUA7kHx9ejD0YKIR3Efb7qbN+Y8rvRlHbHlHcUEEFsCAODvzx59U3LHvWbTXYAePhH3iFsAPh7vj3dHN2UegpOcCX1guCPnUfzZV1vYO9jncLqCawFgzsRiwxzGVDRJ4z2Z4HfwenQRbj0L21pzTg3fhS0ZxgKBh6zoAZxhYXxvg+dF3KPgdFkb6Mh9XGzNfgR39zO38fk3b2MPwDPsW9gbnDrpjQCwmIODwbyNXYBQXgKnfRsfdjvLst3OXWzIWfbclqzHYK9uxcDXsu6NTfDd2Avb0L04YrMAsFOHQ+Z/SV3CwS9ggSUkUOHUPdZa9WW4acENm2b91mvZ92A8e2kQG7P3YIP+UtjK7sHZwanTjgYARwpY+HDE02Qbg19gCYn3O3Xa8SC0VmVJW6u/eLml+ktJW9WXvLXqC3w9eK8hHw92tH18CIbH5ByD6zbAEfG4HA+ADyRKP8SHnLr5jQMAX/GpJgRHO/5VvNMGTjUZMGUDgAWnAwCmrRkxZQPwrzoAwFnrSfVlXwHpKV/x+YoOAIcr/mtAOBPigT9AxXcKgDNUfIcAOEvFdwCAM1X8BwBwtor/AADOWPEdAOCsFd8BAYC1VnwHpEKsteLjUYzTPULO3gscBuCMvcBxAAAAO2Tfbg/8c+QhQ2HZ9EHyHQAAAABJRU5ErkJggg==';">
+        <h2>網站圖標預覽</h2>
+        <p>這是一個程式設計主題的圖標，展示了程式碼括號符號。</p>
+    </div>
+    
+    <div class="icon-sizes">
+        <div class="size-preview">
+            <img src="favicon.png" alt="16x16" width="16" height="16" onerror="this.src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAACXBIWXMAAAsTAAALEwEAmpwYAAAFlElEQVR4nO2bW2wbVRSGd0Mf4AGBeKzEOx4wZy6eJptQ0kqtVIGgCMQbQqgS4qGACBJICAkQUiUQSYUQl4c+ICgIUJvYieMWRKG0SZrYztWO7cTXXOzY49hOx+ebixinbWLHTjwzEuskR5Ys28cz/znrnP+cGZcrpZRSSimlYlp6Zw50Sh20Ty1S+7R5ap9aYAOJ/yT+xgaSPjQkJimNl5+g5M5cV8qvDJKkVJGSSr9DGh8sUgfVEmNILVK71CJrQjNSU5qRmtFM1BSbpKbY//h37PdM6gZqRjdxWnUnVdGdHFGw74O/2f9jn2NMN1Im/DwzcpSS0K3ZrtQUO6z2qQXYweKxgzUhJtmMJp1iJ4A62QRjlxA50bnLgRHdCaBOFgHYx4YTu9TrxuQiG+VoE++Z42qejfEkBpgwYvO7WIBiimMO3oXrAiCpI4uSOvPYCUbF8d5O33Lzb0+eN6KPj0t8HvZR42IBCk/jx5vvfeSx3g7fMm9CHzFMbE7iM6GfWIAKS+OSVC9mP7CcKmTr2Vr2Hl6PPsqb0UexKfEz4LOgzwoHQFSqb09tLy40o3dhLvbJkdQAAGtCH8UG5l9hAUCkdmRLUvvSIdKK7r0swuCIZlO+vQnAU+d8kWnBgn7Pgh5AJsRPgc+Cz+QxwCZlwPYXDV4X7P8/pZvYH1NuvCZ5vQSL1UIsEgXAGhJvQcyXw2cwLZbQjBzHrwOweOBLTvmDlgldYJhZfZlRf8CcQ6PmXNrMaCAnbM4Ze0uT5gUzegCZOm8Gh5kN/j7DYLVKgkfLixxiQu+GBDhjMvgCi3jUvEhHzXkbBnDWPJdlRPfFAhQ+APn6eKg2adXxE6JBhd+Nt8YSWAJLxBRYbpbCcmQG9O7YN2IAmNDNPgPCQULaUH/4RWzApEcLmDMCGzYXbKy/MHvKnL3Sgg63iX0OfA70ITwAfCBs8OLu3FW3gS0MwAYZcSvazXIbm1vPyWxsN5bAD74pU8D4MGcCH13Ph9vvXVkALgG1BhbDw5H18aO4E7a7nLr5HwUA7kHx9ejD0YKIR3Efb7qbN+Y8rvRlHbHlHcUEEFsCAODvzx59U3LHvWbTXYAePhH3iFsAPh7vj3dHN2UegpOcCX1guCPnUfzZV1vYO9jncLqCawFgzsRiwxzGVDRJ4z2Z4HfwenQRbj0L21pzTg3fhS0ZxgKBh6zoAZxhYXxvg+dF3KPgdFkb6Mh9XGzNfgR39zO38fk3b2MPwDPsW9gbnDrpjQCwmIODwbyNXYBQXgKnfRsfdjvLst3OXWzIWfbclqzHYK9uxcDXsu6NTfDd2Avb0L04YrMAsFOHQ+Z/SV3CwS9ggSUkUOHUPdZa9WW4acENm2b91mvZ92A8e2kQG7P3YIP+UtjK7sHZwanTjgYARwpY+HDE02Qbg19gCYn3O3Xa8SC0VmVJW6u/eLml+ktJW9WXvLXqC3w9eK8hHw92tH18CIbH5ByD6zbAEfG4HA+ADyRKP8SHnLr5jQMAX/GpJgRHO/5VvNMGTjUZMGUDgAWnAwCmrRkxZQPwrzoAwFnrSfVlXwHpKV/x+YoOAIcr/mtAOBPigT9AxXcKgDNUfIcAOEvFdwCAM1X8BwBwtor/AADOWPEdAOCsFd8BAYC1VnwHpEKsteLjUYzTPULO3gscBuCMvcBxAAAAO2Tfbg/8c+QhQ2HZ9EHyHQAAAABJRU5ErkJggg=='">
+            <p>16x16</p>
+        </div>
+        <div class="size-preview">
+            <img src="favicon.png" alt="32x32" width="32" height="32" onerror="this.src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAACXBIWXMAAAsTAAALEwEAmpwYAAAFlElEQVR4nO2bW2wbVRSGd0Mf4AGBeKzEOx4wZy6eJptQ0kqtVIGgCMQbQqgS4qGACBJICAkQUiUQSYUQl4c+ICgIUJvYieMWRKG0SZrYztWO7cTXXOzY49hOx+ebixinbWLHTjwzEuskR5Ys28cz/znrnP+cGZcrpZRSSimlYlp6Zw50Sh20Ty1S+7R5ap9aYAOJ/yT+xgaSPjQkJimNl5+g5M5cV8qvDJKkVJGSSr9DGh8sUgfVEmNILVK71CJrQjNSU5qRmtFM1BSbpKbY//h37PdM6gZqRjdxWnUnVdGdHFGw74O/2f9jn2NMN1Im/DwzcpSS0K3ZrtQUO6z2qQXYweKxgzUhJtmMJp1iJ4A62QRjlxA50bnLgRHdCaBOFgHYx4YTu9TrxuQiG+VoE++Z42qejfEkBpgwYvO7WIBiimMO3oXrAiCpI4uSOvPYCUbF8d5O33Lzb0+eN6KPj0t8HvZR42IBCk/jx5vvfeSx3g7fMm9CHzFMbE7iM6GfWIAKS+OSVC9mP7CcKmTr2Vr2Hl6PPsqb0UexKfEz4LOgzwoHQFSqb09tLy40o3dhLvbJkdQAAGtCH8UG5l9hAUCkdmRLUvvSIdKK7r0swuCIZlO+vQnAU+d8kWnBgn7Pgh5AJsRPgc+Cz+QxwCZlwPYXDV4X7P8/pZvYH1NuvCZ5vQSL1UIsEgXAGhJvQcyXw2cwLZbQjBzHrwOweOBLTvmDlgldYJhZfZlRf8CcQ6PmXNrMaCAnbM4Ze0uT5gUzegCZOm8Gh5kN/j7DYLVKgkfLixxiQu+GBDhjMvgCi3jUvEhHzXkbBnDWPJdlRPfFAhQ+APn6eKg2adXxE6JBhd+Nt8YSWAJLxBRYbpbCcmQG9O7YN2IAmNDNPgPCQULaUH/4RWzApEcLmDMCGzYXbKy/MHvKnL3Sgg63iX0OfA70ITwAfCBs8OLu3FW3gS0MwAYZcSvazXIbm1vPyWxsN5bAD74pU8D4MGcCH13Ph9vvXVkALgG1BhbDw5H18aO4E7a7nLr5HwUA7kHx9ejD0YKIR3Efb7qbN+Y8rvRlHbHlHcUEEFsCAODvzx59U3LHvWbTXYAePhH3iFsAPh7vj3dHN2UegpOcCX1guCPnUfzZV1vYO9jncLqCawFgzsRiwxzGVDRJ4z2Z4HfwenQRbj0L21pzTg3fhS0ZxgKBh6zoAZxhYXxvg+dF3KPgdFkb6Mh9XGzNfgR39zO38fk3b2MPwDPsW9gbnDrpjQCwmIODwbyNXYBQXgKnfRsfdjvLst3OXWzIWfbclqzHYK9uxcDXsu6NTfDd2Avb0L04YrMAsFOHQ+Z/SV3CwS9ggSUkUOHUPdZa9WW4acENm2b91mvZ92A8e2kQG7P3YIP+UtjK7sHZwanTjgYARwpY+HDE02Qbg19gCYn3O3Xa8SC0VmVJW6u/eLml+ktJW9WXvLXqC3w9eK8hHw92tH18CIbH5ByD6zbAEfG4HA+ADyRKP8SHnLr5jQMAX/GpJgRHO/5VvNMGTjUZMGUDgAWnAwCmrRkxZQPwrzoAwFnrSfVlXwHpKV/x+YoOAIcr/mtAOBPigT9AxXcKgDNUfIcAOEvFdwCAM1X8BwBwtor/AADOWPEdAOCsFd8BAYC1VnwHpEKsteLjUYzTPULO3gscBuCMvcBxAAAAO2Tfbg/8c+QhQ2HZ9EHyHQAAAABJRU5ErkJggg=='">
+            <p>32x32</p>
+        </div>
+        <div class="size-preview">
+            <img src="favicon.png" alt="64x64" width="64" height="64" onerror="this.src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAACXBIWXMAAAsTAAALEwEAmpwYAAAFlElEQVR4nO2bW2wbVRSGd0Mf4AGBeKzEOx4wZy6eJptQ0kqtVIGgCMQbQqgS4qGACBJICAkQUiUQSYUQl4c+ICgIUJvYieMWRKG0SZrYztWO7cTXXOzY49hOx+ebixinbWLHTjwzEuskR5Ys28cz/znrnP+cGZcrpZRSSimlYlp6Zw50Sh20Ty1S+7R5ap9aYAOJ/yT+xgaSPjQkJimNl5+g5M5cV8qvDJKkVJGSSr9DGh8sUgfVEmNILVK71CJrQjNSU5qRmtFM1BSbpKbY//h37PdM6gZqRjdxWnUnVdGdHFGw74O/2f9jn2NMN1Im/DwzcpSS0K3ZrtQUO6z2qQXYweKxgzUhJtmMJp1iJ4A62QRjlxA50bnLgRHdCaBOFgHYx4YTu9TrxuQiG+VoE++Z42qejfEkBpgwYvO7WIBiimMO3oXrAiCpI4uSOvPYCUbF8d5O33Lzb0+eN6KPj0t8HvZR42IBCk/jx5vvfeSx3g7fMm9CHzFMbE7iM6GfWIAKS+OSVC9mP7CcKmTr2Vr2Hl6PPsqb0UexKfEz4LOgzwoHQFSqb09tLy40o3dhLvbJkdQAAGtCH8UG5l9hAUCkdmRLUvvSIdKK7r0swuCIZlO+vQnAU+d8kWnBgn7Pgh5AJsRPgc+Cz+QxwCZlwPYXDV4X7P8/pZvYH1NuvCZ5vQSL1UIsEgXAGhJvQcyXw2cwLZbQjBzHrwOweOBLTvmDlgldYJhZfZlRf8CcQ6PmXNrMaCAnbM4Ze0uT5gUzegCZOm8Gh5kN/j7DYLVKgkfLixxiQu+GBDhjMvgCi3jUvEhHzXkbBnDWPJdlRPfFAhQ+APn6eKg2adXxE6JBhd+Nt8YSWAJLxBRYbpbCcmQG9O7YN2IAmNDNPgPCQULaUH/4RWzApEcLmDMCGzYXbKy/MHvKnL3Sgg63iX0OfA70ITwAfCBs8OLu3FW3gS0MwAYZcSvazXIbm1vPyWxsN5bAD74pU8D4MGcCH13Ph9vvXVkALgG1BhbDw5H18aO4E7a7nLr5HwUA7kHx9ejD0YKIR3Efb7qbN+Y8rvRlHbHlHcUEEFsCAODvzx59U3LHvWbTXYAePhH3iFsAPh7vj3dHN2UegpOcCX1guCPnUfzZV1vYO9jncLqCawFgzsRiwxzGVDRJ4z2Z4HfwenQRbj0L21pzTg3fhS0ZxgKBh6zoAZxhYXxvg+dF3KPgdFkb6Mh9XGzNfgR39zO38fk3b2MPwDPsW9gbnDrpjQCwmIODwbyNXYBQXgKnfRsfdjvLst3OXWzIWfbclqzHYK9uxcDXsu6NTfDd2Avb0L04YrMAsFOHQ+Z/SV3CwS9ggSUkUOHUPdZa9WW4acENm2b91mvZ92A8e2kQG7P3YIP+UtjK7sHZwanTjgYARwpY+HDE02Qbg19gCYn3O3Xa8SC0VmVJW6u/eLml+ktJW9WXvLXqC3w9eK8hHw92tH18CIbH5ByD6zbAEfG4HA+ADyRKP8SHnLr5jQMAX/GpJgRHO/5VvNMGTjUZMGUDgAWnAwCmrRkxZQPwrzoAwFnrSfVlXwHpKV/x+YoOAIcr/mtAOBPigT9AxXcKgDNUfIcAOEvFdwCAM1X8BwBwtor/AADOWPEdAOCsFd8BAYC1VnwHpEKsteLjUYzTPULO3gscBuCMvcBxAAAAO2Rfbg/8c+QhQ2HZ9EHyHQAAAABJRU5ErkJggg=='">
+            <p>64x64</p>
+        </div>
+    </div>
+    
+    <script>
+        // If the favicon.png doesn't exist yet, we can create a fallback
+        document.addEventListener('DOMContentLoaded', function() {
+            // This is the Base64 encoded PNG image
+            const fallbackIcon = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAACXBIWXMAAAsTAAALEwEAmpwYAAAFlElEQVR4nO2bW2wbVRSGd0Mf4AGBeKzEOx4wZy6eJptQ0kqtVIGgCMQbQqgS4qGACBJICAkQUiUQSYUQl4c+ICgIUJvYieMWRKG0SZrYztWO7cTXXOzY49hOx+ebixinbWLHTjwzEuskR5Ys28cz/znrnP+cGZcrpZRSSimlYlp6Zw50Sh20Ty1S+7R5ap9aYAOJ/yT+xgaSPjQkJimNl5+g5M5cV8qvDJKkVJGSSr9DGh8sUgfVEmNILVK71CJrQjNSU5qRmtFM1BSbpKbY//h37PdM6gZqRjdxWnUnVdGdHFGw74O/2f9jn2NMN1Im/DwzcpSS0K3ZrtQUO6z2qQXYweKxgzUhJtmMJp1iJ4A62QRjlxA50bnLgRHdCaBOFgHYx4YTu9TrxuQiG+VoE++Z42qejfEkBpgwYvO7WIBiimMO3oXrAiCpI4uSOvPYCUbF8d5O33Lzb0+eN6KPj0t8HvZR42IBCk/jx5vvfeSx3g7fMm9CHzFMbE7iM6GfWIAKS+OSVC9mP7CcKmTr2Vr2Hl6PPsqb0UexKfEz4LOgzwoHQFSqb09tLy40o3dhLvbJkdQAAGtCH8UG5l9hAUCkdmRLUvvSIdKK7r0swuCIZlO+vQnAU+d8kWnBgn7Pgh5AJsRPgc+Cz+QxwCZlwPYXDV4X7P8/pZvYH1NuvCZ5vQSL1UIsEgXAGhJvQcyXw2cwLZbQjBzHrwOweOBLTvmDlgldYJhZfZlRf8CcQ6PmXNrMaCAnbM4Ze0uT5gUzegCZOm8Gh5kN/j7DYLVKgkfLixxiQu+GBDhjMvgCi3jUvEhHzXkbBnDWPJdlRPfFAhQ+APn6eKg2adXxE6JBhd+Nt8YSWAJLxBRYbpbCcmQG9O7YN2IAmNDNPgPCQULaUH/4RWzApEcLmDMCGzYXbKy/MHvKnL3Sgg63iX0OfA70ITwAfCBs8OLu3FW3gS0MwAYZcSvazXIbm1vPyWxsN5bAD74pU8D4MGcCH13Ph9vvXVkALgG1BhbDw5H18aO4E7a7nLr5HwUA7kHx9ejD0YKIR3Efb7qbN+Y8rvRlHbHlHcUEEFsCAODvzx59U3LHvWbTXYAePhH3iFsAPh7vj3dHN2UegpOcCX1guCPnUfzZV1vYO9jncLqCawFgzsRiwxzGVDRJ4z2Z4HfwenQRbj0L21pzTg3fhS0ZxgKBh6zoAZxhYXxvg+dF3KPgdFkb6Mh9XGzNfgR39zO38fk3b2MPwDPsW9gbnDrpjQCwmIODwbyNXYBQXgKnfRsfdjvLst3OXWzIWfbclqzHYK9uxcDXsu6NTfDd2Avb0L04YrMAsFOHQ+Z/SV3CwS9ggSUkUOHUPdZa9WW4acENm2b91mvZ92A8e2kQG7P3YIP+UtjK7sHZwanTjgYARwpY+HDE02Qbg19gCYn3O3Xa8SC0VmVJW6u/eLml+ktJW9WXvLXqC3w9eK8hHw92tH18CIbH5ByD6zbAEfG4HA+ADyRKP8SHnLr5jQMAX/GpJgRHO/5VvNMGTjUZMGUDgAWnAwCmrRkxZQPwrzoAwFnrSfVlXwHpKV/x+YoOAIcr/mtAOBPigT9AxXcKgDNUfIcAOEvFdwCAM1X8BwBwtor/AADOWPEdAOCsFd8BAYC1VnwHpEKsteLjUYzTPULO3gscBuCMvcBxAAAAO2Rfbg/8c+QhQ2HZ9EHyHQAAAABJRU5ErkJggg==';
+            
+            // Create a download link to allow saving the fallback icon
+            const downloadLink = document.createElement('a');
+            downloadLink.href = fallbackIcon;
+            downloadLink.download = 'favicon.png';
+            downloadLink.innerHTML = '下載備用圖標';
+            downloadLink.className = 'download-fallback';
+            downloadLink.style.display = 'inline-block';
+            downloadLink.style.margin = '20px auto';
+            downloadLink.style.padding = '10px 15px';
+            downloadLink.style.backgroundColor = '#e74c3c';
+            downloadLink.style.color = 'white';
+            downloadLink.style.textDecoration = 'none';
+            downloadLink.style.borderRadius = '4px';
+            
+            const bodyElement = document.body;
+            bodyElement.appendChild(downloadLink);
+        });
+    </script>
+</body>
+</html> 
