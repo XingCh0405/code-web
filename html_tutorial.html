@@ -21,7 +21,7 @@
             background-color: var(--background-color, #fff);
             font-family: Arial, sans-serif;
             line-height: 1.6;
-            max-width: 1000px;
+            max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
         }
@@ -137,54 +137,195 @@
             padding-left: 15px;
             margin: 20px 0;
         }
+
+        /* 導航樣式修改 - 側邊欄目錄 */
+        nav {
+            margin-top: 0;
+            border-top: none;
+            padding: 0;
+            overflow-x: hidden;
+            background-color: #1e3a5f;
+            display: block;
+            width: 100%;
+            border-radius: 0.5rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        nav ul {
+            display: block;
+            padding: 0;
+            margin: 0;
+        }
+        
+        nav li {
+            margin: 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        nav li:last-child {
+            border-bottom: none;
+        }
+        
+        nav a {
+            padding: 0.9rem 1rem;
+            display: block;
+            color: rgba(255, 255, 255, 0.9);
+            transition: var(--transition);
+            font-size: 0.95rem;
+            text-decoration: none;
+        }
+        
+        nav a:hover, nav a:focus {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+            transform: translateX(5px);
+        }
+        
+        nav a.active {
+            background-color: rgba(255, 255, 255, 0.15);
+            color: white;
+            font-weight: 500;
+            border-left: 3px solid #3498db;
+        }
+        
+        /* 側邊欄目錄 */
+        .toc {
+            padding: 0;
+            position: sticky;
+            top: 100px;
+            max-height: calc(100vh - 120px);
+            overflow-y: auto;
+            background-color: transparent;
+            border-radius: var(--border-radius);
+            box-shadow: none;
+            margin-bottom: 2rem;
+        }
+        
+        .toc h3 {
+            padding: 1rem;
+            margin: 0;
+            background-color: #173052;
+            color: white;
+            font-size: 1.1rem;
+            border-top-left-radius: 0.5rem;
+            border-top-right-radius: 0.5rem;
+        }
+        
+        /* 內容佈局 */
+        .content-wrapper {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 2rem;
+            align-items: start;
+        }
+        
+        /* 移動版佈局 */
+        @media (max-width: 768px) {
+            .content-wrapper {
+                grid-template-columns: 1fr;
+            }
+            
+            .toc {
+                position: relative;
+                top: 0;
+                max-height: none;
+                margin-bottom: 1.5rem;
+            }
+        }
+
+        /* 修改首頁按鈕樣式 */
+        .home-button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+            transition: var(--transition);
+            background-color: var(--section-bg);
+            font-size: 1.3rem;
+            text-decoration: none;
+        }
+
+        .home-button:hover {
+            background-color: var(--section-border);
+        }
+
+        [data-theme="dark"] .home-button {
+            border-color: #6ab0ff;
+            color: #6ab0ff;
+        }
+
+        [data-theme="dark"] .home-button:hover {
+            background-color: #6ab0ff;
+            color: #1a1a1a;
+        }
+
+        /* 標題區域按鈕容器 */
+        .header-buttons {
+            display: flex;
+            align-items: center;
+        }
     </style>
 </head>
 <body>
     <header>
         <div class="header-container">
             <h1>HTML 語法完整教學</h1>
-            <button id="theme-toggle" aria-label="切換深色/淺色模式">
-                <span class="theme-icon light-icon">🌞</span>
-                <span class="theme-icon dark-icon">🌙</span>
-            </button>
+            <div class="header-buttons">
+                <a href="home.html" class="home-button" aria-label="返回首頁">🏠</a>
+                <button id="theme-toggle" aria-label="切換深色/淺色模式">
+                    <span class="theme-icon light-icon">🌞</span>
+                    <span class="theme-icon dark-icon">🌙</span>
+                </button>
+            </div>
         </div>
-        <nav>
-            <ul>
-                <li><a href="home.html">首頁</a></li>
-                <li><a href="#html-basics">HTML基礎結構</a></li>
-                <li><a href="#text-format">文字格式標籤</a></li>
-                <li><a href="#lists">列表</a></li>
-                <li><a href="#links">連結</a></li>
-                <li><a href="#images">圖片</a></li>
-                <li><a href="#tables">表格</a></li>
-                <li><a href="#forms">表單</a></li>
-                <li><a href="#semantic">語意化標籤</a></li>
-                <li><a href="#multimedia">多媒體</a></li>
-                <li><a href="#iframe">iframe</a></li>
-                <li><a href="#special-chars">特殊字符</a></li>
-                <li><a href="#metadata">元數據標籤</a></li>
-                <li><a href="#data-attributes">資料屬性</a></li>
-                <li><a href="#validation">HTML5輸入驗證</a></li>
-                <li><a href="#comments">HTML註解</a></li>
-                <li><a href="#external">引入JavaScript和CSS</a></li>
-                <li><a href="#storage">HTML5網頁儲存</a></li>
-                <li><a href="#responsive">響應式網頁設計</a></li>
-                <li><a href="#canvas-svg">Canvas和SVG</a></li>
-            </ul>
-        </nav>
     </header>
 
     <main>
-        <section id="introduction">
-            <h2>HTML 語法完整教學</h2>
-            <p>HTML（超文本標記語言）是創建網頁的標準標記語言。HTML描述了網頁的結構，由一系列的元素組成，這些元素告訴瀏覽器如何展示內容。</p>
-            <p>本教學將詳細介紹HTML的各種標籤和語法，幫助您從零開始學習網頁開發。</p>
-        </section>
+        <div class="content-wrapper">
+            <aside class="toc" id="table-of-contents">
+                <h3>目錄</h3>
+                <nav>
+                    <ul>
+                        <li><a href="#html-basics">HTML基礎結構</a></li>
+                        <li><a href="#text-format">文字格式標籤</a></li>
+                        <li><a href="#lists">列表</a></li>
+                        <li><a href="#links">連結</a></li>
+                        <li><a href="#images">圖片</a></li>
+                        <li><a href="#tables">表格</a></li>
+                        <li><a href="#forms">表單</a></li>
+                        <li><a href="#semantic">語意化標籤</a></li>
+                        <li><a href="#multimedia">多媒體</a></li>
+                        <li><a href="#iframe">iframe</a></li>
+                        <li><a href="#special-chars">特殊字符</a></li>
+                        <li><a href="#metadata">元數據標籤</a></li>
+                        <li><a href="#data-attributes">資料屬性</a></li>
+                        <li><a href="#validation">HTML5輸入驗證</a></li>
+                        <li><a href="#comments">HTML註解</a></li>
+                        <li><a href="#external">引入JavaScript和CSS</a></li>
+                        <li><a href="#storage">HTML5網頁儲存</a></li>
+                        <li><a href="#responsive">響應式網頁設計</a></li>
+                        <li><a href="#canvas-svg">Canvas和SVG</a></li>
+                    </ul>
+                </nav>
+            </aside>
 
-        <section id="html-basics" class="section">
-            <h2>1. HTML 基礎結構</h2>
-            <div class="runnable-code">
-                <textarea class="code-editor" id="code-basic" readonly>&lt;!DOCTYPE html&gt;
+            <div class="main-content">
+                <section id="introduction">
+                    <h2>HTML 語法完整教學</h2>
+                    <p>HTML（超文本標記語言）是創建網頁的標準標記語言。HTML描述了網頁的結構，由一系列的元素組成，這些元素告訴瀏覽器如何展示內容。</p>
+                    <p>本教學將詳細介紹HTML的各種標籤和語法，幫助您從零開始學習網頁開發。</p>
+                </section>
+
+                <section id="html-basics" class="section">
+                    <h2>1. HTML 基礎結構</h2>
+                    <div class="runnable-code">
+                        <textarea class="code-editor" id="code-basic" readonly>&lt;!DOCTYPE html&gt;
 &lt;html&gt;
 &lt;head&gt;
     &lt;meta charset="UTF-8"&gt;
@@ -194,40 +335,40 @@
     網頁內容放在這裡
 &lt;/body&gt;
 &lt;/html&gt;</textarea>
-                <button class="copy-button" onclick="copyCode('code-basic')">複製</button>
-            </div>
-            <ul>
-                <li><code>&lt;!DOCTYPE html&gt;</code> - 定義文件類型</li>
-                <li><code>&lt;html&gt;</code> - 包含整個 HTML 文件</li>
-                <li><code>&lt;head&gt;</code> - 包含元數據（如標題、字符集）</li>
-                <li><code>&lt;body&gt;</code> - 包含可見的頁面內容</li>
-            </ul>
-        </section>
+                        <button class="copy-button" onclick="copyCode('code-basic')">複製</button>
+                    </div>
+                    <ul>
+                        <li><code>&lt;!DOCTYPE html&gt;</code> - 定義文件類型</li>
+                        <li><code>&lt;html&gt;</code> - 包含整個 HTML 文件</li>
+                        <li><code>&lt;head&gt;</code> - 包含元數據（如標題、字符集）</li>
+                        <li><code>&lt;body&gt;</code> - 包含可見的頁面內容</li>
+                    </ul>
+                </section>
 
-        <section id="text-format" class="section">
-            <h2>2. 文字格式標籤</h2>
-            <h3>標題</h3>
-            <div class="runnable-code">
-                <textarea class="code-editor" id="code-headings" readonly>&lt;h1&gt;一級標題&lt;/h1&gt;
+                <section id="text-format" class="section">
+                    <h2>2. 文字格式標籤</h2>
+                    <h3>標題</h3>
+                    <div class="runnable-code">
+                        <textarea class="code-editor" id="code-headings" readonly>&lt;h1&gt;一級標題&lt;/h1&gt;
 &lt;h2&gt;二級標題&lt;/h2&gt;
 &lt;h3&gt;三級標題&lt;/h3&gt;
 &lt;h4&gt;四級標題&lt;/h4&gt;
 &lt;h5&gt;五級標題&lt;/h5&gt;
 &lt;h6&gt;六級標題&lt;/h6&gt;</textarea>
-                <button class="copy-button" onclick="copyCode('code-headings')">複製</button>
-            </div>
+                        <button class="copy-button" onclick="copyCode('code-headings')">複製</button>
+                    </div>
 
-            <h3>段落與換行</h3>
-            <div class="runnable-code">
-                <textarea class="code-editor" id="code-paragraphs" readonly>&lt;p&gt;這是一個段落。&lt;/p&gt;
+                    <h3>段落與換行</h3>
+                    <div class="runnable-code">
+                        <textarea class="code-editor" id="code-paragraphs" readonly>&lt;p&gt;這是一個段落。&lt;/p&gt;
 &lt;br&gt; &lt;!-- 換行 --&gt;
 &lt;hr&gt; &lt;!-- 水平線 --&gt;</textarea>
-                <button class="copy-button" onclick="copyCode('code-paragraphs')">複製</button>
-            </div>
+                        <button class="copy-button" onclick="copyCode('code-paragraphs')">複製</button>
+                    </div>
 
-            <h3>文字格式化</h3>
-            <div class="runnable-code">
-                <textarea class="code-editor" id="code-formatting" readonly>&lt;b&gt;粗體&lt;/b&gt; 或 &lt;strong&gt;重要文字&lt;/strong&gt;
+                    <h3>文字格式化</h3>
+                    <div class="runnable-code">
+                        <textarea class="code-editor" id="code-formatting" readonly>&lt;b&gt;粗體&lt;/b&gt; 或 &lt;strong&gt;重要文字&lt;/strong&gt;
 &lt;i&gt;斜體&lt;/i&gt; 或 &lt;em&gt;強調文字&lt;/em&gt;
 &lt;u&gt;底線&lt;/u&gt;
 &lt;s&gt;刪除線&lt;/s&gt; 或 &lt;del&gt;刪除線&lt;/del&gt;
@@ -235,79 +376,79 @@
 &lt;small&gt;小型文字&lt;/small&gt;
 &lt;sub&gt;下標&lt;/sub&gt;
 &lt;sup&gt;上標&lt;/sup&gt;</textarea>
-                <button class="copy-button" onclick="copyCode('code-formatting')">複製</button>
-            </div>
-        </section>
+                        <button class="copy-button" onclick="copyCode('code-formatting')">複製</button>
+                    </div>
+                </section>
 
-        <section id="lists" class="section">
-            <h2>3. 列表</h2>
-            <h3>無序列表</h3>
-            <div class="runnable-code">
-                <textarea class="code-editor" id="code-unordered-list" readonly>&lt;ul&gt;
+                <section id="lists" class="section">
+                    <h2>3. 列表</h2>
+                    <h3>無序列表</h3>
+                    <div class="runnable-code">
+                        <textarea class="code-editor" id="code-unordered-list" readonly>&lt;ul&gt;
     &lt;li&gt;項目一&lt;/li&gt;
     &lt;li&gt;項目二&lt;/li&gt;
     &lt;li&gt;項目三&lt;/li&gt;
 &lt;/ul&gt;</textarea>
-                <button class="copy-button" onclick="copyCode('code-unordered-list')">複製</button>
-            </div>
+                        <button class="copy-button" onclick="copyCode('code-unordered-list')">複製</button>
+                    </div>
 
-            <h3>有序列表</h3>
-            <div class="runnable-code">
-                <textarea class="code-editor" id="code-ordered-list" readonly>&lt;ol&gt;
+                    <h3>有序列表</h3>
+                    <div class="runnable-code">
+                        <textarea class="code-editor" id="code-ordered-list" readonly>&lt;ol&gt;
     &lt;li&gt;第一步&lt;/li&gt;
     &lt;li&gt;第二步&lt;/li&gt;
     &lt;li&gt;第三步&lt;/li&gt;
 &lt;/ol&gt;</textarea>
-                <button class="copy-button" onclick="copyCode('code-ordered-list')">複製</button>
-            </div>
+                        <button class="copy-button" onclick="copyCode('code-ordered-list')">複製</button>
+                    </div>
 
-            <h3>定義列表</h3>
-            <div class="runnable-code">
-                <textarea class="code-editor" id="code-definition-list" readonly>&lt;dl&gt;
+                    <h3>定義列表</h3>
+                    <div class="runnable-code">
+                        <textarea class="code-editor" id="code-definition-list" readonly>&lt;dl&gt;
     &lt;dt&gt;術語&lt;/dt&gt;
     &lt;dd&gt;術語的定義&lt;/dd&gt;
     &lt;dt&gt;HTML&lt;/dt&gt;
     &lt;dd&gt;超文本標記語言&lt;/dd&gt;
 &lt;/dl&gt;</textarea>
-                <button class="copy-button" onclick="copyCode('code-definition-list')">複製</button>
-            </div>
-        </section>
+                        <button class="copy-button" onclick="copyCode('code-definition-list')">複製</button>
+                    </div>
+                </section>
 
-        <section id="links" class="section">
-            <h2>4. 連結</h2>
-            <div class="runnable-code">
-                <textarea class="code-editor" id="code-links" readonly>&lt;a href="https://www.example.com"&gt;連結文字&lt;/a&gt;
+                <section id="links" class="section">
+                    <h2>4. 連結</h2>
+                    <div class="runnable-code">
+                        <textarea class="code-editor" id="code-links" readonly>&lt;a href="https://www.example.com"&gt;連結文字&lt;/a&gt;
 &lt;a href="https://www.example.com" target="_blank"&gt;在新標籤頁開啟&lt;/a&gt;
 &lt;a href="mailto:info@example.com"&gt;寄送電子郵件&lt;/a&gt;
 &lt;a href="tel:+123456789"&gt;撥打電話&lt;/a&gt;
 &lt;a href="#section-id"&gt;頁內連結&lt;/a&gt;</textarea>
-                <button class="copy-button" onclick="copyCode('code-links')">複製</button>
-            </div>
-        </section>
+                        <button class="copy-button" onclick="copyCode('code-links')">複製</button>
+                    </div>
+                </section>
 
-        <section id="images" class="section">
-            <h2>5. 圖片</h2>
-            <div class="runnable-code">
-                <textarea class="code-editor" id="code-images" readonly>&lt;img src="image.jpg" alt="圖片描述"&gt;
+                <section id="images" class="section">
+                    <h2>5. 圖片</h2>
+                    <div class="runnable-code">
+                        <textarea class="code-editor" id="code-images" readonly>&lt;img src="image.jpg" alt="圖片描述"&gt;
 &lt;img src="image.jpg" alt="圖片描述" width="500" height="300"&gt;</textarea>
-                <button class="copy-button" onclick="copyCode('code-images')">複製</button>
-            </div>
+                        <button class="copy-button" onclick="copyCode('code-images')">複製</button>
+                    </div>
 
-            <h3>響應式圖片</h3>
-            <div class="runnable-code">
-                <textarea class="code-editor" id="code-responsive-images" readonly>&lt;picture&gt;
+                    <h3>響應式圖片</h3>
+                    <div class="runnable-code">
+                        <textarea class="code-editor" id="code-responsive-images" readonly>&lt;picture&gt;
     &lt;source media="(min-width: 650px)" srcset="img_large.jpg"&gt;
     &lt;source media="(min-width: 450px)" srcset="img_medium.jpg"&gt;
     &lt;img src="img_small.jpg" alt="圖片描述"&gt;
 &lt;/picture&gt;</textarea>
-                <button class="copy-button" onclick="copyCode('code-responsive-images')">複製</button>
-            </div>
-        </section>
+                        <button class="copy-button" onclick="copyCode('code-responsive-images')">複製</button>
+                    </div>
+                </section>
 
-        <section id="tables" class="section">
-            <h2>6. 表格</h2>
-            <div class="runnable-code">
-                <textarea class="code-editor" id="code-tables" readonly>&lt;table&gt;
+                <section id="tables" class="section">
+                    <h2>6. 表格</h2>
+                    <div class="runnable-code">
+                        <textarea class="code-editor" id="code-tables" readonly>&lt;table&gt;
     &lt;caption&gt;表格標題&lt;/caption&gt;
     &lt;thead&gt;
         &lt;tr&gt;
@@ -706,7 +847,55 @@ const role = div.dataset.role; // "admin"</textarea>
                 htmlElement.setAttribute('data-theme', newTheme);
                 localStorage.setItem('theme', newTheme);
             });
+            
+            // 確保導航鏈接正常工作
+            const navLinks = document.querySelectorAll('nav a');
+            navLinks.forEach(link => {
+                if (link.getAttribute('href').startsWith('#')) {
+                    link.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        const targetId = this.getAttribute('href').substring(1);
+                        const targetElement = document.getElementById(targetId);
+                        
+                        if (targetElement) {
+                            targetElement.scrollIntoView({
+                                behavior: 'smooth'
+                            });
+                            
+                            // 更新 URL
+                            history.pushState(null, null, this.getAttribute('href'));
+                            
+                            // 高亮當前項目
+                            document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
+                            this.classList.add('active');
+                        }
+                    });
+                }
+            });
+            
+            // 監測滾動以高亮當前章節
+            const observerOptions = {
+                root: null,
+                rootMargin: '-100px 0px -70% 0px',
+                threshold: 0
+            };
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    const id = entry.target.getAttribute('id');
+                    const navLink = document.querySelector(`nav a[href="#${id}"]`);
+                    
+                    if (entry.isIntersecting && navLink) {
+                        document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
+                        navLink.classList.add('active');
+                    }
+                });
+            }, observerOptions);
+            
+            document.querySelectorAll('section[id]').forEach((section) => {
+                observer.observe(section);
+            });
         });
     </script>
 </body>
-</html> 
+</html>

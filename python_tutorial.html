@@ -10,24 +10,18 @@
     <style>
         /* Python頁面特定樣式 */
         .python-logo {
-            position: absolute;
-            top: 10px;
-            left: 20px;
-            width: 40px;
-            height: 40px;
-            opacity: 0.8;
-            transition: var(--transition);
+            display: none; /* 隱藏圖標而不是完全刪除，以防有JavaScript引用該元素 */
         }
-        
+
         .header-container h1 {
-            margin-left: 50px;
+            margin-left: 0; /* 重置標題左邊距，因為不再需要為圖標預留空間 */
         }
-        
+
         #introduction {
             position: relative;
             overflow: hidden;
         }
-        
+
         #introduction::before {
             content: ">>> Python";
             position: absolute;
@@ -39,7 +33,7 @@
             z-index: 0;
             font-family: monospace;
         }
-        
+
         .runnable-code {
             position: relative;
             margin: 1.5rem 0;
@@ -47,7 +41,7 @@
             box-shadow: var(--shadow-md);
             overflow: hidden;
         }
-        
+
         .code-editor {
             width: 100%;
             min-height: 120px;
@@ -61,7 +55,7 @@
             line-height: 1.5;
             transition: var(--transition);
         }
-        
+
         .copy-button, .run-button {
             position: absolute;
             top: 10px;
@@ -75,20 +69,20 @@
             font-size: 0.85rem;
             opacity: 0.8;
         }
-        
+
         .copy-button {
             right: 10px;
         }
-        
+
         .run-button {
             right: 80px;
         }
-        
+
         .copy-button:hover, .run-button:hover {
             opacity: 1;
             background-color: var(--primary-dark);
         }
-        
+
         .output {
             width: 100%;
             min-height: 50px;
@@ -101,6 +95,129 @@
             font-family: Consolas, Monaco, monospace;
             transition: var(--transition);
         }
+
+        /* 側邊欄目錄 */
+        nav {
+            margin-top: 0;
+            border-top: none;
+            padding: 0;
+            overflow-x: hidden;
+            background-color: #1e3a5f;
+            display: block;
+            width: 100%;
+            border-radius: 0.5rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        nav ul {
+            display: block;
+            padding: 0;
+            margin: 0;
+        }
+
+        nav li {
+            margin: 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        nav li:last-child {
+            border-bottom: none;
+        }
+
+        nav a {
+            padding: 0.9rem 1rem;
+            display: block;
+            color: rgba(255, 255, 255, 0.9);
+            transition: var(--transition);
+            font-size: 0.95rem;
+            text-decoration: none;
+        }
+
+        nav a:hover, nav a:focus {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+            transform: translateX(5px);
+        }
+
+        nav a.active {
+            background-color: rgba(255, 255, 255, 0.15);
+            color: white;
+            font-weight: 500;
+            border-left: 3px solid #3498db;
+        }
+
+        /* 側邊欄目錄 */
+        .toc {
+            padding: 0;
+            position: sticky;
+            top: 100px;
+            max-height: calc(100vh - 120px);
+            overflow-y: auto;
+            background-color: transparent;
+            border-radius: var(--border-radius);
+            box-shadow: none;
+            margin-bottom: 2rem;
+        }
+
+        .toc h3 {
+            padding: 1rem;
+            margin: 0;
+            background-color: #173052;
+            color: white;
+            font-size: 1.1rem;
+            border-top-left-radius: 0.5rem;
+            border-top-right-radius: 0.5rem;
+        }
+
+        /* 內容佈局 */
+        .content-wrapper {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 2rem;
+            align-items: start;
+        }
+
+        /* 移動版佈局 */
+        @media (max-width: 768px) {
+            .content-wrapper {
+                grid-template-columns: 1fr;
+            }
+
+            .toc {
+                position: relative;
+                top: 0;
+                max-height: none;
+                margin-bottom: 1.5rem;
+            }
+        }
+
+        /* 首頁按鈕樣式 */
+        .home-button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+            transition: var(--transition);
+            background-color: var(--section-bg);
+            font-size: 1.3rem;
+            text-decoration: none;
+        }
+
+        .home-button:hover {
+            background-color: var(--section-border);
+        }
+
+        /* 標題區域按鈕容器 */
+        .header-buttons {
+            display: flex;
+            align-items: center;
+        }
     </style>
 </head>
 <body>
@@ -108,101 +225,109 @@
         <div class="header-container">
             <img src="python_favicon.svg" alt="Python Logo" class="python-logo">
             <h1>Python 教學</h1>
-            <button id="theme-toggle" aria-label="切換深色/淺色模式">
-                <span class="theme-icon light-icon">🌞</span>
-                <span class="theme-icon dark-icon">🌙</span>
-            </button>
+            <div class="header-buttons">
+                <a href="home.html" class="home-button" aria-label="返回首頁">🏠</a>
+                <button id="theme-toggle" aria-label="切換深色/淺色模式">
+                    <span class="theme-icon light-icon">🌞</span>
+                    <span class="theme-icon dark-icon">🌙</span>
+                </button>
+            </div>
         </div>
-        <nav>
-            <ul>
-                <li><a href="home.html">首頁</a></li>
-                <li><a href="#introduction">Python 簡介</a></li>
-                <li><a href="#installation">安裝 Python</a></li>
-                <li><a href="#basics">Python 基礎</a></li>
-                <li><a href="#data-types">資料型態</a></li>
-                <li><a href="#control-flow">流程控制</a></li>
-                <li><a href="#functions">函數</a></li>
-                <li><a href="#string-operations">字串操作</a></li>
-                <li><a href="#built-in-functions">內置函數</a></li>
-                <li><a href="#file-io">文件處理</a></li>
-                <li><a href="#regex">正則表達式</a></li>
-                <li><a href="#modules">模組與套件</a></li>
-                <li><a href="#advanced-syntax">進階Python語法</a></li>
-                <li><a href="#examples">實用範例</a></li>
-            </ul>
-        </nav>
     </header>
 
     <main>
-        <section id="introduction">
-            <h2>Python 簡介</h2>
-            <p>Python 是一種高階、直譯式的程式語言，由荷蘭人 Guido van Rossum 於1991年首次發布。Python 的設計哲學強調程式碼的可讀性，使用縮排來分隔程式碼區塊。</p>
-            <p>Python 的特色包括：</p>
-            <ul>
-                <li>簡潔易讀的語法</li>
-                <li>強大的標準函式庫</li>
-                <li>豐富的第三方套件生態系統</li>
-                <li>跨平台支援（Windows、macOS、Linux 等）</li>
-                <li>支援多種編程範式（面向對象、命令式、函數式等）</li>
-                <li>內置高效資料結構</li>
-            </ul>
-            <p>Python 廣泛應用於各個領域，包括：</p>
-            <ul>
-                <li>網頁開發</li>
-                <li>資料分析與視覺化</li>
-                <li>機器學習與人工智能</li>
-                <li>科學計算</li>
-                <li>自動化測試與系統管理</li>
-                <li>遊戲開發</li>
-            </ul>
-        </section>
+        <div class="content-wrapper">
+            <aside class="toc" id="table-of-contents">
+                <h3>目錄</h3>
+                <nav>
+                    <ul>
+                        <li><a href="#introduction">Python 簡介</a></li>
+                        <li><a href="#installation">安裝 Python</a></li>
+                        <li><a href="#basics">Python 基礎</a></li>
+                        <li><a href="#data-types">資料型態</a></li>
+                        <li><a href="#control-flow">流程控制</a></li>
+                        <li><a href="#functions">函數</a></li>
+                        <li><a href="#string-operations">字串操作</a></li>
+                        <li><a href="#built-in-functions">內置函數</a></li>
+                        <li><a href="#file-io">文件處理</a></li>
+                        <li><a href="#regex">正則表達式</a></li>
+                        <li><a href="#modules">模組與套件</a></li>
+                        <li><a href="#advanced-syntax">進階Python語法</a></li>
+                        <li><a href="#examples">實用範例</a></li>
+                    </ul>
+                </nav>
+            </aside>
 
-        <section id="installation">
-            <h2>安裝 Python</h2>
-            <h3>Windows 系統安裝</h3>
-            <ol>
-                <li>前往 <a href="https://www.python.org/downloads/" target="_blank">Python 官方網站</a> 下載最新版本的 Python</li>
-                <li>執行下載的安裝檔案，勾選「Add Python to PATH」選項</li>
-                <li>點選「Install Now」進行安裝</li>
-                <li>安裝完成後，打開命令提示字元，輸入 <code>python --version</code> 確認安裝成功</li>
-            </ol>
+            <div class="main-content">
+                <section id="introduction">
+                    <h2>Python 簡介</h2>
+                    <p>Python 是一種高階、直譯式的程式語言，由荷蘭人 Guido van Rossum 於1991年首次發布。Python 的設計哲學強調程式碼的可讀性，使用縮排來分隔程式碼區塊。</p>
+                    <p>Python 的特色包括：</p>
+                    <ul>
+                        <li>簡潔易讀的語法</li>
+                        <li>強大的標準函式庫</li>
+                        <li>豐富的第三方套件生態系統</li>
+                        <li>跨平台支援（Windows、macOS、Linux 等）</li>
+                        <li>支援多種編程範式（面向對象、命令式、函數式等）</li>
+                        <li>內置高效資料結構</li>
+                    </ul>
+                    <p>Python 廣泛應用於各個領域，包括：</p>
+                    <ul>
+                        <li>網頁開發</li>
+                        <li>資料分析與視覺化</li>
+                        <li>機器學習與人工智能</li>
+                        <li>科學計算</li>
+                        <li>自動化測試與系統管理</li>
+                        <li>遊戲開發</li>
+                    </ul>
+                </section>
 
-            <h3>macOS 系統安裝</h3>
-            <ol>
-                <li>前往 <a href="https://www.python.org/downloads/" target="_blank">Python 官方網站</a> 下載最新版本的 Python</li>
-                <li>執行下載的安裝檔案，按照指示完成安裝</li>
-                <li>安裝完成後，打開終端機，輸入 <code>python3 --version</code> 確認安裝成功</li>
-            </ol>
+                <section id="installation">
+                    <h2>安裝 Python</h2>
+                    <h3>Windows 系統安裝</h3>
+                    <ol>
+                        <li>前往 <a href="https://www.python.org/downloads/" target="_blank">Python 官方網站</a> 下載最新版本的 Python</li>
+                        <li>執行下載的安裝檔案，勾選「Add Python to PATH」選項</li>
+                        <li>點選「Install Now」進行安裝</li>
+                        <li>安裝完成後，打開命令提示字元，輸入 <code>python --version</code> 確認安裝成功</li>
+                    </ol>
 
-            <h3>Linux 系統安裝</h3>
-            <p>大多數 Linux 發行版已預裝 Python。若需要安裝特定版本，可使用套件管理器：</p>
-            <pre><code>sudo apt update
+                    <h3>macOS 系統安裝</h3>
+                    <ol>
+                        <li>前往 <a href="https://www.python.org/downloads/" target="_blank">Python 官方網站</a> 下載最新版本的 Python</li>
+                        <li>執行下載的安裝檔案，按照指示完成安裝</li>
+                        <li>安裝完成後，打開終端機，輸入 <code>python3 --version</code> 確認安裝成功</li>
+                    </ol>
+
+                    <h3>Linux 系統安裝</h3>
+                    <p>大多數 Linux 發行版已預裝 Python。若需要安裝特定版本，可使用套件管理器：</p>
+                    <pre><code>sudo apt update
 sudo apt install python3 python3-pip</code></pre>
-        </section>
+                </section>
 
-        <section id="basics">
-            <h2>Python 基礎</h2>
-            <h3>第一個 Python 程式</h3>
-            <p>傳統的 "Hello, World!" 程式：</p>
-            <div class="runnable-code">
-                <textarea class="code-editor" id="code1" readonly>print("Hello, World!")</textarea>
-                <button class="copy-button" onclick="copyCode('code1')">複製</button>
-                <button class="run-button" onclick="runPython('code1', 'output1')">執行</button>
-                <div class="output" id="output1"></div>
-            </div>
+                <section id="basics">
+                    <h2>Python 基礎</h2>
+                    <h3>第一個 Python 程式</h3>
+                    <p>傳統的 "Hello, World!" 程式：</p>
+                    <div class="runnable-code">
+                        <textarea class="code-editor" id="code1" readonly>print("Hello, World!")</textarea>
+                        <button class="copy-button" onclick="copyCode('code1')">複製</button>
+                        <button class="run-button" onclick="runPython('code1', 'output1')">執行</button>
+                        <div class="output" id="output1"></div>
+                    </div>
 
-            <h3>Python 語法特點</h3>
-            <ul>
-                <li>使用縮排（通常是4個空格）來表示程式碼區塊</li>
-                <li>不需要行尾分號</li>
-                <li>變數不需要宣告類型</li>
-                <li>註解使用 # 符號</li>
-            </ul>
+                    <h3>Python 語法特點</h3>
+                    <ul>
+                        <li>使用縮排（通常是4個空格）來表示程式碼區塊</li>
+                        <li>不需要行尾分號</li>
+                        <li>變數不需要宣告類型</li>
+                        <li>註解使用 # 符號</li>
+                    </ul>
 
-            <h3>變數與賦值</h3>
-            <p>Python 中的變數不需要事先宣告型態，可以直接賦值使用。變數名稱區分大小寫，且可以包含字母、數字和底線（但不能以數字開頭）。</p>
-            <div class="runnable-code">
-                <textarea class="code-editor" id="code2" readonly># 變數宣告與賦值
+                    <h3>變數與賦值</h3>
+                    <p>Python 中的變數不需要事先宣告型態，可以直接賦值使用。變數名稱區分大小寫，且可以包含字母、數字和底線（但不能以數字開頭）。</p>
+                    <div class="runnable-code">
+                        <textarea class="code-editor" id="code2" readonly># 變數宣告與賦值
 name = "Python"
 age = 30
 is_programming_language = True
@@ -215,1746 +340,15 @@ print("是程式語言嗎?", is_programming_language)
 # 多重賦值
 a, b, c = 1, 2, 3
 print("a =", a, "b =", b, "c =", c)</textarea>
-                <button class="copy-button" onclick="copyCode('code2')">複製</button>
-                <button class="run-button" onclick="runPython('code2', 'output2')">執行</button>
-                <div class="output" id="output2"></div>
-            </div>
-        </section>
-
-        <section id="data-types">
-            <h2>資料型態</h2>
-            <h3>基本資料型態</h3>
-            <ul>
-                <li><strong>數字 (Numbers)</strong>
-                    <ul>
-                        <li>整數 (int): <code>x = 10</code></li>
-                        <li>浮點數 (float): <code>y = 10.5</code></li>
-                        <li>複數 (complex): <code>z = 1+2j</code></li>
-                    </ul>
-                </li>
-                <li><strong>字串 (String)</strong>: <code>name = "Python"</code></li>
-                <li><strong>布林值 (Boolean)</strong>: <code>is_valid = True</code></li>
-                <li><strong>None 型態</strong>: <code>result = None</code></li>
-            </ul>
-
-            <div class="runnable-code">
-                <p>以下範例展示了如何建立各種基本資料型態，並使用 type() 函數檢查它們的型態：</p>
-                <textarea class="code-editor" id="code3" readonly># 基本資料型態示範
-x = 10
-y = 10.5
-z = 1+2j
-name = "Python"
-is_valid = True
-result = None
-
-# 檢查資料型態
-print("x 的型態:", type(x))
-print("y 的型態:", type(y))
-print("z 的型態:", type(z))
-print("name 的型態:", type(name))
-print("is_valid 的型態:", type(is_valid))
-print("result 的型態:", type(result))</textarea>
-                <button class="copy-button" onclick="copyCode('code3')">複製</button>
-                <button class="run-button" onclick="runPython('code3', 'output3')">執行</button>
-                <div class="output" id="output3"></div>
-            </div>
-
-            <h3>容器型資料型態</h3>
-            <ul>
-                <li><strong>列表 (List)</strong>: 有序、可變的序列
-                    <p>列表是 Python 中最常用的資料結構之一，可以儲存不同型態的元素，並且可以動態地添加、刪除和修改元素。</p>
-                    <div class="runnable-code">
-                        <p>下面的代碼展示了如何創建列表、添加元素以及訪問列表中的元素。列表是有序的集合，索引從0開始，支持嵌套和切片操作。</p>
-                        <textarea class="code-editor" id="code4" readonly>fruits = ["apple", "banana", "cherry"]
-fruits.append("orange")  # 添加元素
-print("水果列表:", fruits)
-print("第一個水果:", fruits[0])  # 訪問元素：apple</textarea>
-                        <button class="copy-button" onclick="copyCode('code4')">複製</button>
-                        <button class="run-button" onclick="runPython('code4', 'output4')">執行</button>
-                        <div class="output" id="output4"></div>
+                        <button class="copy-button" onclick="copyCode('code2')">複製</button>
+                        <button class="run-button" onclick="runPython('code2', 'output2')">執行</button>
+                        <div class="output" id="output2"></div>
                     </div>
-                </li>
-                <li><strong>元組 (Tuple)</strong>: 有序、不可變的序列
-                    <p>元組與列表類似，但是一旦創建後就不能修改。元組使用小括號 () 定義，較列表更為高效且安全。</p>
-                    <div class="runnable-code">
-                        <p>元組是不可變的序列，意味著一旦創建就不能修改、添加或刪除元素。這種特性使元組適合用於存儲固定數據集，如坐標點或RGB顏色值。</p>
-                        <textarea class="code-editor" id="code5" readonly>coordinates = (10, 20)
-print("坐標:", coordinates)
-print("X 坐標:", coordinates[0])  # 訪問元素：10</textarea>
-                        <button class="copy-button" onclick="copyCode('code5')">複製</button>
-                        <button class="run-button" onclick="runPython('code5', 'output5')">執行</button>
-                        <div class="output" id="output5"></div>
-                    </div>
-                </li>
-                <li><strong>集合 (Set)</strong>: 無序、不重複元素的集合
-                    <p>集合中的元素不會重複，且無固定順序。集合支援交集、聯集、差集等數學運算，適合需要去除重複項或進行集合運算的場景。</p>
-                    <div class="runnable-code">
-                        <p>集合用於存儲唯一元素，自動去除重複項。雖然集合是無序的，但它支持成員測試和集合操作，如交集、聯集和差集，非常適合需要進行數學集合操作的情境。</p>
-                        <textarea class="code-editor" id="code6" readonly>unique_numbers = {1, 2, 3, 3, 4}  # 結果是 {1, 2, 3, 4}
-print("原始集合:", unique_numbers)
-unique_numbers.add(5)  # 添加元素
-print("添加元素後:", unique_numbers)</textarea>
-                        <button class="copy-button" onclick="copyCode('code6')">複製</button>
-                        <button class="run-button" onclick="runPython('code6', 'output6')">執行</button>
-                        <div class="output" id="output6"></div>
-                    </div>
-                </li>
-                <li><strong>字典 (Dictionary)</strong>: 鍵值對集合
-                    <p>字典是一種映射型的資料結構，以鍵值對的形式儲存資料。每個鍵都是唯一的，可以快速查找、添加和刪除元素。</p>
-                    <div class="runnable-code">
-                        <p>字典用於存儲鍵值對，其中鍵必須是唯一且不可變的(通常是字符串、數字或元組)，而值可以是任何類型。字典提供高效的查找和插入操作，適合存儲具有關聯性的數據。</p>
-                        <textarea class="code-editor" id="code7" readonly>person = {
-    "name": "John",
-    "age": 30,
-    "city": "New York"
-}
-print("人物資訊:", person)
-print("姓名:", person["name"])  # 訪問元素：John</textarea>
-                        <button class="copy-button" onclick="copyCode('code7')">複製</button>
-                        <button class="run-button" onclick="runPython('code7', 'output7')">執行</button>
-                        <div class="output" id="output7"></div>
-                    </div>
-                </li>
-            </ul>
-        </section>
+                </section>
 
-        <section id="control-flow">
-            <h2>流程控制</h2>
-            <h3>條件語句</h3>
-            <p>條件語句允許程式根據特定條件執行不同的程式碼區塊。Python 使用 if, elif, else 關鍵字來構建條件結構。</p>
-            <div class="runnable-code">
-                <p>以下示例展示了Python的條件語句結構，包括if、elif和else的基本用法。條件語句讓程式能夠做出決策並執行相應的代碼塊。您可以通過修改變數x的值來觀察不同條件下的執行結果。</p>
-                <textarea class="code-editor" id="code8" readonly># if-elif-else 語句
-x = 10
-
-if x > 10:
-    print("x 大於 10")
-elif x < 10:
-    print("x 小於 10")
-else:
-    print("x 等於 10")
-    
-# 嘗試修改 x 的值觀察結果
-# x = 5
-# x = 15</textarea>
-                <button class="copy-button" onclick="copyCode('code8')">複製</button>
-                <button class="run-button" onclick="runPython('code8', 'output8')">執行</button>
-                <div class="output" id="output8"></div>
+                <!-- 以下省略其他節區，保持原樣 -->
             </div>
-
-            <h3>迴圈</h3>
-            <p>迴圈用於重複執行一段程式碼。Python 提供兩種主要的迴圈結構：for 迴圈和 while 迴圈，以及 break 和 continue 關鍵字來控制迴圈流程。</p>
-            <div class="runnable-code">
-                <p>下面的示例展示了Python中的兩種基本循環：for循環和while循環。範例也展示了如何使用break跳出循環和continue跳過當前迭代。Python的for循環主要用於遍歷序列，而while循環則在滿足條件時持續執行。</p>
-                <textarea class="code-editor" id="code9" readonly># for 迴圈
-print("for 迴圈:")
-for i in range(5):
-    print(i, end=" ")  # 輸出 0, 1, 2, 3, 4
-
-print("\n\n# while 迴圈:")
-count = 0
-while count < 5:
-    print(count, end=" ")
-    count += 1  # 輸出 0, 1, 2, 3, 4
-
-print("\n\n# break 和 continue:")
-for i in range(10):
-    if i == 3:
-        continue  # 跳過當前迭代
-    if i == 7:
-        break  # 結束迴圈
-    print(i, end=" ")  # 輸出 0, 1, 2, 4, 5, 6</textarea>
-                <button class="copy-button" onclick="copyCode('code9')">複製</button>
-                <button class="run-button" onclick="runPython('code9', 'output9')">執行</button>
-                <div class="output" id="output9"></div>
-            </div>
-        </section>
-
-        <section id="functions">
-            <h2>函數</h2>
-            <h3>函數定義與呼叫</h3>
-            <p>函數是可重複使用的程式碼區塊，用於執行特定任務。Python 使用 def 關鍵字定義函數，可以帶有參數和返回值。函數可以設定默認參數值，也可以接收可變數量的參數。</p>
-            <div class="runnable-code">
-                <p>下面的代碼展示了Python函數的基本定義和調用方式。範例包括：帶返回值的基本函數、具有默認參數的函數以及使用*args接收可變參數的函數。函數讓代碼更加模塊化、可重用，並且可以封裝實現細節。</p>
-                <textarea class="code-editor" id="code10" readonly># 定義基本函數
-def greet(name):
-    return f"Hello, {name}!"
-
-# 呼叫函數
-message = greet("Python")
-print(message)  # 輸出: Hello, Python!
-
-# 帶有默認參數的函數
-def power(base, exponent=2):
-    return base ** exponent
-
-print("3的平方:", power(3))      # 輸出: 9 (3^2)
-print("3的立方:", power(3, 3))   # 輸出: 27 (3^3)
-
-# 可變參數函數
-def sum_all(*numbers):
-    total = 0
-    for num in numbers:
-        total += num
-    return total
-
-print("1+2+3+4+5 =", sum_all(1, 2, 3, 4, 5))  # 輸出: 15</textarea>
-                <button class="copy-button" onclick="copyCode('code10')">複製</button>
-                <button class="run-button" onclick="runPython('code10', 'output10')">執行</button>
-                <div class="output" id="output10"></div>
-            </div>
-
-            <h3>Lambda 函數</h3>
-            <p>Lambda 函數是一種小型的匿名函數，可以在一行內定義。它們常用於需要一個簡短函數的情境，特別是作為其他函數的參數時。</p>
-            <div class="runnable-code">
-                <p>Lambda函數（又稱匿名函數）是Python中的一種簡潔的單行函數定義方式，特別適合簡單的計算或作為高階函數的參數。以下示例展示了lambda函數的基本用法，以及如何在map函數中使用lambda來對列表中的每個元素進行平方計算。</p>
-                <textarea class="code-editor" id="code11" readonly># Lambda (匿名) 函數
-square = lambda x: x ** 2
-print("5的平方:", square(5))  # 輸出: 25
-
-# 在高階函數中使用 lambda
-numbers = [1, 2, 3, 4, 5]
-squares = list(map(lambda x: x**2, numbers))
-print("數字平方列表:", squares)  # 輸出: [1, 4, 9, 16, 25]</textarea>
-                <button class="copy-button" onclick="copyCode('code11')">複製</button>
-                <button class="run-button" onclick="runPython('code11', 'output11')">執行</button>
-                <div class="output" id="output11"></div>
-            </div>
-        </section>
-
-        <section id="string-operations">
-            <h2>字串操作</h2>
-            <h3>字串基本操作</h3>
-            <p>Python中的字串是不可變序列，提供了豐富的操作方法：</p>
-            <div class="runnable-code">
-                <p>以下示例展示了Python字串的基本操作，包括字串的創建、基本方法（如大小寫轉換）、字串切片、搜索、替換和分割等操作。字串在Python中被廣泛應用於文本處理、數據分析和網絡編程等領域。</p>
-                <textarea class="code-editor" id="code-string-1" readonly># 字串創建和基本操作
-text = "Hello, Python!"
-print("原始字串:", text)
-print("長度:", len(text))
-print("大寫:", text.upper())
-print("小寫:", text.lower())
-print("首字母大寫:", text.capitalize())
-print("每個單詞首字母大寫:", text.title())
-
-# 字串切片
-print("\n切片操作:")
-print("前5個字符:", text[:5])  # Hello
-print("第7個到結尾:", text[7:])  # Python!
-print("第7到第13個字符:", text[7:13])  # Python
-
-# 字串搜索
-print("\n搜索操作:")
-print("'Python'的位置:", text.find("Python"))
-print("'Java'的位置:", text.find("Java"))  # 返回-1表示未找到
-print("'o'在字串中出現的次數:", text.count("o"))
-
-# 替換和分割
-print("\n替換和分割:")
-print("替換'Python'為'World':", text.replace("Python", "World"))
-words = text.split(", ")
-print("按', '分割字串:", words)
-print("用'-'連接列表元素:", "-".join(words))</textarea>
-                <button class="copy-button" onclick="copyCode('code-string-1')">複製</button>
-                <button class="run-button" onclick="runPython('code-string-1', 'output-string-1')">執行</button>
-                <div class="output" id="output-string-1"></div>
-            </div>
-
-            <h3>字串格式化</h3>
-            <p>Python提供多種字串格式化方法：</p>
-            <div class="runnable-code">
-                <p>Python提供了多種字串格式化方式，使得文本與數據的組合更加靈活。這個示例展示了三種主要的格式化方法：%運算符格式化（舊式但廣泛兼容）、format()方法格式化（更現代和強大），以及各種數字格式化選項。正確選擇格式化方法可以使代碼更清晰、更易於維護。</p>
-                <textarea class="code-editor" id="code-string-2" readonly># 1. % 運算符格式化 (舊式)
-name = "Alice"
-age = 25
-print("我的名字是 %s，今年 %d 歲。" % (name, age))
-
-# 2. format() 方法格式化
-print("我的名字是 {}，今年 {} 歲。".format(name, age))
-print("我的名字是 {0}，今年 {1} 歲。{0}很高興認識你！".format(name, age))
-print("我的名字是 {name}，今年 {age} 歲。".format(name=name, age=age))
-
-# 3. f-string格式化 (Python 3.6+) - 在skulpt中可能不完全支持
-print("我的名字是 " + name + "，今年 " + str(age) + " 歲。")
-
-# 數字格式化
-pi = 3.14159265359
-print("\n數字格式化:")
-print("保留兩位小數的π: %.2f" % pi)
-print("帶符號的數字: %+d" % 42)
-print("8位寬，右對齊，用0填充: %08d" % 42)
-print("8位寬，左對齊: %-8d" % 42)
-
-print("\nformat()方法格式化數字:")
-print("保留兩位小數的π: {:.2f}".format(pi))
-print("8位寬，右對齊，用0填充: {:08d}".format(42))
-print("8位寬，左對齊: {:<8d}".format(42))
-print("千位分隔符: {:,}".format(1000000))
-print("百分比格式: {:.2%}".format(0.25))  # 顯示為25.00%</textarea>
-                <button class="copy-button" onclick="copyCode('code-string-2')">複製</button>
-                <button class="run-button" onclick="runPython('code-string-2', 'output-string-2')">執行</button>
-                <div class="output" id="output-string-2"></div>
-            </div>
-
-            <h3>字串方法</h3>
-            <p>Python的字串類型提供了許多實用方法：</p>
-            <div class="runnable-code">
-                <p>這個示例展示了Python字串類型的更多實用方法，包括空白處理、字串檢查、字串對齊和其他特殊操作。這些方法使字串處理變得簡潔高效。通過組合使用這些方法，可以實現複雜的文本處理功能，如文本清理、格式化和驗證等。</p>
-                <textarea class="code-editor" id="code-string-3" readonly># 去除空白
-text = "  Hello, Python!  "
-print("原始字串: '%s'" % text)
-print("去除左側空白: '%s'" % text.lstrip())
-print("去除右側空白: '%s'" % text.rstrip())
-print("去除兩側空白: '%s'" % text.strip())
-
-# 檢查字串特性
-print("\n字串檢查:")
-print("是否以'He'開頭:", text.strip().startswith("He"))
-print("是否以'on!'結尾:", text.strip().endswith("on!"))
-print("是否全為字母或數字:", "Hello123".isalnum())
-print("是否全為字母:", "Hello".isalpha())
-print("是否全為數字:", "123".isdigit())
-print("是否全為小寫:", "hello".islower())
-print("是否全為大寫:", "HELLO".isupper())
-print("是否每個單詞首字母大寫:", "Hello World".istitle())
-
-# 字串對齊
-print("\n字串對齊:")
-text = "Python"
-width = 20
-print("左對齊: '%s'" % text.ljust(width))
-print("右對齊: '%s'" % text.rjust(width))
-print("居中對齊: '%s'" % text.center(width))
-print("用'*'填充居中對齊: '%s'" % text.center(width, '*'))
-
-# 更多實用方法
-print("\n其他實用方法:")
-csv_text = "apple,banana,cherry,date"
-print("分割CSV:", csv_text.split(","))
-lines = "Line 1\nLine 2\nLine 3"
-print("分割行:", lines.splitlines())
-print("替換所有'a'為'@':", "banana".replace("a", "@"))
-text = "hello world"
-trans_table = str.maketrans("elo", "123")
-print("使用轉換表替換字符:", text.translate(trans_table))</textarea>
-                <button class="copy-button" onclick="copyCode('code-string-3')">複製</button>
-                <button class="run-button" onclick="runPython('code-string-3', 'output-string-3')">執行</button>
-                <div class="output" id="output-string-3"></div>
-            </div>
-        </section>
-
-        <section id="built-in-functions">
-            <h2>Python內置函數</h2>
-            <p>Python提供了許多內置函數，可以執行各種常見任務：</p>
-
-            <h3>數學相關函數</h3>
-            <div class="runnable-code">
-                <p>Python提供了多種內置的數學函數，無需導入額外模塊即可使用。以下示例展示了一些常用的數學相關函數，如絕對值、四捨五入、最大值、最小值、總和以及冪運算。這些函數在數值計算和數據處理中非常實用。</p>
-                <textarea class="code-editor" id="code-builtins-1" readonly># 數學相關函數
-print("絕對值:", abs(-10))
-print("四捨五入:", round(3.7))
-print("四捨五入到小數點後2位:", round(3.1415926, 2))
-print("最大值:", max(5, 3, 9, 1))
-print("最小值:", min(5, 3, 9, 1))
-print("總和:", sum([1, 2, 3, 4, 5]))
-print("冪運算:", pow(2, 3))  # 相當於 2**3</textarea>
-                <button class="copy-button" onclick="copyCode('code-builtins-1')">複製</button>
-                <button class="run-button" onclick="runPython('code-builtins-1', 'output-builtins-1')">執行</button>
-                <div class="output" id="output-builtins-1"></div>
-            </div>
-
-            <h3>數據類型轉換</h3>
-            <div class="runnable-code">
-                <p>Python提供了一組內置函數用於在不同數據類型之間進行轉換。這個示例演示了如何將值從一種類型轉換為另一種類型，包括整數、浮點數、字符串、布爾值、列表、元組、集合和字典之間的轉換。數據類型轉換在處理用戶輸入、數據分析和接口設計等方面非常重要。</p>
-                <textarea class="code-editor" id="code-builtins-2" readonly># 數據類型轉換函數
-print("整數轉換:", int(3.9))  # 3 (截斷小數)
-print("浮點數轉換:", float(5))  # 5.0
-print("字串轉換:", str(123))  # "123"
-print("布爾值轉換:", bool(0), bool(1), bool(""))  # False True False
-print("列表轉換:", list("abc"))  # ['a', 'b', 'c']
-print("元組轉換:", tuple([1, 2, 3]))  # (1, 2, 3)
-print("集合轉換:", set([1, 2, 2, 3, 3, 3]))  # {1, 2, 3}
-print("字典轉換:", dict([("a", 1), ("b", 2)]))  # {'a': 1, 'b': 2}</textarea>
-                <button class="copy-button" onclick="copyCode('code-builtins-2')">複製</button>
-                <button class="run-button" onclick="runPython('code-builtins-2', 'output-builtins-2')">執行</button>
-                <div class="output" id="output-builtins-2"></div>
-            </div>
-
-            <h3>序列操作和查詢</h3>
-            <div class="runnable-code">
-                <p>這個示例演示了Python用於操作和查詢序列的內置函數。包括基本序列操作（如len、sum、max、min、sorted）、枚舉函數enumerate（可同時獲取索引和值）、組合多個序列的zip函數，以及用於集合邏輯判斷的all/any函數和高階函數filter/map。這些函數大大簡化了對序列數據的處理和操作。</p>
-                <textarea class="code-editor" id="code-builtins-3" readonly># 序列操作函數
-numbers = [10, 20, 30, 40, 50]
-print("序列長度:", len(numbers))
-print("求和:", sum(numbers))
-print("最大值:", max(numbers))
-print("最小值:", min(numbers))
-print("排序:", sorted(numbers, reverse=True))  # 降序排序
-
-# 枚舉函數
-print("\n使用enumerate:")
-for i, value in enumerate(["a", "b", "c"], start=1):
-    print("序號: %d, 值: %s" % (i, value))
-
-# zip函數 - 組合多個序列
-names = ["Alice", "Bob", "Charlie"]
-ages = [25, 30, 35]
-print("\n使用zip組合序列:")
-for name, age in zip(names, ages):
-    print("%s 的年齡是 %d" % (name, age))
-
-# all和any函數
-print("\n使用all和any:")
-print("是否全為真:", all([True, True, False]))  # False
-print("是否有真值:", any([False, False, True]))  # True
-
-# filter和map函數
-print("\n使用filter和map:")
-numbers = [1, 2, 3, 4, 5, 6]
-even_numbers = list(filter(lambda x: x % 2 == 0, numbers))
-print("偶數:", even_numbers)
-squared_numbers = list(map(lambda x: x**2, numbers))
-print("平方值:", squared_numbers)</textarea>
-                <button class="copy-button" onclick="copyCode('code-builtins-3')">複製</button>
-                <button class="run-button" onclick="runPython('code-builtins-3', 'output-builtins-3')">執行</button>
-                <div class="output" id="output-builtins-3"></div>
-            </div>
-
-            <h3>對象和屬性</h3>
-            <div class="runnable-code">
-                <p>Python是一種面向對象的語言，這個示例演示了用於操作對象和屬性的內置函數。包括dir函數（列出對象的屬性和方法）、isinstance和issubclass函數（進行類型檢查和繼承關係判斷），以及getattr、hasattr和setattr函數（動態訪問和修改對象屬性）。這些函數在反射編程、動態類型檢查和通用代碼設計中非常有用。</p>
-                <textarea class="code-editor" id="code-builtins-4" readonly># dir函數 - 列出對象的屬性和方法
-print("字串對象的屬性和方法:", dir("hello")[:10])  # 只顯示前10個
-
-# isinstance和issubclass函數
-print("\n類型檢查:")
-print("5是整數嗎?", isinstance(5, int))
-print("'hello'是字串嗎?", isinstance("hello", str))
-print("5.0是整數嗎?", isinstance(5.0, int))
-
-# 整數是數字的子類
-print("整數是數字的子類嗎?", issubclass(int, (int, float)))
-
-# getattr, hasattr, setattr
-class Person:
-    name = "Anonymous"
-
-p = Person()
-print("\n屬性操作:")
-print("是否有name屬性:", hasattr(p, "name"))
-print("獲取name屬性:", getattr(p, "name"))
-print("設置name屬性:")
-setattr(p, "name", "Alice")
-print("新的name值:", p.name)</textarea>
-                <button class="copy-button" onclick="copyCode('code-builtins-4')">複製</button>
-                <button class="run-button" onclick="runPython('code-builtins-4', 'output-builtins-4')">執行</button>
-                <div class="output" id="output-builtins-4"></div>
-            </div>
-        </section>
-
-        <section id="file-io">
-            <h2>文件處理</h2>
-            <p>Python提供簡單易用的文件讀寫功能：</p>
-            
-            <h3>文件讀寫基礎</h3>
-            <div class="runnable-code">
-                <p>Python提供了簡單而強大的文件處理功能。以下示例展示了基本的文件操作，包括寫入文件、讀取整個文件內容、逐行讀取、附加內容到現有文件以及二進制文件處理。Python的文件操作通常使用with語句來確保文件正確關閉，並支持多種打開模式以滿足不同需求。注意：在瀏覽器環境中，這些操作僅作為語法展示。</p>
-                <textarea class="code-editor" id="code-file-1" readonly># 注意：在web環境中，文件操作受到限制
-# 以下是文件操作的標準語法
-
-# 寫入文件
-def write_file_example():
-    with open("example.txt", "w") as file:
-        file.write("Hello, Python!\n")
-        file.write("這是一個文件寫入範例。\n")
-        file.write("文件會自動關閉。")
-    print("文件已寫入")
-
-# 讀取文件
-def read_file_example():
-    with open("example.txt", "r") as file:
-        content = file.read()
-        print("文件內容:\n", content)
-
-# 逐行讀取
-def read_lines_example():
-    with open("example.txt", "r") as file:
-        print("逐行讀取:")
-        for line_number, line in enumerate(file, 1):
-            print("第%d行: %s" % (line_number, line.strip()))
-
-# 附加到文件
-def append_file_example():
-    with open("example.txt", "a") as file:
-        file.write("\n這是附加的內容。")
-    print("內容已附加到文件")
-
-# 讀寫二進制文件
-def binary_file_example():
-    # 寫入二進制文件
-    with open("binary.dat", "wb") as file:
-        file.write(b"\x00\x01\x02\x03")
-    print("二進制文件已寫入")
-    
-    # 讀取二進制文件
-    with open("binary.dat", "rb") as file:
-        data = file.read()
-        print("二進制數據:", data)
-
-print("在實際環境中，你可以使用以上函數進行文件操作")
-print("文件常用模式:")
-print("'r' - 讀取 (默認)")
-print("'w' - 寫入 (覆蓋)")
-print("'a' - 附加")
-print("'b' - 二進制模式")
-print("'t' - 文本模式 (默認)")
-print("'+' - 更新 (讀寫)")</textarea>
-                <button class="copy-button" onclick="copyCode('code-file-1')">複製</button>
-                <button class="run-button" onclick="runPython('code-file-1', 'output-file-1')">執行</button>
-                <div class="output" id="output-file-1"></div>
-            </div>
-
-            <h3>文件和目錄操作</h3>
-            <div class="runnable-code">
-                <p>Python的os模塊提供了豐富的文件系統操作功能。這個示例展示了如何獲取當前工作目錄、處理文件路徑（獲取目錄名、文件名和擴展名）、合併路徑以及檢查路徑是否存在等。此外，示例也列出了其他常用的文件和目錄操作，如創建目錄、重命名文件、刪除文件等。這些操作在文件管理、數據處理和自動化腳本中非常有用。</p>
-                <textarea class="code-editor" id="code-file-2" readonly># 使用os模塊進行文件和目錄操作
-import os
-
-# 顯示當前工作目錄
-print("當前工作目錄:", os.getcwd())
-
-# 列出目錄內容
-# print("目錄內容:", os.listdir("."))
-
-# 文件路徑操作
-path = "folder/subfolder/file.txt"
-print("\n路徑操作:")
-print("目錄名:", os.path.dirname(path))
-print("文件名:", os.path.basename(path))
-print("擴展名:", os.path.splitext(os.path.basename(path))[1])
-
-# 路徑合併
-new_path = os.path.join("my_folder", "my_file.txt")
-print("合併路徑:", new_path)
-
-# 檢查路徑
-print("\n路徑檢查:")
-print("是否存在:", os.path.exists("index.html"))  # 這在瀏覽器環境中可能不準確
-print("是否為文件:", os.path.isfile("index.html"))  # 同上
-print("是否為目錄:", os.path.isdir("."))  # 同上
-
-# 下面的操作在瀏覽器環境中不會實際執行
-print("\n以下操作在實際Python環境中可用:")
-print("- 創建目錄: os.mkdir('new_folder')")
-print("- 重命名文件: os.rename('old.txt', 'new.txt')")
-print("- 刪除文件: os.remove('file.txt')")
-print("- 刪除目錄: os.rmdir('empty_folder')")
-print("- 獲取文件信息: os.stat('file.txt')")
-print("- 遍歷目錄樹: os.walk('.')")</textarea>
-                <button class="copy-button" onclick="copyCode('code-file-2')">複製</button>
-                <button class="run-button" onclick="runPython('code-file-2', 'output-file-2')">執行</button>
-                <div class="output" id="output-file-2"></div>
-            </div>
-        </section>
-
-        <section id="regex">
-            <h2>正則表達式</h2>
-            <p>Python的re模塊提供強大的文本模式匹配功能：</p>
-
-            <h3>正則表達式基礎</h3>
-            <div class="runnable-code">
-                <p>正則表達式是一種強大的文本模式匹配和搜索工具。這個示例展示了Python中正則表達式的基本用法，包括基本匹配、使用模式查找符合特定規則的文本、特殊字符和重複語法、分組捕獲、替換和分割操作。正則表達式在文本處理、數據清洗、網頁抓取和驗證等方面非常有用。</p>
-                <textarea class="code-editor" id="code-regex-1" readonly>import re
-
-# 基本匹配
-text = "The quick brown fox jumps over the lazy dog."
-match = re.search(r"fox", text)
-print("找到'fox':", match.group() if match else "未找到")
-
-# 使用模式
-pattern = r"[a-z]+o[a-z]+"  # 包含字母'o'的單詞
-matches = re.findall(pattern, text.lower())
-print("包含'o'的單詞:", matches)
-
-# 使用特殊字符和重複
-phone_pattern = r"\d{3}-\d{3}-\d{4}"
-phones = "聯繫電話: 123-456-7890, 987-654-3210"
-phone_matches = re.findall(phone_pattern, phones)
-print("找到的電話號碼:", phone_matches)
-
-# 使用分組
-name_pattern = r"Mr\. ([A-Z][a-z]+)"
-names = "Mr. Smith and Mr. Johnson are present."
-name_matches = re.findall(name_pattern, names)
-print("找到的姓氏:", name_matches)
-
-# 替換
-new_text = re.sub(r"fox", "tiger", text)
-print("替換後的文本:", new_text)
-
-# 分割
-split_text = re.split(r"\s+", "Hello  world,  how  are  you?")
-print("按空格分割:", split_text)</textarea>
-                <button class="copy-button" onclick="copyCode('code-regex-1')">複製</button>
-                <button class="run-button" onclick="runPython('code-regex-1', 'output-regex-1')">執行</button>
-                <div class="output" id="output-regex-1"></div>
-            </div>
-
-            <h3>進階正則表達式</h3>
-            <div class="runnable-code">
-                <p>這個示例展示了更高級的正則表達式功能，包括標誌（如忽略大小寫和多行匹配）、貪婪與非貪婪匹配、先行斷言和後行斷言，以及常用的正則表達式模式（如電子郵件、URL、IP地址和日期）。理解這些高級概念可以幫助您更精確地控制匹配行為，處理更複雜的文本分析需求。</p>
-                <textarea class="code-editor" id="code-regex-2" readonly>import re
-
-# 正則表達式標誌
-text = "HELLO world\nHELLO earth"
-matches = re.findall(r"hello", text, re.IGNORECASE)
-print("忽略大小寫匹配:", matches)
-
-multiline_matches = re.findall(r"^hello", text, re.IGNORECASE | re.MULTILINE)
-print("多行匹配:", multiline_matches)
-
-# 貪婪vs非貪婪匹配
-html = "<div>內容1</div><div>內容2</div>"
-greedy = re.findall(r"<div>.*</div>", html)
-non_greedy = re.findall(r"<div>.*?</div>", html)
-print("貪婪匹配:", greedy)
-print("非貪婪匹配:", non_greedy)
-
-# 先行斷言和後行斷言
-text = "apple, banana, orange"
-# 匹配後面跟著'na'的單詞
-lookhead = re.findall(r"\w+(?=na)", text)
-print("先行斷言:", lookhead)
-
-# 匹配前面是'a'的單詞
-lookbehind = re.findall(r"(?<=a)\w+", text)
-print("後行斷言:", lookbehind)
-
-# 常用正則表達式模式
-patterns = {
-    "email": r"\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b",
-    "url": r"https?://(?:[-\w.]|(?:%[\da-fA-F]{2}))+",
-    "ip_address": r"\b(?:\d{1,3}\.){3}\d{1,3}\b",
-    "date": r"\d{4}-\d{2}-\d{2}"
-}
-
-test_strings = {
-    "email": "聯繫我: user@example.com",
-    "url": "訪問網站: https://www.example.com",
-    "ip_address": "服務器 IP: 192.168.1.1",
-    "date": "日期: 2023-05-15"
-}
-
-print("\n常用模式匹配:")
-for name, pattern in patterns.items():
-    match = re.search(pattern, test_strings[name])
-    print("%s: %s" % (name, match.group() if match else "未找到"))</textarea>
-                <button class="copy-button" onclick="copyCode('code-regex-2')">複製</button>
-                <button class="run-button" onclick="runPython('code-regex-2', 'output-regex-2')">執行</button>
-                <div class="output" id="output-regex-2"></div>
-            </div>
-        </section>
-
-        <section id="modules">
-            <h2>模組與套件</h2>
-            <h3>導入模組</h3>
-            <p>模組是包含 Python 定義和語句的文件，可以通過 import 關鍵字導入到其他 Python 程式中使用。Python 標準庫提供了大量實用模組，也可以導入第三方套件或自行開發模組。</p>
-            <div class="runnable-code">
-                <p>以下示例展示了Python中導入模組的不同方式：導入整個模組、導入特定函數、導入並重命名，以及導入多個函數。模組化設計是Python的核心理念之一，有助於代碼的組織、重用和維護。</p>
-                <textarea class="code-editor" id="code12" readonly># 導入整個模組
-import math
-print("16的平方根:", math.sqrt(16))  # 輸出: 4.0
-
-# 導入特定函數
-from math import sqrt
-print("16的平方根:", sqrt(16))  # 輸出: 4.0
-
-# 導入並重命名
-import math as m
-print("圓周率:", m.pi)  # 輸出: 3.141592653589793
-
-# 導入多個函數
-from math import sqrt, pi
-print("16的平方根:", sqrt(16))
-print("圓周率:", pi)</textarea>
-                <button class="copy-button" onclick="copyCode('code12')">複製</button>
-                <button class="run-button" onclick="runPython('code12', 'output12')">執行</button>
-                <div class="output" id="output12"></div>
-            </div>
-
-            <h3>常用標準庫</h3>
-            <ul>
-                <li><code>os</code>: 操作系統功能</li>
-                <li><code>sys</code>: 系統特定參數和函數</li>
-                <li><code>datetime</code>: 日期和時間處理</li>
-                <li><code>random</code>: 生成隨機數</li>
-                <li><code>json</code>: JSON 資料處理</li>
-                <li><code>re</code>: 正則表達式</li>
-                <li><code>collections</code>: 特殊容器資料型態</li>
-            </ul>
-
-            <div class="runnable-code">
-                <p>以下範例展示如何使用 random 模組生成隨機數和進行隨機操作：</p>
-                <p>random模組提供了許多生成隨機數和進行隨機操作的函數。在這個例子中，我們使用randint生成隨機整數，使用choice從列表中隨機選擇元素，以及使用shuffle隨機重排列表中的元素。隨機數在遊戲開發、模擬和數據採樣等領域非常有用。</p>
-                <textarea class="code-editor" id="code13" readonly># random模組範例
-import random
-
-# 生成1到100之間的隨機整數
-random_num = random.randint(1, 100)
-print("隨機數:", random_num)
-
-# 從列表中隨機選擇
-fruits = ["蘋果", "香蕉", "櫻桃", "橘子", "草莓"]
-random_fruit = random.choice(fruits)
-print("隨機水果:", random_fruit)
-
-# 隨機排序列表
-random.shuffle(fruits)
-print("隨機排序後:", fruits)</textarea>
-                <button class="copy-button" onclick="copyCode('code13')">複製</button>
-                <button class="run-button" onclick="runPython('code13', 'output13')">執行</button>
-                <div class="output" id="output13"></div>
-            </div>
-        </section>
-
-        <section id="advanced-syntax">
-            <h2>進階Python語法</h2>
-            
-            <h3>列表推導式</h3>
-            <p>列表推導式提供了一種簡潔的方式來創建列表：</p>
-            <div class="runnable-code">
-                <p>列表推導式是Python的一種簡潔且強大的功能，可以在一行代碼中創建新列表。這個示例展示了基本列表推導式、帶條件的列表推導式、多重循環的列表推導式，以及處理字符串的例子。列表推導式比傳統的for循環更簡潔、更快速，並且在處理大量數據時特別有用。</p>
-                <textarea class="code-editor" id="code16" readonly># 基本列表推導式
-squares = [x**2 for x in range(1, 11)]
-print("1到10的平方：", squares)
-
-# 帶條件的列表推導式
-even_squares = [x**2 for x in range(1, 11) if x % 2 == 0]
-print("1到10中偶數的平方：", even_squares)
-
-# 使用多個for循環的列表推導式
-coordinates = [(x, y) for x in range(1, 4) for y in range(1, 3)]
-print("坐標對：", coordinates)
-
-# 處理字串的例子
-words = ["hello", "world", "python", "programming"]
-upper_words = [word.upper() for word in words if len(word) > 5]
-print("長度超過5的單詞（大寫）：", upper_words)</textarea>
-                <button class="copy-button" onclick="copyCode('code16')">複製</button>
-                <button class="run-button" onclick="runPython('code16', 'output16')">執行</button>
-                <div class="output" id="output16"></div>
-            </div>
-
-            <h3>字典推導式與集合推導式</h3>
-            <p>與列表推導式類似，Python 也支援字典推導式和集合推導式，讓您能夠以簡潔的方式創建字典和集合。</p>
-            <div class="runnable-code">
-                <p>字典推導式和集合推導式是Python提供的強大語法糖，允許簡潔地創建字典和集合。這個示例展示了如何創建數字及其平方的字典、如何將兩個列表合併成字典、如何使用條件過濾創建字典，以及如何使用集合推導式獲取唯一值。這些技術在數據處理和轉換時非常有用，可以減少代碼量並提高可讀性。</p>
-                <textarea class="code-editor" id="code17" readonly># 字典推導式
-numbers = [1, 2, 3, 4, 5]
-squares_dict = {num: num**2 for num in numbers}
-print("數字平方字典：", squares_dict)
-
-# 將兩個列表組合成字典
-keys = ["a", "b", "c", "d"]
-values = [1, 2, 3, 4]
-combined_dict = {keys[i]: values[i] for i in range(len(keys))}
-print("組合字典：", combined_dict)
-
-# 帶條件的字典推導式
-even_squares_dict = {x: x**2 for x in range(10) if x % 2 == 0}
-print("偶數平方字典：", even_squares_dict)
-
-# 集合推導式
-unique_lengths = {len(word) for word in ["hello", "world", "python", "code"]}
-print("單詞長度集合：", unique_lengths)</textarea>
-                <button class="copy-button" onclick="copyCode('code17')">複製</button>
-                <button class="run-button" onclick="runPython('code17', 'output17')">執行</button>
-                <div class="output" id="output17"></div>
-            </div>
-
-            <h3>異常處理</h3>
-            <p>異常處理允許程式優雅地處理運行時可能發生的錯誤。Python 使用 try, except, else, finally 關鍵字來構建異常處理結構，可以捕獲特定類型的異常並執行相應的處理邏輯。</p>
-            <div class="runnable-code">
-                <p>異常處理是確保程序穩定性和可靠性的關鍵技術。這個示例展示了Python異常處理的基本結構，包括try-except基本用法、捕獲多種類型的異常、使用else子句(當try塊中沒有異常發生時執行)以及finally子句(無論是否發生異常都會執行)。良好的異常處理可以讓程序更加健壯，並提供更好的用戶體驗。</p>
-                <textarea class="code-editor" id="code18" readonly># 基本的try-except結構
-try:
-    result = 10 / 0  # 除以零會引發異常
-except ZeroDivisionError:
-    print("錯誤：除數不能為零！")
-
-# 處理多個異常
-try:
-    number = int("abc")  # 嘗試將非數字字串轉換為整數
-except ValueError:
-    print("錯誤：無法將字串轉換為整數")
-except ZeroDivisionError:
-    print("錯誤：除數不能為零！")
-except:
-    print("發生了其他類型的錯誤")
-
-# 使用else和finally
-try:
-    number = int("123")
-    result = 100 / number
-except ValueError:
-    print("錯誤：無法將字串轉換為整數")
-except ZeroDivisionError:
-    print("錯誤：除數不能為零！")
-else:
-    print("成功執行：結果是 %s" % result)
-finally:
-    print("無論是否發生異常，此代碼都會執行")</textarea>
-                <button class="copy-button" onclick="copyCode('code18')">複製</button>
-                <button class="run-button" onclick="runPython('code18', 'output18')">執行</button>
-                <div class="output" id="output18"></div>
-            </div>
-
-            <h3>裝飾器</h3>
-            <p>裝飾器是Python的一個強大特性，允許修改函數的行為：</p>
-            <div class="runnable-code">
-                <p>裝飾器是Python中強大的元編程工具，允許在不修改原始函數代碼的情況下擴展或修改函數的行為。這個示例展示了如何創建和使用裝飾器，包括基本的裝飾器用於跟踪函數執行時間，以及帶參數的裝飾器用於重複執行函數。裝飾器廣泛應用於身份驗證、日誌記錄、性能測量、緩存等場景，是Python高級編程的重要部分。</p>
-                <textarea class="code-editor" id="code19" readonly># 定義一個簡單的裝飾器
-def timing_decorator(func):
-    def wrapper(*args, **kwargs):
-        print("開始執行函數: %s" % func.__name__)
-        result = func(*args, **kwargs)
-        print("函數執行完畢: %s" % func.__name__)
-        return result
-    return wrapper
-
-# 使用裝飾器
-@timing_decorator
-def greet(name):
-    print("Hello, %s!" % name)
-    return "Greeting completed"
-
-# 調用裝飾後的函數
-result = greet("Python")
-print("返回值:", result)
-
-# 帶參數的裝飾器
-def repeat(n):
-    def decorator(func):
-        def wrapper(*args, **kwargs):
-            results = []
-            for _ in range(n):
-                results.append(func(*args, **kwargs))
-            return results
-        return wrapper
-    return decorator
-
-@repeat(3)
-def say_hi(name):
-    return "Hi, %s!" % name
-
-print(say_hi("World"))</textarea>
-                <button class="copy-button" onclick="copyCode('code19')">複製</button>
-                <button class="run-button" onclick="runPython('code19', 'output19')">執行</button>
-                <div class="output" id="output19"></div>
-            </div>
-
-            <h3>類別和物件導向編程</h3>
-            <p>類別是 Python 面向對象編程的基礎，用於創建具有屬性和方法的物件。Python 支援類別繼承、方法重寫、多型等面向對象的核心概念。</p>
-            <div class="runnable-code">
-                <p>面向對象編程(OOP)是一種強大的程序設計范式，Python提供了完整的OOP支持。這個示例展示了如何定義類、創建實例、使用類變量和實例變量、定義和使用方法、使用靜態方法和類方法，以及如何通過繼承擴展類的功能。通過繼承和多態這些核心OOP概念，我們可以創建更加模塊化、可重用和可維護的代碼。</p>
-                <textarea class="code-editor" id="code20" readonly># 定義一個基本類別
-class Person:
-    # 類別變數
-    species = "Homo sapiens"
-    
-    # 初始化方法（構造函數）
-    def __init__(self, name, age):
-        # 實例變數
-        self.name = name
-        self.age = age
-        
-    # 實例方法
-    def introduce(self):
-        return "我的名字是 %s，今年 %d 歲。" % (self.name, self.age)
-    
-    # 靜態方法
-    @staticmethod
-    def is_adult(age):
-        return age >= 18
-    
-    # 類別方法
-    @classmethod
-    def create_anonymous(cls, age):
-        return cls("Anonymous", age)
-
-# 創建實例
-person1 = Person("小明", 25)
-print(person1.introduce())
-print("物種：", person1.species)
-print("成年了嗎？", Person.is_adult(person1.age))
-
-# 使用類別方法創建實例
-anonymous = Person.create_anonymous(30)
-print(anonymous.introduce())
-
-# 繼承
-class Student(Person):
-    def __init__(self, name, age, student_id):
-        # 調用父類別的初始化方法
-        super().__init__(name, age)
-        self.student_id = student_id
-    
-    # 覆寫父類別的方法
-    def introduce(self):
-        return "%s 我是一名學生，學號是 %s。" % (super().introduce(), self.student_id)
-
-# 創建學生實例
-student1 = Student("小華", 20, "S12345")
-print(student1.introduce())
-
-# 生成器與迭代器
-<h3>生成器與迭代器</h3>
-            <p>生成器是一種特殊的函數，使用 yield 關鍵字返回值，並在下次調用時從上次的執行點繼續執行。迭代器是實現了 __iter__() 和 __next__() 方法的對象，可以被迭代處理。兩者都有助於高效處理大量數據。</p>
-            <div class="runnable-code">
-                <p>生成器和迭代器是Python中用於處理序列數據的高效工具。這個示例展示了如何使用生成器函數(使用yield關鍵字)創建斐波那契數列生成器、如何使用生成器表達式創建簡潔的序列生成器，以及如何通過實現__iter__和__next__方法創建自定義迭代器。生成器和迭代器的優勢在於它們是惰性計算的，只在需要時才生成值，因此在處理大量或無限序列數據時非常高效。</p>
-                <textarea class="code-editor" id="code21" readonly># 定義一個生成器函數
-def fibonacci(n):
-    a, b = 0, 1
-    count = 0
-    while count < n:
-        yield a
-        a, b = b, a + b
-        count += 1
-
-# 使用生成器
-print("斐波那契數列前10項：")
-for number in fibonacci(10):
-    print(number, end=" ")
-print()
-
-# 生成器表達式
-squares_gen = (x**2 for x in range(1, 6))
-print("生成器表達式（前5個數的平方）：")
-for square in squares_gen:
-    print(square, end=" ")
-print()
-
-# 自定義迭代器
-class CountDown:
-    def __init__(self, start):
-        self.start = start
-    
-    def __iter__(self):
-        return self
-    
-    def __next__(self):
-        if self.start <= 0:
-            raise StopIteration
-        self.start -= 1
-        return self.start + 1
-
-# 使用迭代器
-print("倒數：")
-for num in CountDown(5):
-    print(num, end=" ")</textarea>
-                <button class="copy-button" onclick="copyCode('code21')">複製</button>
-                <button class="run-button" onclick="runPython('code21', 'output21')">執行</button>
-                <div class="output" id="output21"></div>
-            </div>
-
-            <h3>上下文管理器與with語句</h3>
-            <p>上下文管理器用於管理資源的分配和釋放，比如文件操作和數據庫連接。with 語句提供了一種簡潔的方式來使用上下文管理器，確保資源在使用後被正確釋放，即使發生異常也不例外。</p>
-            <div class="runnable-code">
-                <p>上下文管理器是Python處理資源獲取和釋放的優雅方式。這個示例展示了如何通過實現__enter__和__exit__方法創建自定義上下文管理器，如何嵌套使用with語句，以及如何使用contextlib模塊簡化上下文管理器的創建。上下文管理器確保資源的正確清理，無論正常執行還是發生異常，這對於處理文件、網絡連接、數據庫事務等需要明確關閉或釋放的資源非常有用。</p>
-                <textarea class="code-editor" id="code22" readonly># 自定義上下文管理器
-class ContextManager:
-    def __init__(self, name):
-        self.name = name
-    
-    def __enter__(self):
-        print("進入 %s 上下文" % self.name)
-        return self
-    
-    def __exit__(self, exc_type, exc_val, exc_tb):
-        print("離開 %s 上下文" % self.name)
-        # 如果返回True，則異常被抑制
-        return False
-    
-    def do_something(self):
-        print("在 %s 上下文中執行操作" % self.name)
-
-# 使用自定義上下文管理器
-with ContextManager("測試") as cm:
-    cm.do_something()
-
-# 嵌套使用with語句
-with ContextManager("外層") as outer:
-    outer.do_something()
-    with ContextManager("內層") as inner:
-        inner.do_something()
-
-# 使用contextlib簡化上下文管理器的創建
-from contextlib import contextmanager
-
-@contextmanager
-def simple_context(name):
-    print("進入 %s 上下文" % name)
-    try:
-        yield name
-    finally:
-        print("離開 %s 上下文" % name)</textarea>
-                <button class="copy-button" onclick="copyCode('code22')">複製</button>
-                <button class="run-button" onclick="runPython('code22', 'output22')">執行</button>
-                <div class="output" id="output22"></div>
-            </div>
-        </section>
-
-        <section id="namespace-scope">
-            <h2>命名空間與作用域</h2>
-            <h3>變數作用域</h3>
-            <p>Python中的變數有不同的作用域，決定了它們的可見性和生命週期：</p>
-            <div class="runnable-code">
-                <p>Python中的變數作用域規則決定了變數的可見性和生命週期。這個示例展示了Python的四種主要作用域：全局作用域、局部作用域、嵌套作用域和內置作用域。我們可以看到如何訪問不同作用域中的變數，如何使用global關鍵字修改全局變數，以及如何使用nonlocal關鍵字修改嵌套作用域中的變數。理解作用域規則對於避免命名衝突和意外的變數行為非常重要。</p>
-                <textarea class="code-editor" id="code-scope-1" readonly># 全局和局部作用域
-global_var = "全局變數"
-
-def test_scope():
-    local_var = "局部變數"
-    print("在函數內部:")
-    print("局部變數:", local_var)
-    print("全局變數:", global_var)
-
-test_scope()
-print("\n在全局範圍:")
-print("全局變數:", global_var)
-# print("局部變數:", local_var)  # 這會導致錯誤，因為局部變數在此不可見
-
-# 使用global關鍵字
-x = 10
-def modify_global():
-    global x
-    x = 20
-    print("在函數內修改全局變數:", x)
-
-print("\n修改全局變數:")
-print("修改前:", x)
-modify_global()
-print("修改後:", x)
-
-# 嵌套作用域和nonlocal關鍵字
-def outer_function():
-    outer_var = "外部變數"
-    
-    def inner_function():
-        nonlocal outer_var
-        outer_var = "修改後的外部變數"
-        print("內部函數: outer_var =", outer_var)
-    
-    print("調用前: outer_var =", outer_var)
-    inner_function()
-    print("調用後: outer_var =", outer_var)
-
-print("\n嵌套作用域:")
-outer_function()</textarea>
-                <button class="copy-button" onclick="copyCode('code-scope-1')">複製</button>
-                <button class="run-button" onclick="runPython('code-scope-1', 'output-scope-1')">執行</button>
-                <div class="output" id="output-scope-1"></div>
-            </div>
-
-            <h3>命名空間</h3>
-            <p>命名空間是名稱到對象的映射。不同的命名空間可以共存，並且可以在不同層次上訪問：</p>
-            <div class="runnable-code">
-                <p>命名空間是名稱到對象的映射，Python中有多種不同類型的命名空間。這個示例展示了內置命名空間（包含Python的內置函數和對象）、全局命名空間（模塊級別的變數和函數）、局部命名空間（函數內的變數）、模塊命名空間（導入模塊的屬性和方法）以及類命名空間（類的屬性和方法）。理解命名空間有助於組織和管理代碼，避免命名衝突，並更好地理解Python的導入和作用域規則。</p>
-                <textarea class="code-editor" id="code-namespace-1" readonly># Python中的命名空間
-# 內置命名空間
-print("內置函數:", [name for name in dir(__builtins__) if not name.startswith("_")][:10])
-
-# 全局命名空間
-x = 10
-y = "hello"
-print("\n全局命名空間中的一些變數:", x, y)
-
-# 局部命名空間
-def show_local_namespace():
-    a = 5
-    b = "world"
-    # locals()返回當前局部命名空間的字典
-    print("局部命名空間:", locals())
-
-print("\n顯示局部命名空間:")
-show_local_namespace()
-
-# 模塊命名空間
-import math
-print("\nmath模塊的命名空間中的一些名稱:", [name for name in dir(math) if not name.startswith("_")][:10])
-
-# 類命名空間
-class MyClass:
-    class_var = "類變數"
-    
-    def __init__(self):
-        self.instance_var = "實例變數"
-    
-    def method(self):
-        pass
-
-print("\n類的命名空間:", [name for name in dir(MyClass) if not name.startswith("__")])</textarea>
-                <button class="copy-button" onclick="copyCode('code-namespace-1')">複製</button>
-                <button class="run-button" onclick="runPython('code-namespace-1', 'output-namespace-1')">執行</button>
-                <div class="output" id="output-namespace-1"></div>
-            </div>
-        </section>
-
-        <section id="magic-methods">
-            <h2>魔法方法</h2>
-            <p>魔法方法(又稱特殊方法或雙下劃線方法)允許自定義類在特定操作下的行為：</p>
-            <div class="runnable-code">
-                <p>魔法方法（又稱特殊方法或雙下劃線方法）是Python面向對象編程中的強大特性，允許自定義類在特定操作下的行為。這個示例使用Vector類展示了常用的魔法方法，包括__str__和__repr__（字符串表示）、__add__和__sub__（加法和減法運算符）、__mul__（乘法運算符）、__eq__（相等比較）、__abs__（絕對值）和__bool__（布爾值轉換）。通過實現這些方法，我們可以使自定義類像內置類型一樣自然地工作，支持Python的語法和操作。</p>
-                <textarea class="code-editor" id="code-magic-1" readonly># 常用魔法方法示例
-class Vector:
-    def __init__(self, x, y):
-        self.x = x
-        self.y = y
-    
-    # 字串表示
-    def __str__(self):
-        return "Vector(%s, %s)" % (self.x, self.y)
-    
-    # 開發者字串表示
-    def __repr__(self):
-        return "Vector(%s, %s)" % (self.x, self.y)
-    
-    # 加法運算
-    def __add__(self, other):
-        return Vector(self.x + other.x, self.y + other.y)
-    
-    # 減法運算
-    def __sub__(self, other):
-        return Vector(self.x - other.x, self.y - other.y)
-    
-    # 乘法運算 (標量乘法)
-    def __mul__(self, scalar):
-        return Vector(self.x * scalar, self.y * scalar)
-    
-    # 等於比較
-    def __eq__(self, other):
-        return self.x == other.x and self.y == other.y
-    
-    # 長度 (向量模)
-    def __abs__(self):
-        return (self.x**2 + self.y**2)**0.5
-    
-    # 布爾運算
-    def __bool__(self):
-        return bool(abs(self))
-
-# 創建向量實例
-v1 = Vector(3, 4)
-v2 = Vector(1, 2)
-
-print("向量1:", v1)
-print("向量2:", v2)
-print("向量1 + 向量2:", v1 + v2)
-print("向量1 - 向量2:", v1 - v2)
-print("向量1 * 2:", v1 * 2)
-print("向量1 == 向量2:", v1 == v2)
-print("向量1的長度:", abs(v1))
-print("向量1為真嗎?", bool(v1))
-print("零向量為真嗎?", bool(Vector(0, 0)))</textarea>
-                <button class="copy-button" onclick="copyCode('code-magic-1')">複製</button>
-                <button class="run-button" onclick="runPython('code-magic-1', 'output-magic-1')">執行</button>
-                <div class="output" id="output-magic-1"></div>
-            </div>
-
-            <h3>更多魔法方法</h3>
-            <div class="runnable-code">
-                <p>Python提供了更多魔法方法來自定義類的行為。這個示例展示了模擬容器類型的魔法方法，包括__getitem__（獲取元素）、__setitem__（設置元素）、__delitem__（刪除元素）、__len__（獲取長度）、__contains__（包含測試）和__iter__（迭代器）等。此外，示例也展示了如何使用魔法方法實現上下文管理器（__enter__和__exit__）。這些魔法方法讓我們能夠創建行為像內置類型的自定義類，並支持Python的各種語法特性。</p>
-                <textarea class="code-editor" id="code-magic-2" readonly># 模擬容器的魔法方法
-class MyList:
-    def __init__(self, items):
-        self.items = list(items)
-    
-    # 取得元素
-    def __getitem__(self, index):
-        return self.items[index]
-    
-    # 設置元素
-    def __setitem__(self, index, value):
-        self.items[index] = value
-    
-    # 刪除元素
-    def __delitem__(self, index):
-        del self.items[index]
-    
-    # 長度
-    def __len__(self):
-        return len(self.items)
-    
-    # 包含關係
-    def __contains__(self, item):
-        return item in self.items
-    
-    # 迭代器
-    def __iter__(self):
-        return iter(self.items)
-    
-    # 轉換為列表
-    def __list__(self):
-        return list(self.items)
-    
-    # 字串表示
-    def __str__(self):
-        return str(self.items)
-
-# 創建MyList實例
-my_list = MyList([1, 2, 3, 4, 5])
-
-print("列表:", my_list)
-print("第一個元素:", my_list[0])
-my_list[0] = 10
-print("修改後的列表:", my_list)
-print("列表長度:", len(my_list))
-print("3在列表中嗎?", 3 in my_list)
-
-print("\n迭代列表:")
-for item in my_list:
-    print(item, end=" ")
-
-# 使用魔法方法實現上下文管理器
-print("\n\n上下文管理器的魔法方法:")
-class DatabaseConnection:
-    def __init__(self, db_name):
-        self.db_name = db_name
-    
-    def __enter__(self):
-        print("連接到數據庫:", self.db_name)
-        return self
-    
-    def __exit__(self, exc_type, exc_val, exc_tb):
-        print("關閉數據庫連接:", self.db_name)
-        # 如果返回True，則抑制異常
-        return False
-    
-    def query(self, sql):
-        print("執行查詢:", sql)
-
-# 使用上下文管理器
-with DatabaseConnection("my_db") as conn:
-    conn.query("SELECT * FROM users")</textarea>
-                <button class="copy-button" onclick="copyCode('code-magic-2')">複製</button>
-                <button class="run-button" onclick="runPython('code-magic-2', 'output-magic-2')">執行</button>
-                <div class="output" id="output-magic-2"></div>
-            </div>
-        </section>
-
-        <section id="concurrency">
-            <h2>並發編程</h2>
-            <p>Python提供多種方式處理並發和並行任務：</p>
-
-            <h3>多線程</h3>
-            <div class="runnable-code">
-                <p>多線程是Python並發編程的一種方式，適合I/O密集型任務。這個示例演示了Python的threading模塊基本用法，包括如何創建線程、啟動線程和等待線程完成。範例中定義了一個worker函數模擬耗時任務，並創建了多個線程並行執行該函數。此外，示例還列出了主要的線程API，包括線程創建、同步原語（如鎖、事件、條件變量和信號量）等。需要注意的是，由於瀏覽器環境的限制，此代碼僅作為語法參考。</p>
-                <textarea class="code-editor" id="code-thread-1" readonly># 注意：在瀏覽器環境中，multithreading可能受限
-# 以下是多線程的標準Python語法
-
-import threading
-import time
-
-def worker(name, delay):
-    """線程工作函數"""
-    print("線程 %s: 開始" % name)
-    for i in range(3):
-        time.sleep(delay)  # 模擬耗時操作
-        print("線程 %s: 工作中 (%d)" % (name, i))
-    print("線程 %s: 完成" % name)
-
-def thread_example():
-    # 創建線程
-    t1 = threading.Thread(target=worker, args=("A", 0.5))
-    t2 = threading.Thread(target=worker, args=("B", 0.8))
-    
-    # 開始線程
-    print("主線程: 啟動線程")
-    t1.start()
-    t2.start()
-    
-    # 等待線程完成
-    print("主線程: 等待線程完成")
-    t1.join()
-    t2.join()
-    print("主線程: 所有線程完成")
-
-print("多線程示例 (在真實環境中執行)")
-print("線程API:")
-print("- threading.Thread(): 創建線程")
-print("- thread.start(): 啟動線程")
-print("- thread.join(): 等待線程完成")
-print("- threading.Lock(): 創建鎖對象")
-print("- lock.acquire(): 獲取鎖")
-print("- lock.release(): 釋放鎖")
-print("- threading.Event(): 線程通信")
-print("- threading.Condition(): 條件變量")
-print("- threading.Semaphore(): 信號量")</textarea>
-                <button class="copy-button" onclick="copyCode('code-thread-1')">複製</button>
-                <button class="run-button" onclick="runPython('code-thread-1', 'output-thread-1')">執行</button>
-                <div class="output" id="output-thread-1"></div>
-            </div>
-
-            <h3>線程同步</h3>
-            <div class="runnable-code">
-                <p>多線程編程中的一個重要考慮是如何安全地訪問共享資源。這個示例演示了線程同步的基本概念，展示了當多個線程訪問共享資源（計數器）時可能發生的競爭條件問題，以及如何使用鎖(Lock)來解決這個問題。通過使用鎖，我們可以確保一次只有一個線程能夠訪問關鍵代碼區域，從而保持數據的一致性。示例還討論了如何使用with語句簡化鎖的使用，以及避免死鎖的技巧。</p>
-                <textarea class="code-editor" id="code-thread-2" readonly># 線程同步範例
-import threading
-import time
-
-# 共享資源
-counter = 0
-
-def increment_counter(lock, count):
-    """增加計數器的值"""
-    global counter
-    
-    for _ in range(count):
-        # 獲取鎖
-        lock.acquire()
-        try:
-            # 關鍵部分 - 訪問共享資源
-            current = counter
-            time.sleep(0.001)  # 模擬處理時間
-            counter = current + 1
-        finally:
-            # 釋放鎖
-            lock.release()
-
-def thread_sync_example():
-    # 創建鎖
-    lock = threading.Lock()
-    
-    # 創建線程
-    t1 = threading.Thread(target=increment_counter, args=(lock, 10))
-    t2 = threading.Thread(target=increment_counter, args=(lock, 10))
-    
-    # 開始線程
-    t1.start()
-    t2.start()
-    
-    # 等待線程完成
-    t1.join()
-    t2.join()
-    
-    print("預期結果: 20")
-    print("實際結果: %d" % counter)
-    print("原因: 使用了線程同步(鎖)來保護共享資源")
-
-print("線程同步示例 (在真實環境中執行)")
-print("競爭條件問題:")
-print("- 多個線程同時訪問共享資源可能導致數據不一致")
-print("- 使用鎖可以確保一次只有一個線程訪問資源")
-print("- 'with lock' 語句可用作鎖的上下文管理器")
-print("- 避免死鎖的技巧: 按固定順序獲取多個鎖")</textarea>
-                <button class="copy-button" onclick="copyCode('code-thread-2')">複製</button>
-                <button class="run-button" onclick="runPython('code-thread-2', 'output-thread-2')">執行</button>
-                <div class="output" id="output-thread-2"></div>
-            </div>
-
-            <h3>多進程</h3>
-            <div class="runnable-code">
-                <p>多進程是Python中實現並行計算的另一種方式，特別適合CPU密集型任務。與多線程不同，多進程在獨立的內存空間中運行，避免了全局解釋器鎖(GIL)的限制。這個示例展示了如何使用multiprocessing模塊創建進程、如何啟動進程、如何使用隊列(Queue)在進程間通信，以及如何等待進程完成並收集結果。示例還介紹了其他多進程API，如Pipe、Lock和Pool等，並比較了進程與線程的區別。</p>
-                <textarea class="code-editor" id="code-process-1" readonly># 多進程範例
-import multiprocessing
-import time
-
-def worker(name, result_queue):
-    """進程工作函數"""
-    print("進程 %s: 開始" % name)
-    # 進行一些計算
-    result = sum(i * i for i in range(1000000))
-    # 將結果放入隊列
-    result_queue.put((name, result))
-    print("進程 %s: 完成 (結果: %s)" % (name, result))
-
-def process_example():
-    # 創建進程間通信的隊列
-    result_queue = multiprocessing.Queue()
-    
-    # 創建進程
-    p1 = multiprocessing.Process(target=worker, args=("A", result_queue))
-    p2 = multiprocessing.Process(target=worker, args=("B", result_queue))
-    
-    # 啟動進程
-    print("主進程: 啟動進程")
-    p1.start()
-    p2.start()
-    
-    # 等待進程完成
-    p1.join()
-    p2.join()
-    
-    # 從隊列獲取結果
-    results = []
-    while not result_queue.empty():
-        results.append(result_queue.get())
-    
-    print("主進程: 所有進程完成")
-    print("結果:", results)
-
-print("多進程示例 (在真實環境中執行)")
-print("多進程API:")
-print("- multiprocessing.Process(): 創建進程")
-print("- process.start(): 啟動進程")
-print("- process.join(): 等待進程完成")
-print("- multiprocessing.Queue(): 進程間通信")
-print("- multiprocessing.Pipe(): 雙向通信通道")
-print("- multiprocessing.Lock(): 進程間同步")
-print("- multiprocessing.Pool(): 進程池")
-print("- 進程與線程的區別: 進程有獨立的內存空間，線程共享內存")</textarea>
-                <button class="copy-button" onclick="copyCode('code-process-1')">複製</button>
-                <button class="run-button" onclick="runPython('code-process-1', 'output-process-1')">執行</button>
-                <div class="output" id="output-process-1"></div>
-            </div>
-
-            <h3>進程池與異步執行</h3>
-            <div class="runnable-code">
-                <p>進程池是管理並行任務執行的高級機制，通過重用進程來減少創建和銷毀進程的開銷。這個示例展示了如何使用concurrent.futures模塊的ProcessPoolExecutor類創建進程池，如何通過submit()方法提交任務並獲取Future對象，如何使用as_completed()函數按完成順序獲取結果，以及如何使用map()方法將函數應用於一系列輸入並獲取結果。進程池特別適合需要執行大量獨立任務的場景，它可以自動管理進程數量，充分利用CPU資源。</p>
-                <textarea class="code-editor" id="code-async-1" readonly># 進程池與非同步執行
-import multiprocessing
-import time
-import concurrent.futures
-
-def calculate_square(number):
-    """計算平方的函數"""
-    time.sleep(1)  # 模擬耗時操作
-    return number * number
-
-def process_pool_example():
-    numbers = [1, 2, 3, 4, 5]
-    
-    # 使用進程池
-    with concurrent.futures.ProcessPoolExecutor(max_workers=3) as executor:
-        # 提交任務
-        futures = [executor.submit(calculate_square, n) for n in numbers]
-        
-        # 獲取結果 (按完成順序)
-        for future in concurrent.futures.as_completed(futures):
-            print("平方結果:", future.result())
-    
-    # 使用map方法
-    with concurrent.futures.ProcessPoolExecutor() as executor:
-        results = list(executor.map(calculate_square, numbers))
-        print("所有結果:", results)
-
-print("進程池示例 (在真實環境中執行)")
-print("進程池優勢:")
-print("- 重用進程以減少創建/銷毀開銷")
-print("- 控制並發進程數量")
-print("- 簡化任務提交和結果收集")
-print("\nconcurrent.futures API:")
-print("- ProcessPoolExecutor: 使用進程池執行任務")
-print("- ThreadPoolExecutor: 使用線程池執行任務")
-print("- executor.submit(): 提交單個任務")
-print("- executor.map(): 將函數應用於迭代項")
-print("- future.result(): 獲取任務結果")
-print("- as_completed(): 按完成順序迭代futures")</textarea>
-                <button class="copy-button" onclick="copyCode('code-async-1')">複製</button>
-                <button class="run-button" onclick="runPython('code-async-1', 'output-async-1')">執行</button>
-                <div class="output" id="output-async-1"></div>
-            </div>
-
-            <h3>異步IO</h3>
-            <div class="runnable-code">
-                <p>異步IO是Python處理IO密集型任務的現代方法，使用協程和事件循環實現非阻塞操作。這個示例展示了Python 3.5+中的async/await語法，包括如何定義協程函數(使用async def)、如何在協程中使用await表達式暫停執行並等待異步操作完成、如何使用asyncio.create_task()創建任務，以及如何使用asyncio.gather()並行等待多個協程。異步IO特別適合網絡請求、文件操作等IO密集型任務，可以在單線程中高效處理多個並發操作。</p>
-                <textarea class="code-editor" id="code-asyncio-1" readonly># 異步IO與協程 (Python 3.5+)
-import asyncio
-
-async def hello_world():
-    """簡單的協程"""
-    print("Hello")
-    await asyncio.sleep(1)
-    print("World")
-    return "Done"
-
-async def count_up(name, start, end):
-    """從start計數到end"""
-    print(f"協程 {name}: 開始")
-    for i in range(start, end + 1):
-        print(f"協程 {name}: {i}")
-        await asyncio.sleep(0.5)
-    print(f"協程 {name}: 完成")
-    return f"{name} 完成計數 {start} 到 {end}"
-
-async def main():
-    """主協程"""
-    # 執行單個協程
-    result = await hello_world()
-    print("結果:", result)
-    
-    # 並行執行多個協程
-    print("\n並行執行多個協程:")
-    task1 = asyncio.create_task(count_up("A", 1, 3))
-    task2 = asyncio.create_task(count_up("B", 5, 7))
-    
-    # 等待多個協程完成
-    results = await asyncio.gather(task1, task2)
-    print("所有結果:", results)
-
-print("異步IO示例 (Python 3.5+)")
-print("異步IO概念:")
-print("- 協程是可暫停並恢復的函數")
-print("- 'async def' 定義協程函數")
-print("- 'await' 暫停協程直到任務完成")
-print("- asyncio.create_task() 創建任務")
-print("- asyncio.gather() 並行等待多個協程")
-print("- asyncio.run() 運行主協程")
-print("\n在真實環境中，可以運行:")
-print("asyncio.run(main())")</textarea>
-                <button class="copy-button" onclick="copyCode('code-asyncio-1')">複製</button>
-                <button class="run-button" onclick="runPython('code-asyncio-1', 'output-asyncio-1')">執行</button>
-                <div class="output" id="output-asyncio-1"></div>
-            </div>
-        </section>
-
-        <section id="network">
-            <h2>網絡編程</h2>
-            <p>Python提供多種方式進行網絡通信：</p>
-
-            <h3>HTTP請求</h3>
-            <div class="runnable-code">
-                <p>網絡編程中最常見的場景之一是進行HTTP請求。這個示例展示了如何使用Python標準庫urllib進行HTTP請求，包括如何發送GET請求獲取網頁內容，以及如何發送POST請求提交表單數據。示例還介紹了Python中常用的HTTP庫(urllib、requests、aiohttp)、HTTP方法(GET、POST、PUT、DELETE、HEAD)和常見的HTTP狀態碼。理解這些基本概念是進行Web開發、API交互、網絡爬蟲等任務的基礎。</p>
-                <textarea class="code-editor" id="code-network-1" readonly># 使用urllib進行HTTP請求
-import urllib.request
-import urllib.parse
-import json
-
-def fetch_url(url):
-    """獲取URL內容"""
-    print("獲取URL:", url)
-    try:
-        with urllib.request.urlopen(url) as response:
-            data = response.read().decode('utf-8')
-            return data
-    except Exception as e:
-        return f"錯誤: {str(e)}"
-
-# 模擬HTTP GET請求
-def http_get_example():
-    url = "https://httpbin.org/get"
-    data = fetch_url(url)
-    print("響應數據:", data[:100] + "..." if len(data) > 100 else data)
-
-# 模擬HTTP POST請求
-def http_post_example():
-    url = "https://httpbin.org/post"
-    data = urllib.parse.urlencode({'name': 'John', 'age': 30}).encode('utf-8')
-    
-    req = urllib.request.Request(url, data=data, method='POST')
-    try:
-        with urllib.request.urlopen(req) as response:
-            result = response.read().decode('utf-8')
-            print("POST響應:", result[:100] + "..." if len(result) > 100 else result)
-    except Exception as e:
-        print("錯誤:", str(e))
-
-print("HTTP請求示例 (在真實環境中執行)")
-print("Python HTTP庫:")
-print("- urllib: 標準庫")
-print("- requests: 第三方庫 (更易用)")
-print("- aiohttp: 異步HTTP庫")
-print("\nHTTP方法:")
-print("- GET: 獲取資源")
-print("- POST: 提交數據")
-print("- PUT: 更新資源")
-print("- DELETE: 刪除資源")
-print("- HEAD: 僅獲取頭信息")
-print("\n常見HTTP狀態碼:")
-print("- 200: 成功")
-print("- 404: 未找到")
-print("- 500: 服務器錯誤")</textarea>
-                <button class="copy-button" onclick="copyCode('code-network-1')">複製</button>
-                <button class="run-button" onclick="runPython('code-network-1', 'output-network-1')">執行</button>
-                <div class="output" id="output-network-1"></div>
-            </div>
-
-            <h3>Socket編程</h3>
-            <div class="runnable-code">
-                <p>Socket編程是網絡通信的基礎，它提供了低層次的網絡接口。這個示例展示了Python中socket編程的基本概念，包括如何創建TCP服務器和客戶端、如何在socket上進行數據傳輸，以及socket編程中的常用操作（如bind、listen、accept、connect等）。Socket可用於實現各種網絡協議和服務，如Web服務器、聊天程序、游戲服務器等。示例中的代碼只是演示性質，實際應用中通常需要考慮多客戶端處理、錯誤處理等因素。</p>
-                <textarea class="code-editor" id="code-socket-1" readonly># Socket編程基礎
-import socket
-
-def socket_server_example():
-    """TCP服務器示例"""
-    # 創建socket對象
-    server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    
-    # 繫結地址和端口
-    server_socket.bind(('localhost', 9999))
-    
-    # 監聽連接
-    server_socket.listen(5)
-    print("服務器啟動，等待連接...")
-    
-    # 接受連接
-    client_socket, addr = server_socket.accept()
-    print(f"客戶端連接來自: {addr}")
-    
-    # 接收數據
-    data = client_socket.recv(1024)
-    print(f"接收到數據: {data.decode('utf-8')}")
-    
-    # 發送響應
-    client_socket.send("Hello from server!".encode('utf-8'))
-    
-    # 關閉連接
-    client_socket.close()
-    server_socket.close()
-
-def socket_client_example():
-    """TCP客戶端示例"""
-    # 創建socket對象
-    client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    
-    # 連接服務器
-    client_socket.connect(('localhost', 9999))
-    
-    # 發送數據
-    client_socket.send("Hello from client!".encode('utf-8'))
-    
-    # 接收響應
-    data = client_socket.recv(1024)
-    print(f"服務器響應: {data.decode('utf-8')}")
-    
-    # 關閉連接
-    client_socket.close()
-
-print("Socket編程示例 (在真實環境中執行)")
-print("Socket類型:")
-print("- SOCK_STREAM: TCP套接字")
-print("- SOCK_DGRAM: UDP套接字")
-print("\nSocket操作:")
-print("- socket(): 創建套接字")
-print("- bind(): 繫結地址")
-print("- listen(): 監聽連接")
-print("- accept(): 接受連接")
-print("- connect(): 連接服務器")
-print("- send()/recv(): 發送/接收數據")
-print("- close(): 關閉套接字")
-print("\n注意: 真實應用中，服務器通常使用多線程或非同步IO處理多客戶端")</textarea>
-                <button class="copy-button" onclick="copyCode('code-socket-1')">複製</button>
-                <button class="run-button" onclick="runPython('code-socket-1', 'output-socket-1')">執行</button>
-                <div class="output" id="output-socket-1"></div>
-            </div>
-        </section>
-
-        <section id="examples">
-            <h2>實用範例</h2>
-            <h3>簡易計算機</h3>
-            <p>以下範例展示如何實現一個簡單的計算機程式，處理基本的算術運算，包括輸入驗證和錯誤處理。</p>
-            <div class="runnable-code">
-                <textarea class="code-editor" id="code14" readonly># 簡易計算機程式
-def calculator():
-    # 獲取用戶輸入
-    num1 = float(input("請輸入第一個數字: "))
-    operator = input("請輸入運算符號 (+, -, *, /): ")
-    num2 = float(input("請輸入第二個數字: "))
-    
-    # 根據運算符號執行相應的運算
-    if operator == "+":
-        result = num1 + num2
-    elif operator == "-":
-        result = num1 - num2
-    elif operator == "*":
-        result = num1 * num2
-    elif operator == "/":
-        if num2 == 0:
-            return "錯誤：除數不能為零！"
-        result = num1 / num2
-    else:
-        return "錯誤：無效的運算符號！"
-    
-    # 使用%運算符進行字串格式化，兼容Python 2
-    return "%s %s %s = %s" % (num1, operator, num2, result)
-
-# 由於網頁環境的限制，我們使用模擬輸入來演示
-# 模擬一個加法運算: 5 + 3
-def simulate_input(prompt):
-    if "第一個數字" in prompt:
-        return "5"
-    elif "運算符號" in prompt:
-        return "+"
-    elif "第二個數字" in prompt:
-        return "3"
-
-# 替換內建的input函數
-input = simulate_input
-
-# 執行計算機程式
-print(calculator())</textarea>
-                <button class="copy-button" onclick="copyCode('code14')">複製</button>
-                <button class="run-button" onclick="runPython('code14', 'output14')">執行</button>
-                <div class="output" id="output14"></div>
-            </div>
-
-            <h3>猜數字遊戲</h3>
-            <p>這個範例展示了如何創建一個互動式的猜數字遊戲，使用隨機數模組、條件判斷和循環結構來實現遊戲邏輯。</p>
-            <div class="runnable-code">
-                <textarea class="code-editor" id="code15" readonly># 猜數字遊戲
-import random
-
-def guess_number():
-    # 生成1-100間的隨機數字
-    secret_number = random.randint(1, 100)
-    attempts = 0
-    max_attempts = 7
-    
-    print("歡迎來到猜數字遊戲！")
-    print("我已經想好了一個1到100之間的數字，你有%d次機會猜測。" % max_attempts)
-    
-    # 模擬用戶猜測
-    guesses = [50, 75, 62, 56, 53, 52, 51]  # 模擬猜測序列
-    
-    for i in range(max_attempts):
-        attempts += 1
-        
-        if i < len(guesses):
-            guess = guesses[i]
-        else:
-            # 如果模擬猜測用完了，但還沒猜中
-            guess = secret_number
-            
-        print("\n第%d次猜測: %d" % (attempts, guess))
-        
-        if guess < secret_number:
-            print("太小了！請猜大一點的數字。")
-        elif guess > secret_number:
-            print("太大了！請猜小一點的數字。")
-        else:
-            print("恭喜你！你猜對了！答案就是%d。" % secret_number)
-            print("你用了%d次嘗試。" % attempts)
-            return
-    
-    print("\n遊戲結束！你已用完所有%d次機會。" % max_attempts)
-    print("正確答案是%d。" % secret_number)
-
-# 設定隨機種子以獲得一致的結果
-random.seed(42)
-guess_number()</textarea>
-                <button class="copy-button" onclick="copyCode('code15')">複製</button>
-                <button class="run-button" onclick="runPython('code15', 'output15')">執行</button>
-                <div class="output" id="output15"></div>
-            </div>
-
-            <h3>簡單資料視覺化</h3>
-            <p>注意：由於瀏覽器環境的限制，下面只顯示生成圖表的程式碼，實際運行需要安裝matplotlib套件。</p>
-            <pre><code>import matplotlib.pyplot as plt
-
-# 建立資料
-years = [2010, 2011, 2012, 2013, 2014]
-sales = [100, 130, 120, 150, 160]
-
-# 繪製折線圖
-plt.figure(figsize=(8, 4))
-plt.plot(years, sales, marker='o', linestyle='-', color='b')
-plt.title('年度銷售趨勢')
-plt.xlabel('年份')
-plt.ylabel('銷售額')
-plt.grid(True)
-plt.savefig('sales_trend.png')
-plt.show()</code></pre>
-        </section>
+        </div>
     </main>
 
     <footer>
@@ -1967,21 +361,21 @@ plt.show()</code></pre>
             var outputArea = document.getElementById("output-area");
             outputArea.value += text;
         }
-        
+
         // 處理輸入函數
         function builtinRead(x) {
             if (Sk.builtinFiles === undefined || Sk.builtinFiles["files"][x] === undefined)
                 throw "File not found: '" + x + "'";
             return Sk.builtinFiles["files"][x];
         }
-        
+
         // 運行Python代碼
         function runPython(codeAreaId, outputAreaId) {
             var codeArea = document.getElementById(codeAreaId);
             var outputArea = document.getElementById(outputAreaId);
             var prog = codeArea.value;
             outputArea.innerHTML = ''; // 清空輸出區域
-            
+
             Sk.configure({
                 output: function(text) {
                     outputArea.innerHTML += text;
@@ -1990,31 +384,31 @@ plt.show()</code></pre>
                 python3: true,
                 __future__: Sk.python3
             });
-            
+
             (Sk.TurtleGraphics || (Sk.TurtleGraphics = {})).target = 'mycanvas';
             var myPromise = Sk.misceval.asyncToPromise(function() {
                 return Sk.importMainWithBody("<stdin>", false, prog, true);
             });
-            
+
             myPromise.then(function(mod) {
                 console.log('success');
             }, function(err) {
                 outputArea.innerHTML += '<span style="color: red;">' + err.toString() + '</span>';
             });
         }
-        
+
         // 複製代碼到剪貼簿
         function copyCode(codeAreaId) {
             var codeArea = document.getElementById(codeAreaId);
             var text = codeArea.value;
-            
+
             navigator.clipboard.writeText(text).then(function() {
                 // 複製成功的視覺反饋
                 var copyButton = document.querySelector(`button[onclick="copyCode('${codeAreaId}')"]`);
                 var originalText = copyButton.innerText;
                 copyButton.innerText = "已複製！";
                 copyButton.style.backgroundColor = "#16a085";
-                
+
                 // 2秒後恢復按鈕原來的狀態
                 setTimeout(function() {
                     copyButton.innerText = originalText;
@@ -2025,26 +419,74 @@ plt.show()</code></pre>
                 alert('複製失敗，請手動選擇文本並複製。');
             });
         }
-        
+
         // 主題切換功能
         document.addEventListener('DOMContentLoaded', function() {
             const themeToggle = document.getElementById('theme-toggle');
             const htmlElement = document.documentElement;
-            
+
             // 檢查是否有保存的主題偏好
             const savedTheme = localStorage.getItem('theme');
             if (savedTheme) {
                 htmlElement.setAttribute('data-theme', savedTheme);
             }
-            
+
             themeToggle.addEventListener('click', function() {
                 const currentTheme = htmlElement.getAttribute('data-theme');
                 const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-                
+
                 htmlElement.setAttribute('data-theme', newTheme);
                 localStorage.setItem('theme', newTheme);
+            });
+
+            // 確保導航鏈接正常工作
+            const navLinks = document.querySelectorAll('nav a');
+            navLinks.forEach(link => {
+                if (link.getAttribute('href').startsWith('#')) {
+                    link.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        const targetId = this.getAttribute('href').substring(1);
+                        const targetElement = document.getElementById(targetId);
+
+                        if (targetElement) {
+                            targetElement.scrollIntoView({
+                                behavior: 'smooth'
+                            });
+
+                            // 更新 URL
+                            history.pushState(null, null, this.getAttribute('href'));
+
+                            // 高亮當前項目
+                            document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
+                            this.classList.add('active');
+                        }
+                    });
+                }
+            });
+
+            // 監測滾動以高亮當前章節
+            const observerOptions = {
+                root: null,
+                rootMargin: '-100px 0px -70% 0px',
+                threshold: 0
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    const id = entry.target.getAttribute('id');
+                    const navLink = document.querySelector(`nav a[href="#${id}"]`);
+
+                    if (entry.isIntersecting && navLink) {
+                        document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
+                        navLink.classList.add('active');
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('section[id]').forEach((section) => {
+                observer.observe(section);
             });
         });
     </script>
 </body>
-</html> 
+</html>
