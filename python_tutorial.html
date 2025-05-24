@@ -6,70 +6,107 @@
     <title>Python 教學</title>
     <link rel="icon" href="python_favicon.svg" type="image/svg+xml">
     <link rel="stylesheet" href="styles.css">
-    <!-- 引入Skulpt庫 -->
-    <script src="https://skulpt.org/js/skulpt.min.js" type="text/javascript"></script>
-    <script src="https://skulpt.org/js/skulpt-stdlib.js" type="text/javascript"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600&family=Segoe+UI:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
+        /* Python頁面特定樣式 */
+        .python-logo {
+            position: absolute;
+            top: 10px;
+            left: 20px;
+            width: 40px;
+            height: 40px;
+            opacity: 0.8;
+            transition: var(--transition);
+        }
+        
+        .header-container h1 {
+            margin-left: 50px;
+        }
+        
+        #introduction {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        #introduction::before {
+            content: ">>> Python";
+            position: absolute;
+            bottom: -50px;
+            right: -20px;
+            font-size: 120px;
+            opacity: 0.03;
+            font-weight: bold;
+            z-index: 0;
+            font-family: monospace;
+        }
+        
         .runnable-code {
             position: relative;
-            margin: 20px 0;
+            margin: 1.5rem 0;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-md);
+            overflow: hidden;
         }
+        
         .code-editor {
             width: 100%;
-            min-height: 100px;
-            font-family: 'Consolas', 'Monaco', monospace;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            background-color: #f8f8f8;
+            min-height: 120px;
+            font-family: Consolas, Monaco, monospace;
+            padding: 1rem;
+            border: 1px solid var(--section-border);
+            border-radius: var(--border-radius);
+            background-color: var(--code-bg);
+            color: var(--text-color);
             resize: vertical;
+            line-height: 1.5;
+            transition: var(--transition);
         }
-        .run-button {
+        
+        .copy-button, .run-button {
             position: absolute;
             top: 10px;
-            right: 10px;
-            background-color: #3498db;
+            background-color: var(--primary-color);
             color: white;
             border: none;
             border-radius: 4px;
-            padding: 5px 10px;
+            padding: 0.3rem 0.8rem;
             cursor: pointer;
-            transition: background-color 0.3s;
+            transition: var(--transition);
+            font-size: 0.85rem;
+            opacity: 0.8;
         }
-        .run-button:hover {
-            background-color: #2980b9;
-        }
+        
         .copy-button {
-            position: absolute;
-            top: 10px;
-            right: 70px;
-            background-color: #27ae60;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            padding: 5px 10px;
-            cursor: pointer;
-            transition: background-color 0.3s;
+            right: 10px;
         }
-        .copy-button:hover {
-            background-color: #219652;
+        
+        .run-button {
+            right: 80px;
         }
+        
+        .copy-button:hover, .run-button:hover {
+            opacity: 1;
+            background-color: var(--primary-dark);
+        }
+        
         .output {
             width: 100%;
             min-height: 50px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            background-color: #f4f4f4;
-            padding: 10px;
-            margin-top: 10px;
+            border: 1px solid var(--section-border);
+            border-radius: var(--border-radius);
+            background-color: var(--background-color);
+            padding: 1rem;
+            margin-top: 0.8rem;
             white-space: pre-wrap;
-            font-family: 'Consolas', 'Monaco', monospace;
+            font-family: Consolas, Monaco, monospace;
+            transition: var(--transition);
         }
     </style>
 </head>
 <body>
     <header>
         <div class="header-container">
+            <img src="python_favicon.svg" alt="Python Logo" class="python-logo">
             <h1>Python 教學</h1>
             <button id="theme-toggle" aria-label="切換深色/淺色模式">
                 <span class="theme-icon light-icon">🌞</span>
@@ -78,6 +115,7 @@
         </div>
         <nav>
             <ul>
+                <li><a href="home.html">首頁</a></li>
                 <li><a href="#introduction">Python 簡介</a></li>
                 <li><a href="#installation">安裝 Python</a></li>
                 <li><a href="#basics">Python 基礎</a></li>
@@ -90,10 +128,6 @@
                 <li><a href="#regex">正則表達式</a></li>
                 <li><a href="#modules">模組與套件</a></li>
                 <li><a href="#advanced-syntax">進階Python語法</a></li>
-                <li><a href="#namespace-scope">命名空間與作用域</a></li>
-                <li><a href="#magic-methods">魔法方法</a></li>
-                <li><a href="#concurrency">並發編程</a></li>
-                <li><a href="#network">網絡編程</a></li>
                 <li><a href="#examples">實用範例</a></li>
             </ul>
         </nav>

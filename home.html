@@ -6,29 +6,32 @@
     <title>程式語言學習平台</title>
     <link rel="icon" href="home_favicon.svg" type="image/svg+xml">
     <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600&family=Segoe+UI:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         .language-cards {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 25px;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 2rem;
             justify-content: center;
-            margin-top: 30px;
+            margin-top: 2.5rem;
         }
 
         .language-card {
-            width: 220px;
-            border-radius: 8px;
+            width: 100%;
+            border-radius: var(--border-radius);
             overflow: hidden;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            box-shadow: var(--shadow-md);
             transition: transform 0.3s, box-shadow 0.3s;
             background-color: var(--card-bg);
             position: relative;
             height: 360px;
+            display: flex;
+            flex-direction: column;
         }
 
         .language-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-lg);
         }
 
         .card-image {
@@ -37,17 +40,41 @@
             align-items: center;
             justify-content: center;
             background-color: var(--card-header-bg);
+            position: relative;
+            overflow: hidden;
+            transition: var(--transition);
+        }
+        
+        .card-image::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(52, 152, 219, 0.1), rgba(231, 76, 60, 0.1));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .language-card:hover .card-image::after {
+            opacity: 1;
         }
 
         .card-image img {
             max-width: 80px;
             max-height: 80px;
+            transition: transform 0.3s ease;
+        }
+        
+        .language-card:hover .card-image img {
+            transform: scale(1.1);
         }
 
         .card-content {
             padding: 16px;
             position: relative;
-            height: 190px;
+            flex-grow: 1;
             display: flex;
             flex-direction: column;
         }
@@ -68,21 +95,14 @@
             flex-grow: 1;
             overflow: hidden;
             display: -webkit-box;
-            display: -moz-box;
-            display: box;
             -webkit-line-clamp: 4;
-            -moz-line-clamp: 4;
-            -ms-line-clamp: 4;
             line-clamp: 4;
             -webkit-box-orient: vertical;
-            -moz-box-orient: vertical;
-            box-orient: vertical;
             max-height: 6em;
         }
 
         .card-button-container {
             margin-top: 20px;
-            padding-top: 5px;
         }
 
         .card-button {
@@ -92,23 +112,63 @@
             background-color: var(--primary-color);
             color: white;
             text-decoration: none;
-            border-radius: 4px;
-            transition: background-color 0.3s;
+            border-radius: var(--border-radius);
+            transition: var(--transition);
             text-align: center;
             font-weight: 500;
             font-size: 0.95rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .card-button::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 150%;
+            height: 150%;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            opacity: 0;
+            transition: transform 0.6s, opacity 0.6s;
         }
 
         .card-button:hover {
             background-color: var(--primary-dark);
         }
+        
+        .card-button:hover::after {
+            transform: translate(-50%, -50%) scale(1);
+            opacity: 1;
+        }
 
         .hero-section {
             text-align: center;
-            padding: 50px 20px;
+            padding: 3.5rem 1.5rem;
             background-color: var(--hero-bg);
-            border-radius: 8px;
-            margin-bottom: 30px;
+            border-radius: var(--border-radius);
+            margin-bottom: 2.5rem;
+            box-shadow: var(--shadow-md);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(52, 152, 219, 0.1), rgba(231, 76, 60, 0.1));
+            transform: translateY(-100%);
+            transition: transform 0.5s ease-out;
+        }
+        
+        .hero-section:hover::before {
+            transform: translateY(0);
         }
 
         .hero-section h1 {
@@ -125,12 +185,33 @@
 
         .coming-soon {
             opacity: 0.7;
+            position: relative;
+        }
+        
+        .coming-soon::before {
+            content: '即將推出';
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: var(--accent-color, #e74c3c);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            font-size: 0.8rem;
+            border-radius: 20px;
+            z-index: 1;
+            transform: translateY(-5px);
+            opacity: 0;
+            transition: transform 0.3s, opacity 0.3s;
+        }
+        
+        .coming-soon:hover::before {
+            transform: translateY(0);
+            opacity: 1;
         }
 
         .coming-soon .card-button {
             background-color: var(--gray);
             cursor: not-allowed;
-            pointer-events: none;
         }
 
         :root {
@@ -416,6 +497,12 @@
                 localStorage.setItem('theme', newTheme);
             });
 
+            // 添加頁面載入動畫
+            const animateElements = document.querySelectorAll('.hero-section, .language-cards');
+            animateElements.forEach(element => {
+                element.classList.add('fade-in');
+            });
+            
             // 確保"即將推出"按鈕不可點擊
             const comingSoonButtons = document.querySelectorAll('.coming-soon .card-button');
             comingSoonButtons.forEach(button => {
