@@ -60,6 +60,7 @@
 ### 2025年5月25日
 - 將上方導航欄修改成側邊目錄,add home icon,fix JavaScript目錄
 - 重寫README.md
+- edit JavaScript,Python
 
 ### 2025年5月24日
 - 美化
@@ -85,3 +86,4 @@
 
 - **Discord社群**: [點擊加入](https://discord.gg/dBVqmCNVhb)
 - **Gmail**: [點擊傳送](mailto:d20090405@gmail.com)
+- **GitHub**:[討論串](https://github.com/XingCh0405/code-web/issues)

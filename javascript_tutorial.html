@@ -362,6 +362,1169 @@
                 </section>
                 
                 <!-- 這裡繼續添加其他章節 -->
+                <section id="variables" class="section fade-in">
+                    <h2>2. 變數與數據類型</h2>
+                    <h3>2.1 變數宣告</h3>
+                    <p>JavaScript 中有三種宣告變數的方式：var、let 和 const。</p>
+                    
+                    <div class="runnable-code">
+                        <textarea class="code-editor" id="code-variables" readonly>// var - 函數作用域，可以重新宣告，可以更新
+var name = "JavaScript";
+var name = "JS"; // 可以重新宣告
+
+// let - 塊級作用域，不可重新宣告，可以更新
+let age = 25;
+// let age = 26; // 錯誤：不能重新宣告
+age = 26; // 可以更新值
+
+// const - 塊級作用域，不可重新宣告，不可更新（但對象的屬性可以修改）
+const PI = 3.14159;
+// PI = 3; // 錯誤：不能更新常量值
+
+// 常量對象的屬性可以修改
+const person = { name: "Tom" };
+person.name = "Jerry"; // 這是允許的
+// person = { name: "Jerry" }; // 錯誤：不能重新賦值
+
+console.log(name, age, PI, person);</textarea>
+                        <button class="copy-button" onclick="copyCode('code-variables')">複製</button>
+                    </div>
+                    
+                    <div class="warning">
+                        現代JavaScript開發中推薦使用let和const而不是var，因為它們提供更好的作用域控制和錯誤預防。
+                    </div>
+                    
+                    <h3>2.2 數據類型</h3>
+                    <p>JavaScript 有七種基本數據類型和一種複雜數據類型（對象）。</p>
+                    
+                    <div class="example">
+                        <div class="example-title">JavaScript 的數據類型：</div>
+                        <ul>
+                            <li><strong>基本類型</strong>（原始值）：
+                                <ul>
+                                    <li>String（字符串）：文本</li>
+                                    <li>Number（數字）：整數和浮點數</li>
+                                    <li>Boolean（布爾值）：true 或 false</li>
+                                    <li>Undefined：變數未賦值</li>
+                                    <li>Null：表示無值或空值</li>
+                                    <li>Symbol（ES6）：唯一且不可變的數據類型</li>
+                                    <li>BigInt（ES2020）：任意精度整數</li>
+                                </ul>
+                            </li>
+                            <li><strong>引用類型</strong>：
+                                <ul>
+                                    <li>Object：包含數組（Array）、函數（Function）、日期（Date）等</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div class="runnable-code">
+                        <textarea class="code-editor" id="code-data-types" readonly>// 字符串 (String)
+let str = "Hello, JavaScript!";
+console.log(typeof str); // "string"
+
+// 數字 (Number)
+let num = 42;
+let float = 3.14;
+console.log(typeof num, typeof float); // "number" "number"
+
+// 布爾值 (Boolean)
+let isActive = true;
+console.log(typeof isActive); // "boolean"
+
+// Undefined
+let notDefined;
+console.log(typeof notDefined); // "undefined"
+
+// Null
+let empty = null;
+console.log(typeof empty); // "object" (這是JS的一個已知bug)
+
+// Symbol (ES6)
+let sym = Symbol("id");
+console.log(typeof sym); // "symbol"
+
+// BigInt (ES2020)
+let bigNumber = 9007199254740991n; // 加 n 後綴表示 BigInt
+console.log(typeof bigNumber); // "bigint"
+
+// 對象 (Object)
+let obj = { name: "JavaScript", year: 1995 };
+console.log(typeof obj); // "object"
+
+// 數組 (Array) - 也是對象類型
+let arr = [1, 2, 3, 4];
+console.log(typeof arr); // "object"
+console.log(Array.isArray(arr)); // true
+
+// 函數 (Function) - 也是對象類型
+let func = function() { return "Hello"; };
+console.log(typeof func); // "function"</textarea>
+                        <button class="copy-button" onclick="copyCode('code-data-types')">複製</button>
+                    </div>
+                    
+                    <h3>2.3 類型轉換</h3>
+                    <p>JavaScript 中的類型可以通過顯式（手動）或隱式（自動）方式進行轉換。</p>
+                    
+                    <div class="runnable-code">
+                        <textarea class="code-editor" id="code-type-conversion" readonly>// 字符串轉換為數字
+let str = "42";
+let num1 = Number(str); // 顯式轉換
+let num2 = +str;        // 隱式轉換
+console.log(num1, num2); // 42 42
+
+// 數字轉換為字符串
+let num = 42;
+let str1 = String(num); // 顯式轉換
+let str2 = num + "";    // 隱式轉換
+console.log(str1, str2); // "42" "42"
+
+// 轉換為布爾值
+let bool1 = Boolean(1);     // 顯式轉換
+let bool2 = !!0;            // 隱式轉換
+console.log(bool1, bool2);  // true false
+
+// 轉換為對象
+let obj = Object("hello");
+console.log(typeof obj, obj); // "object" String {"hello"}
+
+// 轉換邊緣情況
+console.log(Number(""));    // 0
+console.log(Number("abc")); // NaN (Not a Number)
+console.log(Boolean(0));    // false
+console.log(Boolean(""));   // false
+console.log(Boolean("0"));  // true (非空字符串)
+console.log(Boolean({}));   // true (任何對象)</textarea>
+                        <button class="copy-button" onclick="copyCode('code-type-conversion')">複製</button>
+                    </div>
+                    
+                    <div class="tip">
+                        在比較不同類型的值時，JavaScript 會進行隱式類型轉換，這可能導致意外結果。建議使用嚴格相等運算符 <code>===</code> 和嚴格不相等運算符 <code>!==</code>，它們會比較值和類型，不進行類型轉換。
+                    </div>
+                </section>
+
+                <section id="operators" class="section fade-in">
+                    <h2>3. 運算符</h2>
+                    <h3>3.1 算術運算符</h3>
+                    <p>算術運算符用於執行數學運算。</p>
+                    
+                    <div class="runnable-code">
+                        <textarea class="code-editor" id="code-arithmetic" readonly>// 基本算術運算符
+let a = 10;
+let b = 3;
+
+console.log(a + b);  // 加法: 13
+console.log(a - b);  // 減法: 7
+console.log(a * b);  // 乘法: 30
+console.log(a / b);  // 除法: 3.3333...
+console.log(a % b);  // 取餘: 1
+console.log(a ** b); // 冪運算 (ES2016): 1000
+
+// 自增和自減
+let c = 5;
+console.log(c++);    // 後置自增: 先返回 5，然後 c 變為 6
+console.log(++c);    // 前置自增: 先將 c 增加到 7，然後返回 7
+console.log(c--);    // 後置自減: 先返回 7，然後 c 變為 6
+console.log(--c);    // 前置自減: 先將 c 減少到 5，然後返回 5</textarea>
+                        <button class="copy-button" onclick="copyCode('code-arithmetic')">複製</button>
+                    </div>
+                    
+                    <h3>3.2 賦值運算符</h3>
+                    <p>賦值運算符用於給變數賦值。</p>
+                    
+                    <div class="runnable-code">
+                        <textarea class="code-editor" id="code-assignment" readonly>// 基本賦值
+let x = 10;
+
+// 複合賦值
+x += 5;      // 等同於 x = x + 5;
+console.log(x);  // 15
+
+x -= 3;      // 等同於 x = x - 3;
+console.log(x);  // 12
+
+x *= 2;      // 等同於 x = x * 2;
+console.log(x);  // 24
+
+x /= 4;      // 等同於 x = x / 4;
+console.log(x);  // 6
+
+x %= 4;      // 等同於 x = x % 4;
+console.log(x);  // 2
+
+x **= 3;     // 等同於 x = x ** 3;
+console.log(x);  // 8</textarea>
+                        <button class="copy-button" onclick="copyCode('code-assignment')">複製</button>
+                    </div>
+                    
+                    <h3>3.3 比較運算符</h3>
+                    <p>比較運算符用於比較值，並返回布爾結果（true 或 false）。</p>
+                    
+                    <div class="runnable-code">
+                        <textarea class="code-editor" id="code-comparison" readonly>// 相等性比較
+console.log(5 == 5);     // 相等: true
+console.log(5 == "5");   // 相等（值轉換後）: true
+console.log(5 === "5");  // 嚴格相等（類型也必須相同）: false
+
+console.log(5 != 8);     // 不相等: true
+console.log(5 != "5");   // 不相等（值轉換後）: false
+console.log(5 !== "5");  // 嚴格不相等: true
+
+// 關係比較
+console.log(5 > 3);      // 大於: true
+console.log(5 < 3);      // 小於: false
+console.log(5 >= 5);     // 大於等於: true
+console.log(5 <= 4);     // 小於等於: false
+
+// 特殊情況
+console.log(null == undefined);  // true（兩者都表示"無值"）
+console.log(null === undefined); // false（類型不同）
+console.log(NaN == NaN);         // false（NaN不等於任何值，包括自身）
+console.log(NaN === NaN);        // false</textarea>
+                        <button class="copy-button" onclick="copyCode('code-comparison')">複製</button>
+                    </div>
+                    
+                    <h3>3.4 邏輯運算符</h3>
+                    <p>邏輯運算符用於組合或反轉布爾值。</p>
+                    
+                    <div class="runnable-code">
+                        <textarea class="code-editor" id="code-logical" readonly>// 邏輯與 (AND)
+console.log(true && true);   // true
+console.log(true && false);  // false
+console.log(false && true);  // false
+console.log(false && false); // false
+
+// 邏輯或 (OR)
+console.log(true || true);   // true
+console.log(true || false);  // true
+console.log(false || true);  // true
+console.log(false || false); // false
+
+// 邏輯非 (NOT)
+console.log(!true);   // false
+console.log(!false);  // true
+
+// 短路求值
+let a = null;
+let b = a || "默認值";  // 如果 a 是 falsy 值，則使用默認值
+console.log(b);  // "默認值"
+
+let c = 42;
+let d = c && "c 存在";  // 如果 c 是 truthy 值，則使用第二個值
+console.log(d);  // "c 存在"
+
+// 邏輯空賦值 (??=) - ES2020
+let user = { name: "Tom" };
+user.name ??= "Guest";  // 如果 user.name 是 null 或 undefined，才賦值
+console.log(user.name);  // "Tom"（未變）
+
+user.age ??= 18;  // 如果 user.age 是 null 或 undefined，才賦值
+console.log(user.age);  // 18（賦值了）</textarea>
+                        <button class="copy-button" onclick="copyCode('code-logical')">複製</button>
+                    </div>
+                    
+                    <h3>3.5 其他重要運算符</h3>
+                    <div class="runnable-code">
+                        <textarea class="code-editor" id="code-other-ops" readonly>// 條件（三元）運算符
+let age = 20;
+let status = (age >= 18) ? "成年" : "未成年";
+console.log(status);  // "成年"
+
+// 空值合併運算符 (??) - ES2020
+// 只有在左側為 null 或 undefined 時才返回右側值
+let user;
+let displayName = user ?? "Guest";
+console.log(displayName);  // "Guest"
+
+let count = 0;
+let displayCount = count ?? "未知";
+console.log(displayCount);  // 0（不同於 ||，0不被視為falsy）
+
+// 可選鏈運算符 (?.) - ES2020
+let user2 = {}; // 空對象
+// console.log(user2.address.city); // 會報錯：Cannot read property 'city' of undefined
+console.log(user2.address?.city); // undefined（不報錯）
+
+// 展開運算符 (...)
+let arr1 = [1, 2, 3];
+let arr2 = [...arr1, 4, 5]; // [1, 2, 3, 4, 5]
+console.log(arr2);
+
+let obj1 = { a: 1, b: 2 };
+let obj2 = { ...obj1, c: 3 }; // { a: 1, b: 2, c: 3 }
+console.log(obj2);
+
+// typeof 運算符
+console.log(typeof "hello");  // "string"
+console.log(typeof 42);       // "number"
+console.log(typeof true);     // "boolean"
+console.log(typeof undefined);// "undefined"
+console.log(typeof {});       // "object"
+console.log(typeof []);       // "object"
+console.log(typeof null);     // "object" (這是一個歷史遺留的Bug)
+console.log(typeof function(){}); // "function"
+
+// instanceof 運算符
+console.log([] instanceof Array);  // true
+console.log({} instanceof Object); // true
+console.log("hello" instanceof String); // false (原始字符串不是String對象)
+console.log(new String("hello") instanceof String); // true</textarea>
+                        <button class="copy-button" onclick="copyCode('code-other-ops')">複製</button>
+                    </div>
+                    
+                    <div class="tip">
+                        在 JavaScript 中，運算符的優先級決定了表達式中運算的執行順序。括號 <code>()</code> 具有最高優先級，可以用來改變運算順序。例如：<code>2 + 3 * 4</code> 等於 14，而 <code>(2 + 3) * 4</code> 等於 20。
+                    </div>
+                </section>
+
+                <section id="control-flow" class="section fade-in">
+                    <h2>4. 控制流程</h2>
+                    <p>控制流程語句允許您基於某些條件執行不同的代碼塊，或者重複執行代碼塊。</p>
+                    
+                    <h3>4.1 條件語句</h3>
+                    <div class="runnable-code">
+                        <textarea class="code-editor" id="code-conditionals" readonly>// if 語句
+let age = 18;
+
+if (age >= 18) {
+    console.log("您已成年");
+}
+
+// if...else 語句
+let time = 14;
+
+if (time < 12) {
+    console.log("早上好");
+} else {
+    console.log("下午好或晚上好");
+}
+
+// if...else if...else 語句
+let score = 85;
+
+if (score >= 90) {
+    console.log("優秀");
+} else if (score >= 80) {
+    console.log("良好");
+} else if (score >= 70) {
+    console.log("中等");
+} else if (score >= 60) {
+    console.log("及格");
+} else {
+    console.log("不及格");
+}
+
+// 嵌套 if 語句
+let isWeekend = true;
+let isRaining = false;
+
+if (isWeekend) {
+    if (!isRaining) {
+        console.log("可以出去玩");
+    } else {
+        console.log("在家看電影");
+    }
+} else {
+    console.log("工作日，要努力工作");
+}</textarea>
+                        <button class="copy-button" onclick="copyCode('code-conditionals')">複製</button>
+                    </div>
+                    
+                    <h3>4.2 switch 語句</h3>
+                    <p>switch 語句評估表達式，並根據匹配的值執行對應的代碼塊。</p>
+                    
+                    <div class="runnable-code">
+                        <textarea class="code-editor" id="code-switch" readonly>let day = 3; // 星期三
+let dayName;
+
+switch (day) {
+    case 1:
+        dayName = "星期一";
+        break;
+    case 2:
+        dayName = "星期二";
+        break;
+    case 3:
+        dayName = "星期三";
+        break;
+    case 4:
+        dayName = "星期四";
+        break;
+    case 5:
+        dayName = "星期五";
+        break;
+    case 6:
+        dayName = "星期六";
+        break;
+    case 0:
+        dayName = "星期日";
+        break;
+    default:
+        dayName = "無效日期";
+}
+
+console.log(dayName); // "星期三"
+
+// 多個 case 共享同一代碼塊
+let fruit = "蘋果";
+let category;
+
+switch (fruit) {
+    case "蘋果":
+    case "梨":
+    case "桃子":
+        category = "核果類";
+        break;
+    case "香蕉":
+    case "菠蘿":
+        category = "熱帶水果";
+        break;
+    default:
+        category = "其他水果";
+}
+
+console.log(category); // "核果類"</textarea>
+                        <button class="copy-button" onclick="copyCode('code-switch')">複製</button>
+                    </div>
+                    
+                    <div class="warning">
+                        在 switch 語句中，不要忘記使用 <code>break</code> 語句。如果沒有 break，代碼會繼續執行下一個 case，導致可能出現意外行為，這被稱為"穿透"（fallthrough）。
+                    </div>
+                    
+                    <h3>4.3 循環語句</h3>
+                    <p>循環語句允許您多次執行代碼塊。</p>
+                    
+                    <h4>4.3.1 for 循環</h4>
+                    <div class="runnable-code">
+                        <textarea class="code-editor" id="code-for-loop" readonly>// 基本 for 循環
+for (let i = 0; i < 5; i++) {
+    console.log(`計數：${i}`);
+}
+
+// 遍歷數組
+let fruits = ["蘋果", "香蕉", "橙子", "葡萄"];
+for (let i = 0; i < fruits.length; i++) {
+    console.log(`水果 ${i+1}: ${fruits[i]}`);
+}
+
+// for...in 循環（用於遍歷對象屬性）
+let person = {
+    name: "張三",
+    age: 30,
+    job: "工程師"
+};
+
+for (let key in person) {
+    console.log(`${key}: ${person[key]}`);
+}
+
+// for...of 循環（ES6，用於遍歷可迭代對象）
+let colors = ["紅", "綠", "藍"];
+for (let color of colors) {
+    console.log(`顏色: ${color}`);
+}</textarea>
+                        <button class="copy-button" onclick="copyCode('code-for-loop')">複製</button>
+                    </div>
+                    
+                    <h4>4.3.2 while 和 do-while 循環</h4>
+                    <div class="runnable-code">
+                        <textarea class="code-editor" id="code-while-loop" readonly>// while 循環
+let count = 0;
+while (count < 5) {
+    console.log(`while 循環計數: ${count}`);
+    count++;
+}
+
+// do-while 循環（至少執行一次）
+let num = 10;
+do {
+    console.log(`do-while 循環計數: ${num}`);
+    num--;
+} while (num > 5);
+
+// 無限循環與 break
+let i = 0;
+while (true) {
+    console.log(`執行 ${i} 次`);
+    i++;
+    if (i >= 3) {
+        break; // 退出循環
+    }
+}</textarea>
+                        <button class="copy-button" onclick="copyCode('code-while-loop')">複製</button>
+                    </div>
+                    
+                    <h3>4.4 跳轉語句</h3>
+                    <div class="runnable-code">
+                        <textarea class="code-editor" id="code-jump" readonly>// break 語句：退出循環
+for (let i = 0; i < 10; i++) {
+    if (i === 5) {
+        console.log("遇到 5，退出循環");
+        break;
+    }
+    console.log(`數字: ${i}`);
+}
+
+// continue 語句：跳過當前迭代
+for (let i = 0; i < 5; i++) {
+    if (i === 2) {
+        console.log("跳過 2");
+        continue;
+    }
+    console.log(`數字: ${i}`);
+}
+
+// 標記語句與 break/continue
+outerLoop: for (let i = 0; i < 3; i++) {
+    console.log(`外層循環 ${i}`);
+    
+    innerLoop: for (let j = 0; j < 3; j++) {
+        if (i === 1 && j === 1) {
+            console.log("跳出外層循環");
+            break outerLoop;
+        }
+        console.log(`  內層循環 ${j}`);
+    }
+}</textarea>
+                        <button class="copy-button" onclick="copyCode('code-jump')">複製</button>
+                    </div>
+                    
+                    <div class="tip">
+                        在處理複雜的控制流程時，建議保持代碼簡潔易讀。過度嵌套的條件和循環可能導致代碼難以理解和維護。考慮使用提前返回或分解複雜邏輯為更小的函數。
+                    </div>
+                    
+                    <h3>4.5 錯誤處理</h3>
+                    <div class="runnable-code">
+                        <textarea class="code-editor" id="code-error-handling" readonly>// try...catch 語句
+try {
+    // 嘗試執行的代碼
+    let result = undefinedVariable * 2; // 會拋出錯誤，因為變量未定義
+    console.log(result); // 這行不會執行
+} catch (error) {
+    // 處理錯誤
+    console.log("發生錯誤:", error.message);
+}
+
+// try...catch...finally 語句
+try {
+    console.log("嘗試執行");
+    throw new Error("自定義錯誤"); // 主動拋出錯誤
+} catch (error) {
+    console.log("捕獲錯誤:", error.message);
+} finally {
+    console.log("無論如何都會執行");
+}
+
+// 捕獲特定類型的錯誤
+try {
+    let obj = null;
+    console.log(obj.property); // 會拋出 TypeError
+} catch (error) {
+    if (error instanceof TypeError) {
+        console.log("類型錯誤:", error.message);
+    } else {
+        console.log("其他錯誤:", error.message);
+    }
+}</textarea>
+                        <button class="copy-button" onclick="copyCode('code-error-handling')">複製</button>
+                    </div>
+                </section>
+
+                <section id="functions" class="section fade-in">
+                    <h2>5. 函數</h2>
+                    <p>函數是 JavaScript 中的基本構建塊，它們允許您將代碼封裝為可重用的單元。</p>
+                    
+                    <h3>5.1 函數宣告與表達式</h3>
+                    <div class="runnable-code">
+                        <textarea class="code-editor" id="code-function-basics" readonly>// 函數宣告
+function greet(name) {
+    return `你好，${name}！`;
+}
+
+console.log(greet("小明")); // "你好，小明！"
+
+// 函數表達式
+const sayHello = function(name) {
+    return `Hello, ${name}!`;
+};
+
+console.log(sayHello("Tom")); // "Hello, Tom!"
+
+// 箭頭函數 (ES6)
+const sayHi = (name) => {
+    return `Hi, ${name}!`;
+};
+
+// 簡化的箭頭函數（單一表達式）
+const square = x => x * x;
+console.log(square(5)); // 25
+
+// 箭頭函數與隱式返回
+const add = (a, b) => a + b;
+console.log(add(3, 4)); // 7</textarea>
+                        <button class="copy-button" onclick="copyCode('code-function-basics')">複製</button>
+                    </div>
+                    
+                    <div class="example">
+                        <div class="example-title">函數宣告與函數表達式的區別：</div>
+                        <ul>
+                            <li>函數宣告會被提升到當前作用域的頂部，因此可以在宣告之前調用</li>
+                            <li>函數表達式不會被提升，必須在宣告後才能調用</li>
+                            <li>箭頭函數是函數表達式的簡潔形式，並且有特殊的this綁定行為</li>
+                        </ul>
+                    </div>
+                    
+                    <h3>5.2 函數參數</h3>
+                    <div class="runnable-code">
+                        <textarea class="code-editor" id="code-function-parameters" readonly>// 默認參數 (ES6)
+function greet(name = "訪客") {
+    return `你好，${name}！`;
+}
+
+console.log(greet()); // "你好，訪客！"
+console.log(greet("小紅")); // "你好，小紅！"
+
+// 剩餘參數 (ES6)
+function sum(...numbers) {
+    return numbers.reduce((total, num) => total + num, 0);
+}
+
+console.log(sum(1, 2, 3, 4, 5)); // 15
+
+// 結合普通參數和剩餘參數
+function teamMember(leader, assistant, ...members) {
+    console.log(`團隊領導: ${leader}`);
+    console.log(`助理: ${assistant}`);
+    console.log(`團隊成員: ${members.join(', ')}`);
+}
+
+teamMember("張三", "李四", "王五", "趙六", "孫七");
+
+// 參數解構 (ES6)
+function displayPerson({ name, age, job = "未知" }) {
+    console.log(`姓名: ${name}, 年齡: ${age}, 職業: ${job}`);
+}
+
+displayPerson({ name: "王小明", age: 28, job: "工程師" });
+displayPerson({ name: "李小紅", age: 24 }); // 使用默認職業</textarea>
+                        <button class="copy-button" onclick="copyCode('code-function-parameters')">複製</button>
+                    </div>
+                    
+                    <h3>5.3 函數作用域與閉包</h3>
+                    <div class="runnable-code">
+                        <textarea class="code-editor" id="code-closures" readonly>// 全局與局部作用域
+let globalVar = "我是全局變量";
+
+function showScope() {
+    let localVar = "我是局部變量";
+    console.log(globalVar); // 可以訪問全局變量
+    console.log(localVar);  // 可以訪問局部變量
+}
+
+showScope();
+console.log(globalVar); // 可以訪問全局變量
+// console.log(localVar);  // 錯誤：無法訪問函數內的局部變量
+
+// 閉包：函數可以訪問其外部函數的變量
+function createCounter() {
+    let count = 0; // 私有變量
+    
+    return function() {
+        count++;
+        return count;
+    };
+}
+
+const counter = createCounter();
+console.log(counter()); // 1
+console.log(counter()); // 2
+console.log(counter()); // 3
+
+// 閉包實際應用：創建私有變量
+function createPerson(name) {
+    // 私有變量
+    let _age = 0;
+    
+    return {
+        getName: function() {
+            return name;
+        },
+        getAge: function() {
+            return _age;
+        },
+        setAge: function(age) {
+            if (age < 0 || age > 120) {
+                console.log("年齡範圍無效");
+                return;
+            }
+            _age = age;
+        }
+    };
+}
+
+const person = createPerson("王明");
+console.log(person.getName()); // "王明"
+person.setAge(30);
+console.log(person.getAge()); // 30
+// console.log(person._age); // undefined，無法直接訪問私有變量</textarea>
+                        <button class="copy-button" onclick="copyCode('code-closures')">複製</button>
+                    </div>
+                    
+                    <div class="tip">
+                        閉包是 JavaScript 中的強大特性，它允許函數記住並訪問其詞法作用域，即使該函數在其原始作用域之外執行。這使得創建私有變量、數據封裝和模塊模式成為可能。
+                    </div>
+                    
+                    <h3>5.4 this 關鍵字</h3>
+                    <div class="runnable-code">
+                        <textarea class="code-editor" id="code-this" readonly>// this 在全局上下文中
+console.log(this); // 在瀏覽器中是 window 對象，在 Node.js 中是 global 對象
+
+// this 在對象方法中指向該對象
+const person = {
+    name: "小明",
+    greet: function() {
+        return `你好，我是 ${this.name}`;
+    }
+};
+
+console.log(person.greet()); // "你好，我是 小明"
+
+// 函數中的 this 取決於調用方式
+function showThis() {
+    console.log(this);
+}
+
+showThis(); // 在瀏覽器中是 window，在嚴格模式或 Node.js 中是 undefined
+
+// 通過 call, apply, bind 修改 this
+const person1 = { name: "小明" };
+const person2 = { name: "小紅" };
+
+function introduce(city, hobby) {
+    return `我是 ${this.name}，來自 ${city}，喜歡 ${hobby}。`;
+}
+
+// call: 第一個參數是 this 的值，後續參數依次傳入
+console.log(introduce.call(person1, "北京", "游泳"));
+
+// apply: 第一個參數是 this 的值，第二個參數是參數數組
+console.log(introduce.apply(person2, ["上海", "閱讀"]));
+
+// bind: 創建一個新函數，永久綁定 this 值
+const introducePerson1 = introduce.bind(person1);
+console.log(introducePerson1("廣州", "畫畫")); // this 始終是 person1
+
+// 箭頭函數中的 this
+const obj = {
+    name: "對象",
+    regularFunc: function() {
+        console.log("普通函數中的 this:", this.name);
+        
+        // 箭頭函數中的 this 繼承自外層作用域
+        const arrowFunc = () => {
+            console.log("箭頭函數中的 this:", this.name);
+        };
+        
+        arrowFunc();
+    }
+};
+
+obj.regularFunc();</textarea>
+                        <button class="copy-button" onclick="copyCode('code-this')">複製</button>
+                    </div>
+                    
+                    <div class="warning">
+                        理解 <code>this</code> 關鍵字是 JavaScript 中的一個常見挑戰。記住，<code>this</code> 的值取決於函數的調用方式，而不是定義方式。箭頭函數是個例外，它的 <code>this</code> 值是詞法綁定的，繼承自外層作用域。
+                    </div>
+                    
+                    <h3>5.5 高階函數</h3>
+                    <p>高階函數是接受其他函數作為參數或返回函數的函數。</p>
+                    
+                    <div class="runnable-code">
+                        <textarea class="code-editor" id="code-higher-order" readonly>// 函數作為參數
+function calculate(x, y, operation) {
+    return operation(x, y);
+}
+
+// 定義不同的操作函數
+const add = (a, b) => a + b;
+const subtract = (a, b) => a - b;
+const multiply = (a, b) => a * b;
+
+console.log(calculate(10, 5, add));      // 15
+console.log(calculate(10, 5, subtract)); // 5
+console.log(calculate(10, 5, multiply)); // 50
+
+// 函數作為返回值
+function multiplier(factor) {
+    // 返回一個新函數
+    return function(number) {
+        return number * factor;
+    };
+}
+
+const double = multiplier(2);
+const triple = multiplier(3);
+
+console.log(double(5)); // 10
+console.log(triple(5)); // 15
+
+// 實際應用：數組方法
+const numbers = [1, 2, 3, 4, 5];
+
+// map: 轉換數組中的每個元素
+const doubled = numbers.map(x => x * 2);
+console.log(doubled); // [2, 4, 6, 8, 10]
+
+// filter: 過濾數組元素
+const evens = numbers.filter(x => x % 2 === 0);
+console.log(evens); // [2, 4]
+
+// reduce: 將數組簡化為單一值
+const sum = numbers.reduce((total, current) => total + current, 0);
+console.log(sum); // 15
+
+// 組合使用
+const result = numbers
+    .filter(x => x > 2)        // 過濾大於2的數 [3, 4, 5]
+    .map(x => x * x)           // 對每個數平方 [9, 16, 25]
+    .reduce((sum, x) => sum + x, 0); // 求和
+
+console.log(result); // 50</textarea>
+                        <button class="copy-button" onclick="copyCode('code-higher-order')">複製</button>
+                    </div>
+                    
+                    <h3>5.6 IIFE（立即調用函數表達式）</h3>
+                    <div class="runnable-code">
+                        <textarea class="code-editor" id="code-iife" readonly>// IIFE 基本語法
+(function() {
+    let privateVar = "我是私有變量";
+    console.log(privateVar);
+})();
+
+// 帶參數的 IIFE
+(function(name) {
+    console.log(`你好，${name}！`);
+})("小明");
+
+// 帶返回值的 IIFE
+const result = (function() {
+    const a = 5;
+    const b = 10;
+    return a + b;
+})();
+
+console.log(result); // 15
+
+// 模塊模式
+const counter = (function() {
+    let count = 0; // 私有變量
+    
+    return {
+        increment: function() {
+            count++;
+            return count;
+        },
+        decrement: function() {
+            count--;
+            return count;
+        },
+        getCount: function() {
+            return count;
+        }
+    };
+})();
+
+console.log(counter.increment()); // 1
+console.log(counter.increment()); // 2
+console.log(counter.decrement()); // 1
+console.log(counter.getCount());  // 1</textarea>
+                        <button class="copy-button" onclick="copyCode('code-iife')">複製</button>
+                    </div>
+                    
+                    <div class="tip">
+                        IIFE 可以創建一個獨立的作用域，避免變量污染全局命名空間。在 ES6 模塊成為標準之前，IIFE 是實現模塊化的常用方式。
+                    </div>
+                </section>
+
+                <section id="arrays" class="section fade-in">
+                    <h2>6. 陣列</h2>
+                    <p>陣列是 JavaScript 中用於存儲有序數據集合的對象。</p>
+                    
+                    <h3>6.1 陣列創建與訪問</h3>
+                    <div class="runnable-code">
+                        <textarea class="code-editor" id="code-array-basics" readonly>// 創建陣列
+let fruits = ["蘋果", "香蕉", "橙子"];
+console.log(fruits); // ["蘋果", "香蕉", "橙子"]
+
+// 使用 Array 構造函數
+let numbers = new Array(1, 2, 3, 4, 5);
+console.log(numbers); // [1, 2, 3, 4, 5]
+
+// 創建特定長度的空陣列
+let emptyArray = new Array(5); // 創建長度為5的空陣列
+console.log(emptyArray); // [empty × 5]
+
+// 使用 Array.of() 方法 (ES6)
+let digits = Array.of(1, 2, 3, 4, 5);
+console.log(digits); // [1, 2, 3, 4, 5]
+
+// 使用 Array.from() 將類陣列對象轉換為陣列 (ES6)
+let str = "hello";
+let chars = Array.from(str);
+console.log(chars); // ["h", "e", "l", "l", "o"]
+
+// 陣列訪問
+console.log(fruits[0]); // "蘋果"
+console.log(fruits[1]); // "香蕉"
+console.log(fruits[2]); // "橙子"
+console.log(fruits[3]); // undefined（超出範圍）
+
+// 修改陣列元素
+fruits[1] = "葡萄";
+console.log(fruits); // ["蘋果", "葡萄", "橙子"]
+
+// 陣列長度
+console.log(fruits.length); // 3
+
+// 修改長度
+fruits.length = 2;
+console.log(fruits); // ["蘋果", "葡萄"]（截斷陣列）
+
+fruits.length = 4;
+console.log(fruits); // ["蘋果", "葡萄", empty × 2]（延長陣列，新元素為空）</textarea>
+                        <button class="copy-button" onclick="copyCode('code-array-basics')">複製</button>
+                    </div>
+                    
+                    <h3>6.2 陣列方法 - 添加和移除元素</h3>
+                    <div class="runnable-code">
+                        <textarea class="code-editor" id="code-array-add-remove" readonly>let fruits = ["蘋果", "香蕉", "橙子"];
+
+// 末尾添加元素
+fruits.push("葡萄");
+console.log(fruits); // ["蘋果", "香蕉", "橙子", "葡萄"]
+
+// 末尾移除元素
+let lastFruit = fruits.pop();
+console.log(lastFruit); // "葡萄"
+console.log(fruits); // ["蘋果", "香蕉", "橙子"]
+
+// 開頭添加元素
+fruits.unshift("草莓");
+console.log(fruits); // ["草莓", "蘋果", "香蕉", "橙子"]
+
+// 開頭移除元素
+let firstFruit = fruits.shift();
+console.log(firstFruit); // "草莓"
+console.log(fruits); // ["蘋果", "香蕉", "橙子"]
+
+// splice: 添加、刪除或替換元素
+// 參數: 起始索引, 刪除數量, 要添加的元素...
+
+// 在索引1處插入
+fruits.splice(1, 0, "檸檬", "芒果");
+console.log(fruits); // ["蘋果", "檸檬", "芒果", "香蕉", "橙子"]
+
+// 刪除索引2開始的2個元素
+let removed = fruits.splice(2, 2);
+console.log(removed); // ["芒果", "香蕉"]
+console.log(fruits); // ["蘋果", "檸檬", "橙子"]
+
+// 替換索引1處的元素
+fruits.splice(1, 1, "葡萄");
+console.log(fruits); // ["蘋果", "葡萄", "橙子"]
+
+// 刪除末尾元素的另一種方式
+fruits.length = fruits.length - 1;
+console.log(fruits); // ["蘋果", "葡萄"]</textarea>
+                        <button class="copy-button" onclick="copyCode('code-array-add-remove')">複製</button>
+                    </div>
+                    
+                    <h3>6.3 陣列方法 - 查找與排序</h3>
+                    <div class="runnable-code">
+                        <textarea class="code-editor" id="code-array-search-sort" readonly>let fruits = ["蘋果", "香蕉", "橙子", "蘋果", "芒果"];
+let numbers = [10, 5, 8, 20, 3];
+
+// indexOf: 查找元素首次出現的索引
+console.log(fruits.indexOf("蘋果")); // 0
+console.log(fruits.indexOf("芒果")); // 4
+console.log(fruits.indexOf("西瓜")); // -1（未找到）
+
+// lastIndexOf: 查找元素最後出現的索引
+console.log(fruits.lastIndexOf("蘋果")); // 3
+
+// includes: 檢查數組是否包含特定元素 (ES7)
+console.log(fruits.includes("香蕉")); // true
+console.log(fruits.includes("西瓜")); // false
+
+// find: 返回符合條件的第一個元素 (ES6)
+let foundNumber = numbers.find(num => num > 15);
+console.log(foundNumber); // 20
+
+// findIndex: 返回符合條件的第一個元素的索引 (ES6)
+let foundIndex = numbers.findIndex(num => num > 15);
+console.log(foundIndex); // 3
+
+// filter: 返回所有符合條件的元素
+let largeNumbers = numbers.filter(num => num > 8);
+console.log(largeNumbers); // [10, 20]
+
+// sort: 排序數組（默認按字母順序）
+fruits.sort();
+console.log(fruits); // ["芒果", "橙子", "蘋果", "蘋果", "香蕉"]
+
+// 數字排序需要比較函數
+numbers.sort((a, b) => a - b); // 升序
+console.log(numbers); // [3, 5, 8, 10, 20]
+
+numbers.sort((a, b) => b - a); // 降序
+console.log(numbers); // [20, 10, 8, 5, 3]
+
+// reverse: 反轉數組
+fruits.reverse();
+console.log(fruits); // ["香蕉", "蘋果", "蘋果", "橙子", "芒果"]</textarea>
+                        <button class="copy-button" onclick="copyCode('code-array-search-sort')">複製</button>
+                    </div>
+                    
+                    <h3>6.4 陣列方法 - 轉換與迭代</h3>
+                    <div class="runnable-code">
+                        <textarea class="code-editor" id="code-array-transform" readonly>let numbers = [1, 2, 3, 4, 5];
+
+// map: 轉換每個元素並返回新陣列
+let squared = numbers.map(x => x * x);
+console.log(squared); // [1, 4, 9, 16, 25]
+
+// reduce: 將陣列簡化為單一值
+let sum = numbers.reduce((total, current) => total + current, 0);
+console.log(sum); // 15
+
+let product = numbers.reduce((total, current) => total * current, 1);
+console.log(product); // 120
+
+// reduceRight: 從右到左簡化
+let result = ["a", "b", "c"].reduceRight((acc, curr) => acc + curr, "");
+console.log(result); // "cba"
+
+// forEach: 遍歷每個元素
+numbers.forEach((number, index) => {
+    console.log(`索引 ${index}: ${number}`);
+});
+
+// every: 檢查所有元素是否滿足條件
+let allPositive = numbers.every(num => num > 0);
+console.log(allPositive); // true
+
+let allEven = numbers.every(num => num % 2 === 0);
+console.log(allEven); // false
+
+// some: 檢查是否至少有一個元素滿足條件
+let someEven = numbers.some(num => num % 2 === 0);
+console.log(someEven); // true
+
+// join: 將陣列元素連接為字符串
+let joinedString = numbers.join(", ");
+console.log(joinedString); // "1, 2, 3, 4, 5"
+
+// flat: 扁平化嵌套陣列 (ES2019)
+let nestedArray = [1, [2, [3, 4]], 5];
+let flattened = nestedArray.flat(2); // 深度為2
+console.log(flattened); // [1, 2, 3, 4, 5]
+
+// flatMap: 結合 map 和 flat (ES2019)
+let sentences = ["Hello world", "JavaScript is fun"];
+let words = sentences.flatMap(sentence => sentence.split(" "));
+console.log(words); // ["Hello", "world", "JavaScript", "is", "fun"]</textarea>
+                        <button class="copy-button" onclick="copyCode('code-array-transform')">複製</button>
+                    </div>
+                    
+                    <h3>6.5 陣列方法 - 複製與合併</h3>
+                    <div class="runnable-code">
+                        <textarea class="code-editor" id="code-array-copy-merge" readonly>// 複製數組
+let original = [1, 2, 3];
+
+// 使用展開運算符 (ES6)
+let copy1 = [...original];
+console.log(copy1); // [1, 2, 3]
+
+// 使用 slice()
+let copy2 = original.slice();
+console.log(copy2); // [1, 2, 3]
+
+// 使用 Array.from() (ES6)
+let copy3 = Array.from(original);
+console.log(copy3); // [1, 2, 3]
+
+// 合併數組
+let array1 = [1, 2, 3];
+let array2 = [4, 5, 6];
+
+// 使用展開運算符 (ES6)
+let merged1 = [...array1, ...array2];
+console.log(merged1); // [1, 2, 3, 4, 5, 6]
+
+// 使用 concat()
+let merged2 = array1.concat(array2);
+console.log(merged2); // [1, 2, 3, 4, 5, 6]
+
+// 複製部分數組
+let subset = original.slice(1, 3); // 從索引1開始，不包括索引3
+console.log(subset); // [2, 3]
+
+// 多維數組的淺拷貝問題
+let nested = [1, [2, 3], {a: 4}];
+let shallowCopy = [...nested];
+
+// 修改原數組中的嵌套對象
+nested[1][0] = 99;
+nested[2].a = 100;
+
+// 淺拷貝中的嵌套對象也被修改
+console.log(shallowCopy); // [1, [99, 3], {a: 100}]
+
+// 深拷貝（JSON方法，僅適用於可序列化的數據）
+let deepCopy = JSON.parse(JSON.stringify(nested));
+nested[1][1] = 88;
+console.log(deepCopy); // [1, [99, 3], {a: 100}] - 不受影響</textarea>
+                        <button class="copy-button" onclick="copyCode('code-array-copy-merge')">複製</button>
+                    </div>
+                    
+                    <div class="tip">
+                        陣列是 JavaScript 中最常用的數據結構之一。掌握陣列方法可以讓您以簡潔的方式解決許多編程問題。特別是高階陣列方法（如 map, filter, reduce）結合函數式編程思想，能夠寫出更加簡潔、可讀和易於維護的代碼。
+                    </div>
+                    
+                    <h3>6.6 類陣列對象</h3>
+                    <div class="runnable-code">
+                        <textarea class="code-editor" id="code-array-like" readonly>// 類陣列對象是有索引和長度屬性但不是真正陣列的對象
+// 常見的類陣列對象包括：DOM NodeList、函數中的 arguments 對象等
+
+function demoArrayLike() {
+    console.log(arguments); // Arguments 對象
+    console.log(arguments.length); // 參數數量
+    console.log(arguments[0]); // 第一個參數
+    
+    // 類陣列對象沒有陣列方法
+    // arguments.forEach(arg => console.log(arg)); // 錯誤！
+    
+    // 將類陣列對象轉換為真正的陣列
+    
+    // 方法1：Array.from() (ES6)
+    let argsArray1 = Array.from(arguments);
+    
+    // 方法2：展開運算符 (ES6)
+    let argsArray2 = [...arguments];
+    
+    // 方法3：Array.prototype.slice.call()
+    let argsArray3 = Array.prototype.slice.call(arguments);
+    
+    // 現在可以使用陣列方法
+    argsArray1.forEach(arg => console.log(`參數值: ${arg}`));
+}
+
+demoArrayLike("a", "b", "c");</textarea>
+                        <button class="copy-button" onclick="copyCode('code-array-like')">複製</button>
+                    </div>
+                </section>
             </div>
         </div>
     </main>
