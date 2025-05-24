@@ -1,0 +1,1303 @@
+<!DOCTYPE html>
+<html lang="zh-TW" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python 教學</title>
+    <link rel="icon" href="python_favicon.svg" type="image/svg+xml">
+    <style>
+        :root {
+            --primary-color: #3776ab;
+            --primary-dark: #2b5d87;
+            --secondary-color: #ffd43b;
+            --text-color: #333;
+            --background-color: #f8f9fa;
+            --section-bg: #ffffff;
+            --section-border: #e1e4e8;
+            --code-bg: #f6f8fa;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.12);
+            --shadow-md: 0 4px 6px rgba(0,0,0,0.1);
+            --border-radius: 8px;
+            --transition: all 0.3s ease;
+            --max-width: 1200px;
+        }
+
+        [data-theme="dark"] {
+            --primary-color: #4889c7;
+            --primary-dark: #3776ab;
+            --text-color: #e1e1e1;
+            --background-color: #1a1a1a;
+            --section-bg: #252525;
+            --section-border: #333;
+            --code-bg: #2d2d2d;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Open Sans', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--background-color);
+            transition: var(--transition);
+        }
+
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow-md);
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        h1, h2, h3, h4 {
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        h1 {
+            font-size: 2rem;
+            color: white;
+            margin-bottom: 0;
+        }
+
+        h2 {
+            font-size: 1.75rem;
+            border-bottom: 2px solid var(--section-border);
+            padding-bottom: 0.5rem;
+            margin-top: 2.5rem;
+        }
+
+        h3 {
+            font-size: 1.4rem;
+            margin-top: 1.5rem;
+        }
+
+        main {
+            max-width: var(--max-width);
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+        }
+
+        section {
+            background-color: var(--section-bg);
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+        }
+
+        p, ul, ol {
+            margin-bottom: 1rem;
+        }
+
+        ul, ol {
+            padding-left: 1.5rem;
+        }
+
+        a {
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        a:hover {
+            color: var(--primary-dark);
+            text-decoration: underline;
+        }
+
+        pre, code {
+            font-family: Consolas, Monaco, monospace;
+            background-color: var(--code-bg);
+            border-radius: 4px;
+            transition: var(--transition);
+        }
+
+        code {
+            padding: 0.2rem 0.4rem;
+            font-size: 0.9em;
+        }
+
+        pre {
+            padding: 1rem;
+            overflow-x: auto;
+            margin-bottom: 1rem;
+        }
+
+        pre code {
+            padding: 0;
+            background-color: transparent;
+        }
+
+        #theme-toggle {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.2rem;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            transition: var(--transition);
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        #theme-toggle:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .theme-icon {
+            display: inline-block;
+        }
+
+        [data-theme="light"] .dark-icon,
+        [data-theme="dark"] .light-icon {
+            display: none;
+        }
+
+        /* Python頁面特定樣式 */
+        .python-logo {
+            display: none; /* 隱藏圖標而不是完全刪除，以防有JavaScript引用該元素 */
+        }
+
+        .header-container h1 {
+            margin-left: 0; /* 重置標題左邊距，因為不再需要為圖標預留空間 */
+        }
+
+        #introduction {
+            position: relative;
+            overflow: hidden;
+        }
+
+        #introduction::before {
+            content: ">>> Python";
+            position: absolute;
+            bottom: -50px;
+            right: -20px;
+            font-size: 120px;
+            opacity: 0.03;
+            font-weight: bold;
+            z-index: 0;
+            font-family: monospace;
+        }
+
+        .runnable-code {
+            position: relative;
+            margin: 1.5rem 0;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-md);
+            overflow: hidden;
+        }
+
+        .code-editor {
+            width: 100%;
+            min-height: 120px;
+            font-family: Consolas, Monaco, monospace;
+            padding: 1rem;
+            border: 1px solid var(--section-border);
+            border-radius: var(--border-radius);
+            background-color: var(--code-bg);
+            color: var(--text-color);
+            resize: vertical;
+            line-height: 1.5;
+            transition: var(--transition);
+        }
+
+        .copy-button, .run-button {
+            position: absolute;
+            top: 10px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 0.3rem 0.8rem;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 0.85rem;
+            opacity: 0.8;
+        }
+
+        .copy-button {
+            right: 10px;
+        }
+
+        .run-button {
+            right: 80px;
+        }
+
+        .copy-button:hover, .run-button:hover {
+            opacity: 1;
+            background-color: var(--primary-dark);
+        }
+
+        .output {
+            width: 100%;
+            min-height: 50px;
+            border: 1px solid var(--section-border);
+            border-radius: var(--border-radius);
+            background-color: var(--background-color);
+            padding: 1rem;
+            margin-top: 0.8rem;
+            white-space: pre-wrap;
+            font-family: Consolas, Monaco, monospace;
+            transition: var(--transition);
+        }
+
+        /* 側邊欄目錄 */
+        nav {
+            margin-top: 0;
+            border-top: none;
+            padding: 0;
+            overflow-x: hidden;
+            background-color: #1e3a5f;
+            display: block;
+            width: 100%;
+            border-radius: 0.5rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        nav ul {
+            display: block;
+            padding: 0;
+            margin: 0;
+        }
+
+        nav li {
+            margin: 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        nav li:last-child {
+            border-bottom: none;
+        }
+
+        nav a {
+            padding: 0.9rem 1rem;
+            display: block;
+            color: rgba(255, 255, 255, 0.9);
+            transition: var(--transition);
+            font-size: 0.95rem;
+            text-decoration: none;
+        }
+
+        nav a:hover, nav a:focus {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+            transform: translateX(5px);
+        }
+
+        nav a.active {
+            background-color: rgba(255, 255, 255, 0.15);
+            color: white;
+            font-weight: 500;
+            border-left: 3px solid #3498db;
+        }
+
+        /* 側邊欄目錄 */
+        .toc {
+            padding: 0;
+            position: sticky;
+            top: 100px;
+            max-height: calc(100vh - 120px);
+            overflow-y: auto;
+            background-color: transparent;
+            border-radius: var(--border-radius);
+            box-shadow: none;
+            margin-bottom: 2rem;
+        }
+
+        .toc h3 {
+            padding: 1rem;
+            margin: 0;
+            background-color: #173052;
+            color: white;
+            font-size: 1.1rem;
+            border-top-left-radius: 0.5rem;
+            border-top-right-radius: 0.5rem;
+        }
+
+        /* 內容佈局 */
+        .content-wrapper {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 2rem;
+            align-items: start;
+        }
+
+        /* 移動版佈局 */
+        @media (max-width: 768px) {
+            .content-wrapper {
+                grid-template-columns: 1fr;
+            }
+
+            .toc {
+                position: relative;
+                top: 0;
+                max-height: none;
+                margin-bottom: 1.5rem;
+            }
+        }
+
+        /* 首頁按鈕樣式 */
+        .home-button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+            transition: var(--transition);
+            background-color: var(--section-bg);
+            font-size: 1.3rem;
+            text-decoration: none;
+        }
+
+        .home-button:hover {
+            background-color: var(--section-border);
+        }
+
+        /* 標題區域按鈕容器 */
+        .header-buttons {
+            display: flex;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <img src="python_favicon.svg" alt="Python Logo" class="python-logo">
+            <h1>Python 教學</h1>
+            <div class="header-buttons">
+                <a href="home.html" class="home-button" aria-label="返回首頁">🏠</a>
+                <button id="theme-toggle" aria-label="切換深色/淺色模式">
+                    <span class="theme-icon light-icon">🌞</span>
+                    <span class="theme-icon dark-icon">🌙</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="content-wrapper">
+            <aside class="toc" id="table-of-contents">
+                <h3>目錄</h3>
+                <nav>
+                    <ul>
+                        <li><a href="#introduction">Python 簡介</a></li>
+                        <li><a href="#installation">安裝 Python</a></li>
+                        <li><a href="#basics">Python 基礎</a></li>
+                        <li><a href="#data-types">資料型態</a></li>
+                        <li><a href="#control-flow">流程控制</a></li>
+                        <li><a href="#functions">函數</a></li>
+                        <li><a href="#string-operations">字串操作</a></li>
+                        <li><a href="#built-in-functions">內置函數</a></li>
+                        <li><a href="#file-io">文件處理</a></li>
+                        <li><a href="#regex">正則表達式</a></li>
+                        <li><a href="#modules">模組與套件</a></li>
+                        <li><a href="#advanced-syntax">進階Python語法</a></li>
+                        <li><a href="#examples">實用範例</a></li>
+                    </ul>
+                </nav>
+            </aside>
+
+            <div class="main-content">
+                <section id="introduction">
+                    <h2>Python 簡介</h2>
+                    <p>Python 是一種高階、直譯式的程式語言，由荷蘭人 Guido van Rossum 於1991年首次發布。Python 的設計哲學強調程式碼的可讀性，使用縮排來分隔程式碼區塊。</p>
+                    <p>Python 的特色包括：</p>
+                    <ul>
+                        <li>簡潔易讀的語法</li>
+                        <li>強大的標準函式庫</li>
+                        <li>豐富的第三方套件生態系統</li>
+                        <li>跨平台支援（Windows、macOS、Linux 等）</li>
+                        <li>支援多種編程範式（面向對象、命令式、函數式等）</li>
+                        <li>內置高效資料結構</li>
+                    </ul>
+                    <p>Python 廣泛應用於各個領域，包括：</p>
+                    <ul>
+                        <li>網頁開發</li>
+                        <li>資料分析與視覺化</li>
+                        <li>機器學習與人工智能</li>
+                        <li>科學計算</li>
+                        <li>自動化測試與系統管理</li>
+                        <li>遊戲開發</li>
+                    </ul>
+                </section>
+
+                <section id="installation">
+                    <h2>安裝 Python</h2>
+                    <h3>Windows 系統安裝</h3>
+                    <ol>
+                        <li>前往 <a href="https://www.python.org/downloads/" target="_blank">Python 官方網站</a> 下載最新版本的 Python</li>
+                        <li>執行下載的安裝檔案，勾選「Add Python to PATH」選項</li>
+                        <li>點選「Install Now」進行安裝</li>
+                        <li>安裝完成後，打開命令提示字元，輸入 <code>python --version</code> 確認安裝成功</li>
+                    </ol>
+
+                    <h3>macOS 系統安裝</h3>
+                    <ol>
+                        <li>前往 <a href="https://www.python.org/downloads/" target="_blank">Python 官方網站</a> 下載最新版本的 Python</li>
+                        <li>執行下載的安裝檔案，按照指示完成安裝</li>
+                        <li>安裝完成後，打開終端機，輸入 <code>python3 --version</code> 確認安裝成功</li>
+                    </ol>
+
+                    <h3>Linux 系統安裝</h3>
+                    <p>大多數 Linux 發行版已預裝 Python。若需要安裝特定版本，可使用套件管理器：</p>
+                    <pre><code>sudo apt update
+sudo apt install python3 python3-pip</code></pre>
+                </section>
+
+                <section id="basics">
+                    <h2>Python 基礎</h2>
+                    <h3>第一個 Python 程式</h3>
+                    <p>傳統的 "Hello, World!" 程式：</p>
+                    <div class="runnable-code">
+                        <textarea class="code-editor" id="code1" readonly>print("Hello, World!")</textarea>
+                        <button class="copy-button" onclick="copyCode('code1')">複製</button>
+                        <button class="run-button" onclick="runPython('code1', 'output1')">執行</button>
+                        <div class="output" id="output1"></div>
+                    </div>
+
+                    <h3>Python 語法特點</h3>
+                    <ul>
+                        <li>使用縮排（通常是4個空格）來表示程式碼區塊</li>
+                        <li>不需要行尾分號</li>
+                        <li>變數不需要宣告類型</li>
+                        <li>註解使用 # 符號</li>
+                    </ul>
+
+                    <h3>變數與賦值</h3>
+                    <p>Python 中的變數不需要事先宣告型態，可以直接賦值使用。變數名稱區分大小寫，且可以包含字母、數字和底線（但不能以數字開頭）。</p>
+                    <div class="runnable-code">
+                        <textarea class="code-editor" id="code2" readonly># 變數宣告與賦值
+name = "Python"
+age = 30
+is_programming_language = True
+
+# 輸出變數值
+print("名稱:", name)
+print("年齡:", age)
+print("是程式語言嗎?", is_programming_language)</textarea>
+                        <button class="copy-button" onclick="copyCode('code2')">複製</button>
+                        <button class="run-button" onclick="runPython('code2', 'output2')">執行</button>
+                        <div class="output" id="output2"></div>
+                    </div>
+                </section>
+
+                <section id="data-types">
+                    <h2>資料型態</h2>
+                    <p>Python 中的資料型態包括：</p>
+                    <ul>
+                        <li>整數 (Integer)</li>
+                        <li>浮點數 (Float)</li>
+                        <li>字串 (String)</li>
+                        <li>布林值 (Boolean)</li>
+                        <li>列表 (List)</li>
+                        <li>元組 (Tuple)</li>
+                        <li>字典 (Dictionary)</li>
+                        <li>集合 (Set)</li>
+                    </ul>
+
+                    <h3>整數 (Integer)</h3>
+                    <div class="runnable-code">
+                        <textarea class="code-editor" id="code3" readonly># 整數範例
+x = 10
+y = -5
+z = 0
+
+print("x =", x)
+print("y =", y)
+print("z =", z)
+
+# 整數運算
+a = 10
+b = 3
+
+print("\n整數運算：")
+print("a + b =", a + b)
+print("a - b =", a - b)
+print("a * b =", a * b)
+print("a / b =", a / b)
+print("a // b =", a // b)  # 整數除法（捨去小數部分）
+print("a % b =", a % b)    # 取餘數
+print("a ** b =", a ** b)  # 冪次方
+
+# 整數型態轉換
+print("\n整數型態轉換：")
+print("int('123') =", int('123'))
+print("int(3.14) =", int(3.14))
+print("int('1010', 2) =", int('1010', 2))  # 二進制轉換為十進制</textarea>
+                        <button class="copy-button" onclick="copyCode('code3')">複製</button>
+                        <button class="run-button" onclick="runPython('code3', 'output3')">執行</button>
+                        <div class="output" id="output3"></div>
+                    </div>
+
+                    <h3>浮點數 (Float)</h3>
+                    <div class="runnable-code">
+                        <textarea class="code-editor" id="code4" readonly># 浮點數範例
+x = 3.14
+y = -0.5
+z = 0.0
+
+print("x =", x)
+print("y =", y)
+print("z =", z)
+
+# 浮點數運算
+a = 3.14
+b = 2.0
+
+print("\n浮點數運算：")
+print("a + b =", a + b)
+print("a - b =", a - b)
+print("a * b =", a * b)
+print("a / b =", a / b)
+print("a ** b =", a ** b)  # 冪次方
+
+# 浮點數型態轉換
+print("\n浮點數型態轉換：")
+print("float('3.14') =", float('3.14'))
+print("float(10) =", float(10))</textarea>
+                        <button class="copy-button" onclick="copyCode('code4')">複製</button>
+                        <button class="run-button" onclick="runPython('code4', 'output4')">執行</button>
+                        <div class="output" id="output4"></div>
+                    </div>
+
+                    <h3>字串 (String)</h3>
+                    <div class="runnable-code">
+                        <textarea class="code-editor" id="code5" readonly># 字串範例
+s1 = "Hello, Python!"
+s2 = 'Python is fun'
+s3 = """This is a
+multiline string"""
+
+print("s1 =", s1)
+print("s2 =", s2)
+print("s3 =", s3)
+
+# 字串運算
+print("\n字串運算：")
+print("s1 + s2 =", s1 + s2)  # 字串連接
+print("s1 * 3 =", s1 * 3)    # 字串重複
+print("'Python' in s1 =", 'Python' in s1)  # 成員檢查
+print("'Java' in s1 =", 'Java' in s1)
+
+# 字串格式化
+name = "Alice"
+age = 25
+print("\n字串格式化：")
+print(f"My name is {name} and I'm {age} years old.")  # f-string (Python 3.6+)
+
+# 字串方法
+print("\n字串方法：")
+print("s1.upper() =", s1.upper())  # 轉大寫
+print("s1.lower() =", s1.lower())  # 轉小寫
+print("s1.replace('Python', 'Java') =", s1.replace('Python', 'Java'))  # 替換
+print("s1.split(',') =", s1.split(','))  # 分割</textarea>
+                        <button class="copy-button" onclick="copyCode('code5')">複製</button>
+                        <button class="run-button" onclick="runPython('code5', 'output5')">執行</button>
+                        <div class="output" id="output5"></div>
+                    </div>
+
+                    <h3>布林值 (Boolean)</h3>
+                    <div class="runnable-code">
+                        <textarea class="code-editor" id="code6" readonly># 布林值範例
+x = True
+y = False
+
+print("x =", x)
+print("y =", y)
+
+# 布林值運算
+print("\n布林值運算：")
+print("x and y =", x and y)  # 邏輯與
+print("x or y =", x or y)    # 邏輯或
+print("not x =", not x)      # 邏輯非
+
+# 布林值型態轉換
+print("\n布林值型態轉換：")
+print("bool(1) =", bool(1))          # 非零數字轉為 True
+print("bool(0) =", bool(0))          # 0 轉為 False
+print("bool('Hello') =", bool('Hello'))  # 非空字串轉為 True
+print("bool('') =", bool(''))        # 空字串轉為 False</textarea>
+                        <button class="copy-button" onclick="copyCode('code6')">複製</button>
+                        <button class="run-button" onclick="runPython('code6', 'output6')">執行</button>
+                        <div class="output" id="output6"></div>
+                    </div>
+
+                    <h3>列表 (List)</h3>
+                    <div class="runnable-code">
+                        <textarea class="code-editor" id="code7" readonly># 列表範例
+my_list = [1, 2, 3, 4, 5]
+print("my_list =", my_list)
+
+# 列表運算
+print("\n列表運算：")
+print("my_list[0] =", my_list[0])      # 索引存取
+print("my_list[1:3] =", my_list[1:3])  # 切片
+print("my_list[-1] =", my_list[-1])    # 負索引（從後向前）
+
+# 列表方法
+print("\n列表方法：")
+my_list.append(6)                    # 新增元素
+print("my_list.append(6) =", my_list)
+my_list.remove(3)                    # 移除元素
+print("my_list.remove(3) =", my_list)
+print("my_list.pop() =", my_list.pop())  # 移除並返回最後一個元素
+print("my_list =", my_list)</textarea>
+                        <button class="copy-button" onclick="copyCode('code7')">複製</button>
+                        <button class="run-button" onclick="runPython('code7', 'output7')">執行</button>
+                        <div class="output" id="output7"></div>
+                    </div>
+
+                    <h3>元組 (Tuple)</h3>
+                    <div class="runnable-code">
+                        <textarea class="code-editor" id="code8" readonly># 元組範例
+my_tuple = (1, 2, 3, 4, 5)
+print("my_tuple =", my_tuple)
+
+# 元組運算
+print("\n元組運算：")
+print("my_tuple[0] =", my_tuple[0])      # 索引存取
+print("my_tuple[1:3] =", my_tuple[1:3])  # 切片
+print("my_tuple[-1] =", my_tuple[-1])    # 負索引
+
+# 元組特性
+print("\n元組特性：")
+print("元組是不可變的，不能修改其中的元素")
+print("元組通常用於存儲不應該被修改的資料")
+
+# 元組方法
+print("\n元組方法：")
+print("my_tuple.count(2) =", my_tuple.count(2))  # 計算元素出現的次數
+print("my_tuple.index(3) =", my_tuple.index(3))  # 返回元素的索引</textarea>
+                        <button class="copy-button" onclick="copyCode('code8')">複製</button>
+                        <button class="run-button" onclick="runPython('code8', 'output8')">執行</button>
+                        <div class="output" id="output8"></div>
+                    </div>
+
+                    <h3>字典 (Dictionary)</h3>
+                    <div class="runnable-code">
+                        <textarea class="code-editor" id="code9" readonly># 字典範例
+my_dict = {"name": "John", "age": 30, "city": "New York"}
+print("my_dict =", my_dict)
+
+# 字典運算
+print("\n字典運算：")
+print("my_dict['name'] =", my_dict['name'])          # 索引存取
+print("my_dict.get('age') =", my_dict.get('age'))    # 使用get方法
+print("'city' in my_dict =", 'city' in my_dict)      # 成員檢查
+
+# 字典方法
+print("\n字典方法：")
+my_dict['job'] = "Engineer"                          # 新增或修改鍵值對
+print("my_dict['job'] = 'Engineer' =", my_dict)
+print("my_dict.pop('age') =", my_dict.pop('age'))    # 移除並返回指定鍵的值
+print("my_dict =", my_dict)
+print("my_dict.keys() =", list(my_dict.keys()))      # 返回所有鍵
+print("my_dict.values() =", list(my_dict.values()))  # 返回所有值
+print("my_dict.items() =", list(my_dict.items()))    # 返回所有鍵值對</textarea>
+                        <button class="copy-button" onclick="copyCode('code9')">複製</button>
+                        <button class="run-button" onclick="runPython('code9', 'output9')">執行</button>
+                        <div class="output" id="output9"></div>
+                    </div>
+
+                    <h3>集合 (Set)</h3>
+                    <div class="runnable-code">
+                        <textarea class="code-editor" id="code10" readonly># 集合範例
+my_set = {1, 2, 3, 4, 5}
+print("my_set =", my_set)
+
+# 集合運算
+print("\n集合運算：")
+print("2 in my_set =", 2 in my_set)                # 成員檢查
+print("6 in my_set =", 6 in my_set)
+
+# 集合方法
+print("\n集合方法：")
+my_set.add(6)                                      # 新增元素
+print("my_set.add(6) =", my_set)
+my_set.remove(3)                                   # 移除元素
+print("my_set.remove(3) =", my_set)
+
+# 集合運算
+set_a = {1, 2, 3, 4}
+set_b = {3, 4, 5, 6}
+print("\n集合運算：")
+print("set_a =", set_a)
+print("set_b =", set_b)
+print("set_a | set_b =", set_a | set_b)            # 聯集
+print("set_a & set_b =", set_a & set_b)            # 交集
+print("set_a - set_b =", set_a - set_b)            # 差集
+print("set_a ^ set_b =", set_a ^ set_b)            # 對稱差集</textarea>
+                        <button class="copy-button" onclick="copyCode('code10')">複製</button>
+                        <button class="run-button" onclick="runPython('code10', 'output10')">執行</button>
+                        <div class="output" id="output10"></div>
+                    </div>
+                </section>
+
+                <section id="control-flow">
+                    <h2>流程控制</h2>
+                    <h3>if 語句</h3>
+                    <p>if 語句用於根據條件執行不同的程式碼塊。</p>
+                    <div class="runnable-code">
+                        <textarea class="code-editor" id="code11" readonly># if 語句範例
+x = 10
+
+if x > 0:
+    print("x 是正數")
+elif x == 0:
+    print("x 是零")
+else:
+    print("x 是負數")</textarea>
+                        <button class="copy-button" onclick="copyCode('code11')">複製</button>
+                        <button class="run-button" onclick="runPython('code11', 'output11')">執行</button>
+                        <div class="output" id="output11"></div>
+                    </div>
+
+                    <h3>for 語句</h3>
+                    <p>for 語句用於遍歷序列（如列表、字串等）。</p>
+                    <div class="runnable-code">
+                        <textarea class="code-editor" id="code12" readonly># for 語句範例
+my_list = [1, 2, 3, 4, 5]
+
+for num in my_list:
+    print(num)</textarea>
+                        <button class="copy-button" onclick="copyCode('code12')">複製</button>
+                        <button class="run-button" onclick="runPython('code12', 'output12')">執行</button>
+                        <div class="output" id="output12"></div>
+                    </div>
+
+                    <h3>while 語句</h3>
+                    <p>while 語句用於在條件為真時重複執行程式碼塊。</p>
+                    <div class="runnable-code">
+                        <textarea class="code-editor" id="code13" readonly># while 語句範例
+count = 0
+
+while count < 5:
+    print(count)
+    count += 1</textarea>
+                        <button class="copy-button" onclick="copyCode('code13')">複製</button>
+                        <button class="run-button" onclick="runPython('code13', 'output13')">執行</button>
+                        <div class="output" id="output13"></div>
+                    </div>
+                </section>
+
+                <section id="functions">
+                    <h2>函數</h2>
+                    <p>函數是一個可重複使用的程式碼塊，用於執行特定任務。Python 中的函數使用 def 關鍵字定義。</p>
+
+                    <h3>定義函數</h3>
+                    <div class="runnable-code">
+                        <textarea class="code-editor" id="code14" readonly># 定義函數範例
+def greet(name):
+    """這是一個簡單的問候函數（文檔字串）"""
+    print(f"Hello, {name}!")
+
+# 調用函數
+greet("Python")
+
+# 查看函數的文檔字串
+print(greet.__doc__)</textarea>
+                        <button class="copy-button" onclick="copyCode('code14')">複製</button>
+                        <button class="run-button" onclick="runPython('code14', 'output14')">執行</button>
+                        <div class="output" id="output14"></div>
+                    </div>
+
+                    <h3>函數參數</h3>
+                    <div class="runnable-code">
+                        <textarea class="code-editor" id="code15" readonly># 函數參數範例
+
+# 位置參數
+def add(a, b):
+    return a + b
+
+print(f"3 + 5 = {add(3, 5)}")
+
+# 默認參數
+def power(base, exponent=2):
+    return base ** exponent
+
+print(f"2^2 = {power(2)}")      # 使用默認值
+print(f"2^3 = {power(2, 3)}")   # 提供自己的值
+
+# 關鍵字參數
+def person_info(name, age, city):
+    return f"{name} is {age} years old and lives in {city}."
+
+print(person_info(name="Alice", age=25, city="Taipei"))
+print(person_info(city="Kaohsiung", name="Bob", age=30))  # 順序可以變化
+
+# 可變長度參數 *args
+def sum_all(*numbers):
+    total = 0
+    for num in numbers:
+        total += num
+    return total
+
+print(f"Sum of 1, 2, 3: {sum_all(1, 2, 3)}")
+print(f"Sum of 5, 10, 15, 20: {sum_all(5, 10, 15, 20)}")
+
+# 可變長度關鍵字參數 **kwargs
+def print_key_values(**kwargs):
+    for key, value in kwargs.items():
+        print(f"{key}: {value}")
+
+print_key_values(name="Python", year=1991, creator="Guido van Rossum")</textarea>
+                        <button class="copy-button" onclick="copyCode('code15')">複製</button>
+                        <button class="run-button" onclick="runPython('code15', 'output15')">執行</button>
+                        <div class="output" id="output15"></div>
+                    </div>
+
+                    <h3>匿名函數（Lambda）</h3>
+                    <div class="runnable-code">
+                        <textarea class="code-editor" id="code16" readonly># 匿名函數範例
+square = lambda x: x**2
+print(f"Square of 5: {square(5)}")
+
+# 在其他函數中使用 lambda
+numbers = [1, 2, 3, 4, 5]
+squared_numbers = list(map(lambda x: x**2, numbers))
+print(f"Squared numbers: {squared_numbers}")
+
+# 排序時使用 lambda
+points = [(1, 2), (3, 1), (5, 0), (2, 4)]
+sorted_points = sorted(points, key=lambda point: point[1])  # 按 y 坐標排序
+print(f"Sorted points by y-coordinate: {sorted_points}")</textarea>
+                        <button class="copy-button" onclick="copyCode('code16')">複製</button>
+                        <button class="run-button" onclick="runPython('code16', 'output16')">執行</button>
+                        <div class="output" id="output16"></div>
+                    </div>
+
+                    <h3>作用域和生命週期</h3>
+                    <div class="runnable-code">
+                        <textarea class="code-editor" id="code17" readonly># 作用域範例
+x = 10  # 全域變數
+
+def func():
+    y = 5  # 區域變數
+    print(f"Inside func: x = {x}, y = {y}")
+
+func()
+print(f"Outside func: x = {x}")
+# print(f"Outside func: y = {y}")  # 這會導致錯誤，因為 y 是區域變數
+
+# 使用 global 關鍵字
+def modify_global():
+    global x
+    x = 20
+    print(f"Inside modify_global: x = {x}")
+
+modify_global()
+print(f"After modify_global: x = {x}")
+
+# 嵌套函數和非局部變數
+def outer():
+    z = 15  # outer 的局部變數
+    
+    def inner():
+        nonlocal z  # 使用 nonlocal 關鍵字
+        z = 25
+        print(f"Inside inner: z = {z}")
+    
+    inner()
+    print(f"Inside outer after inner call: z = {z}")
+
+outer()</textarea>
+                        <button class="copy-button" onclick="copyCode('code17')">複製</button>
+                        <button class="run-button" onclick="runPython('code17', 'output17')">執行</button>
+                        <div class="output" id="output17"></div>
+                    </div>
+                </section>
+
+                <section id="string-operations">
+                    <h2>字串操作</h2>
+                    <p>Python 提供了豐富的字串操作功能，使文本處理變得簡單高效。</p>
+
+                    <h3>字串基本操作</h3>
+                    <div class="runnable-code">
+                        <textarea class="code-editor" id="code-string-basic" readonly># 字串創建與連接
+greeting = "你好"
+name = "Python"
+message = greeting + "，" + name + "！"
+print(message)
+
+# 使用 f-string 格式化（Python 3.6+）
+message_f = f"{greeting}，{name}！"
+print(message_f)
+
+# 字串重複
+repeat = "Python " * 3
+print(repeat)
+
+# 字串長度
+text = "人生苦短，我用Python"
+print(f"字串長度: {len(text)}")
+
+# 字串索引與切片
+print(f"第一個字符: {text[0]}")
+print(f"最後一個字符: {text[-1]}")
+print(f"前五個字符: {text[:5]}")
+print(f"第4到第7個字符: {text[3:7]}")
+print(f"隔一個取一個字符: {text[::2]}")
+print(f"反轉字串: {text[::-1]}")
+
+# 成員運算符
+print(f"'Python' 在文本中? {'Python' in text}")
+print(f"'Java' 不在文本中? {'Java' not in text}")
+
+# 字串比較
+a = "apple"
+b = "banana"
+print(f"a == b? {a == b}")
+print(f"a < b? {a < b}")  # 字典序比較
+print(f"a > b? {a > b}")
+
+# 原始字串（r-string）
+path = r"C:\Users\name\Documents"  # 避免轉義字符
+print(path)</textarea>
+                        <button class="copy-button" onclick="copyCode('code-string-basic')">複製</button>
+                        <button class="run-button" onclick="runPython('code-string-basic', 'output-string-basic')">執行</button>
+                        <div class="output" id="output-string-basic"></div>
+                    </div>
+
+                    <h3>字串方法</h3>
+                    <div class="runnable-code">
+                        <textarea class="code-editor" id="code-string-methods" readonly># 大小寫轉換
+text = "Python Programming Language"
+print(f"原文本: {text}")
+print(f"全部小寫: {text.lower()}")
+print(f"全部大寫: {text.upper()}")
+print(f"首字母大寫: {text.capitalize()}")
+print(f"每個單詞首字母大寫: {text.title()}")
+print(f"大小寫互換: {text.swapcase()}")
+
+# 查找和替換
+sentence = "Python是一種高級編程語言，Python支持多種編程范式"
+print(f"'Python'第一次出現的位置: {sentence.find('Python')}")
+print(f"'Python'最後一次出現的位置: {sentence.rfind('Python')}")
+print(f"'Java'的位置（不存在）: {sentence.find('Java')}")  # 返回-1
+print(f"替換所有'Python': {sentence.replace('Python', 'Ruby')}")
+print(f"替換一次'Python': {sentence.replace('Python', 'Ruby', 1)}")
+
+# 分割與合併
+languages = "Python,Java,C++,JavaScript,Go"
+lang_list = languages.split(",")
+print(f"分割後的列表: {lang_list}")
+print(f"使用'-'合併: {'-'.join(lang_list)}")
+
+# 移除空白
+text_with_spaces = "   Python 編程   "
+print(f"原文本: '{text_with_spaces}'")
+print(f"移除左側空白: '{text_with_spaces.lstrip()}'")
+print(f"移除右側空白: '{text_with_spaces.rstrip()}'")
+print(f"移除兩側空白: '{text_with_spaces.strip()}'")
+
+# 對齊方法
+word = "Python"
+print(f"居中對齊: '{word.center(20, '*')}'")
+print(f"左對齊: '{word.ljust(20, '*')}'")
+print(f"右對齊: '{word.rjust(20, '*')}'")
+print(f"數字補零: '{'42'.zfill(5)}'")
+
+# 檢查方法
+print(f"全是字母? {'Python'.isalpha()}")
+print(f"全是數字? {'12345'.isdigit()}")
+print(f"全是字母或數字? {'Python365'.isalnum()}")
+print(f"全是小寫? {'python'.islower()}")
+print(f"全是大寫? {'PYTHON'.isupper()}")
+print(f"是標題格式? {'Python Programming'.istitle()}")
+print(f"是空白字符? {'   \t\n'.isspace()}")</textarea>
+                        <button class="copy-button" onclick="copyCode('code-string-methods')">複製</button>
+                        <button class="run-button" onclick="runPython('code-string-methods', 'output-string-methods')">執行</button>
+                        <div class="output" id="output-string-methods"></div>
+                    </div>
+
+                    <h3>字串格式化</h3>
+                    <div class="runnable-code">
+                        <textarea class="code-editor" id="code-string-formatting" readonly># 1. f-字串格式化 (Python 3.6+)
+name = "小明"
+age = 25
+height = 175.5
+print(f"{name}今年{age}歲，身高{height}公分")
+
+# 格式化表達式
+print(f"{name}五年後的年齡：{age + 5}歲")
+
+# 格式化說明符
+print(f"身高（保留1位小數）：{height:.1f}公分")
+print(f"年齡（補零到3位）：{age:03d}歲")
+
+# 2. format() 方法
+print("{}今年{}歲，身高{}公分".format(name, age, height))
+
+# 使用索引
+print("{0}今年{1}歲，{0}的身高是{2}公分".format(name, age, height))
+
+# 使用命名參數
+print("{name}今年{age}歲，身高{height}公分".format(name=name, age=age, height=height))
+
+# 格式化說明符
+print("身高（科學計數法）：{:.2e}".format(height))
+print("錢包餘額：{:+.2f}元".format(120.5))
+print("進度：{:.0%}".format(0.75))  # 百分比
+
+# 對齊
+print("|{:<10}|".format("左對齊"))
+print("|{:>10}|".format("右對齊"))
+print("|{:^10}|".format("居中"))
+print("|{:*^10}|".format("居中"))  # 使用*填充
+
+# 3. % 運算符（舊式格式化）
+print("%s今年%d歲，身高%.1f公分" % (name, age, height))
+
+# 常見格式說明符
+print("十進制整數：%d" % 42)
+print("浮點數：%f" % 3.14159)
+print("指數表示：%e" % 1000000.0)
+print("自動選擇表示法：%g" % 0.000123)
+print("十六進制：%x" % 255)
+print("八進制：%o" % 64)</textarea>
+                        <button class="copy-button" onclick="copyCode('code-string-formatting')">複製</button>
+                        <button class="run-button" onclick="runPython('code-string-formatting', 'output-string-formatting')">執行</button>
+                        <div class="output" id="output-string-formatting"></div>
+                    </div>
+                    
+                    <h3>字串實用技巧</h3>
+                    <div class="runnable-code">
+                        <textarea class="code-editor" id="code-string-tips" readonly># 多行字串
+multi_line = """這是一個
+多行字串的
+範例"""
+print(multi_line)
+
+# 字串插值與變數替換
+template = "親愛的{name}，您已成功訂購了{product}，總金額為{price}元。"
+order = template.format(name="張先生", product="Python課程", price=2500)
+print(order)
+
+# 移除特定字符
+messy_text = "###Python學習筆記###"
+clean_text = messy_text.strip("#")
+print(f"清理後的文字: '{clean_text}'")
+
+# 字串填充
+number = "42"
+print(f"左側補零: '{number.zfill(5)}'")
+print(f"自定義填充: '{number.rjust(5, '*')}'")
+
+# 檢查字串前綴和後綴
+filename = "document.pdf"
+print(f"以'doc'開頭? {filename.startswith('doc')}")
+print(f"以'.pdf'結尾? {filename.endswith('.pdf')}")
+
+# 計算子字串出現次數
+text = "Python是一門優秀的程式語言，Python簡單易學且功能強大。"
+count = text.count("Python")
+print(f"'Python'出現的次數: {count}")
+
+# 替換多個字符
+text = "Hello, World!"
+trans_table = str.maketrans("aeiou", "12345")
+print(f"替換元音字母: {text.translate(trans_table)}")
+
+# 使用正則表達式處理字串
+import re
+phone_numbers = "聯絡方式: 0912-345-678 或 0987-654-321"
+numbers = re.findall(r"\d{4}-\d{3}-\d{3}", phone_numbers)
+print(f"找到的電話號碼: {numbers}")</textarea>
+                        <button class="copy-button" onclick="copyCode('code-string-tips')">複製</button>
+                        <button class="run-button" onclick="runPython('code-string-tips', 'output-string-tips')">執行</button>
+                        <div class="output" id="output-string-tips"></div>
+                    </div>
+                </section>
+
+                <section id="built-in-functions">
+                    <h2>內置函數</h2>
+                    <p>Python 提供了許多內置函數，用於處理常見的任務。以下是一些常用的內置函數：</p>
+                    <ul>
+                        <li><code>print()</code>：用於輸出信息</li>
+                        <li><code>type()</code>：用於獲取變數的類型</li>
+                        <li><code>len()</code>：用於獲取序列的長度</li>
+                        <li><code>range()</code>：用於生成一個整數序列</li>
+                        <li><code>max()</code> 和 <code>min()</code>：用於獲取最大值和最小值</li>
+                        <li><code>sum()</code>：用於計算序列中所有元素的和</li>
+                        <li><code>sorted()</code>：用於對序列進行排序</li>
+                        <li><code>map()</code> 和 <code>filter()</code>：用於對序列進行映射和過濾</li>
+                        <li><code>zip()</code>：用於將多個序列組合成一個元組序列</li>
+                        <li><code>enumerate()</code>：用於獲取序列的索引和值</li>
+                    </ul>
+                </section>
+
+                <section id="file-io">
+                    <h2>文件處理</h2>
+                    <p>Python 提供了豐富的文件處理功能，用於讀取和寫入文件。以下是一些常用的文件處理函數：</p>
+                    <ul>
+                        <li><code>open()</code>：用於打開文件</li>
+                        <li><code>read()</code>：用於讀取文件內容</li>
+                        <li><code>write()</code>：用於寫入文件內容</li>
+                        <li><code>close()</code>：用於關閉文件</li>
+                        <li><code>seek()</code>：用於移動文件指針</li>
+                        <li><code>tell()</code>：用於獲取文件指針的位置</li>
+                        <li><code>readline()</code>：用於讀取文件的一行內容</li>
+                        <li><code>readlines()</code>：用於讀取文件的所有行內容</li>
+                    </ul>
+                </section>
+
+                <section id="regex">
+                    <h2>正則表達式</h2>
+                    <p>正則表達式是一種強大的文本處理工具，用於匹配和處理字符串。以下是一些常用的正則表達式函數：</p>
+                    <ul>
+                        <li><code>re.match()</code>：用於匹配字符串的開始部分</li>
+                        <li><code>re.search()</code>：用於搜索字符串中的匹配項</li>
+                        <li><code>re.findall()</code>：用於找到所有匹配項並返回一個列表</li>
+                        <li><code>re.sub()</code>：用於替換字符串中的匹配項</li>
+                        <li><code>re.split()</code>：用於將字符串分割為子字符串</li>
+                    </ul>
+                </section>
+
+                <section id="modules">
+                    <h2>模組與套件</h2>
+                    <p>Python 提供了豐富的模組和套件，用於擴展功能和重用代碼。以下是一些常用的模組和套件：</p>
+                    <ul>
+                        <li><code>os</code>：用於與操作系統交互</li>
+                        <li><code>sys</code>：用於與 Python 解釋器交互</li>
+                        <li><code>datetime</code>：用於處理日期和時間</li>
+                        <li><code>math</code>：用於進行數學運算</li>
+                        <li><code>random</code>：用於生成隨機數</li>
+                        <li><code>json</code>：用於處理 JSON 格式</li>
+                        <li><code>csv</code>：用於處理 CSV 格式</li>
+                        <li><code>requests</code>：用於發送 HTTP 請求</li>
+                    </ul>
+                </section>
+
+                <section id="advanced-syntax">
+                    <h2>進階Python語法</h2>
+                    <p>Python 提供了一些進階語法，用於處理複雜的任務。以下是一些常用的進階語法：</p>
+                    <ul>
+                        <li><code>生成器</code>：用於生成大量數據或處理大文件</li>
+                        <li><code>裝飾器</code>：用於修改函數或方法的行為</li>
+                        <li><code>上下文管理器</code>：用於管理資源的分配和釋放</li>
+                        <li><code>元類別</code>：用於創建自定義類別</li>
+                    </ul>
+                </section>
+
+                <section id="examples">
+                    <h2>實用範例</h2>
+                    <p>以下是一些實用的範例，用於展示 Python 的實際應用。</p>
+                    <ul>
+                        <li>網頁抓取</li>
+                        <li>資料分析</li>
+                        <li>機器學習</li>
+                        <li>遊戲開發</li>
+                    </ul>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // 主題切換功能
+        const themeToggle = document.getElementById('theme-toggle');
+        const htmlElement = document.documentElement;
+        
+        // 檢查本地存儲中的主題設定或使用系統偏好
+        const savedTheme = localStorage.getItem('theme') || 
+            (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        
+        // 應用主題
+        htmlElement.setAttribute('data-theme', savedTheme);
+        
+        // 監聽主題切換按鈕點擊
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = htmlElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            
+            htmlElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+        });
+        
+        // 運行Python代碼的功能（模擬）
+        function runPython(codeId, outputId) {
+            const codeElement = document.getElementById(codeId);
+            const outputElement = document.getElementById(outputId);
+            
+            if (codeElement && outputElement) {
+                // 在實際應用中，這裡會發送代碼到後端進行執行
+                // 這裡只是顯示一個模擬的輸出
+                outputElement.textContent = "這是模擬的Python代碼執行結果。\n實際應用中，這裡會顯示代碼執行的真實輸出。";
+            }
+        }
+        
+        // 複製代碼功能
+        function copyCode(codeId) {
+            const codeElement = document.getElementById(codeId);
+            
+            if (codeElement) {
+                const textToCopy = codeElement.value;
+                navigator.clipboard.writeText(textToCopy)
+                    .then(() => {
+                        // 可以在這裡添加一個成功提示
+                        console.log('代碼已複製到剪貼簿');
+                    })
+                    .catch(err => {
+                        console.error('複製失敗：', err);
+                    });
+            }
+        }
+        
+        // 目錄高亮
+        document.addEventListener('DOMContentLoaded', function() {
+            const sections = document.querySelectorAll('section[id]');
+            const navLinks = document.querySelectorAll('.toc a');
+            
+            function highlightNavigation() {
+                let scrollY = window.pageYOffset;
+                
+                sections.forEach(current => {
+                    const sectionHeight = current.offsetHeight;
+                    const sectionTop = current.offsetTop - 100;
+                    const sectionId = current.getAttribute('id');
+                    
+                    if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
+                        navLinks.forEach(link => {
+                            link.classList.remove('active');
+                            if (link.getAttribute('href') === '#' + sectionId) {
+                                link.classList.add('active');
+                            }
+                        });
+                    }
+                });
+            }
+            
+            window.addEventListener('scroll', highlightNavigation);
+            highlightNavigation(); // 初始調用
+        });
+    </script>
+</body>
+</html> 
